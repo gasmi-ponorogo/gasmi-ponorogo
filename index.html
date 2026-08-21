@@ -3,100 +3,523 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gasmi Ponorogo</title>
+    <title>Gasmi official</title>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+    
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+        }
+
+        html, body {
+            width: 100%;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
+
         body {
             background-color: #ffffff;
-            color: #333333;
-            line-height: 1.6;
         }
-        header {
+
+        /* --- LOADING SCREEN --- */
+        #loading-screen {
+            position: fixed;
+            inset: 0;
+            background-color: #ffffff;
+            z-index: 99999;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+        }
+
+        .loading-logo {
+            font-size: 38px;
+            font-weight: 600;
+            color: #e53935;
+            margin-bottom: 20px;
+            letter-spacing: 1px;
+        }
+
+        .loading-spinner {
+            width: 45px;
+            height: 45px;
+            border: 5px solid #eeeeee;
+            border-top: 5px solid #e53935;
+            border-radius: 50%;
+            animation: putar 0.8s linear infinite;
+        }
+
+        #loading-screen p {
+            margin-top: 15px;
+            color: #555;
+            font-size: 15px;
+        }
+
+        @keyframes putar {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        /* --- NAVBAR --- */
+        .navbar {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 15px 30px;
-            border-bottom: 2px solid #eee;
-            flex-wrap: wrap;
+            background-color: #ffffff;
+            padding: 15px 5%;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            position: sticky;
+            top: 0;
+            z-index: 100;
         }
+
         .logo {
-            font-size: 26px;
-            font-weight: bold;
-            color: #222244;
+            font-size: 27px;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+        }
+
+        .logo a {
             text-decoration: none;
+            color: #000000;
         }
-        nav {
-            margin: 10px 0;
-        }
-        nav a {
-            margin: 0 12px;
+
+        .nav-links a {
             text-decoration: none;
-            color: #444;
-            font-size: 15px;
+            color: #555;
+            margin: 0 15px;
+            font-size: 17px;
+            font-weight: 500;
         }
-        nav a:hover {
-            color: #dd2222;
+
+        .nav-links a:hover {
+            color: #e53935;
         }
-        .tombol-merah {
-            background-color: #dd2222;
-            color: white;
-            padding: 10px 25px;
-            border-radius: 6px;
+
+        .btn-kontak {
+            background-color: #e53935;
+            color: #fff !important;
             text-decoration: none;
-            font-weight: bold;
-            white-space: nowrap;
-        }
-        .tombol-merah:hover {
-            background-color: #b91c1c;
-        }
-        .konten-gambar {
-            width: 100%;
-            padding: 20px;
-            text-align: center;
-        }
-        .gambar-utama {
-            width: 100%;
-            max-width: 900px;
-            height: auto;
+            padding: 10px 22px;
             border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            font-weight: 500;
+            font-size: 20px !important;
+            display: inline-block !important;
         }
-        /* Agar tampil bagus di HP */
+
+        /* --- SLIDER --- */
+        .hero-slider {
+            width: 100%;
+            height: 700px;
+            margin: 40px auto;
+            border-radius: 16px;
+            overflow: hidden;
+            position: relative;
+            background-color: #ddd;
+        }
+
+        .isi-slider {
+            width: 100%;
+            height: 100%;
+            position: relative;
+        }
+
+        .slide {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            opacity: 0;
+            transition: opacity 0.8s ease-in-out;
+        }
+
+        .slide.aktif {
+            opacity: 1;
+        }
+
+        .slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* --- PANAH --- */
+        .panah {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: rgba(255,255,255,0.7);
+            color: #333;
+            border: none;
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            font-size: 20px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 20;
+            transition: all 0.2s ease;
+        }
+
+        .panah:hover { background-color: #fff; }
+        .panah-kiri { left: 15px; }
+        .panah-kanan { right: 15px; }
+
+        /* --- TOMBOL SLIDER --- */
+        .tombol-bawah {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 12px;
+            z-index: 20;
+        }
+
+        .lingkaran {
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            background-color: rgba(255,255,255,0.5);
+            cursor: pointer;
+            border: none;
+        }
+
+        .lingkaran.aktif {
+            background-color: #ffffff;
+            transform: scale(1.2);
+        }
+
+        /* --- ARTIKEL --- */
+        .artikel-container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            width: 100%;
+            margin: 40px auto;
+        }
+
+        .card {
+            background-color: #fff;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        }
+
+        .card-gambar {
+            width: 100%;
+            height: 250px;
+        }
+
+        .card-gambar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .card-isi {
+            padding: 20px;
+        }
+
+        .card-tanggal {
+            font-size: 13px;
+            color: #888;
+            margin-bottom: 10px;
+        }
+
+        .card-judul a {
+            font-size: 19px;
+            font-weight: 700;
+            color: #343435;
+            text-decoration: none;
+            line-height: 1.5;
+            margin-right: 50px;
+        }
+
+        /* --- FOOTER ATAS --- */
+        .footer-atas {
+            background-color: #f8f8ff;
+            padding: 60px 5%;
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 40px;
+            margin-top: 60px;
+        }
+
+        .footer-kiri h3 {
+            font-size: 24px;
+            margin-bottom: 15px;
+            color: #222244;
+            font-weight: 600;
+        }
+
+        .footer-kiri p {
+            font-size: 17px;
+            line-height: 1.7;
+            color: #444455;
+        }
+
+        .footer-kanan h3 {
+            font-size: 24px;
+            margin-bottom: 15px;
+            color: #222244;
+            font-weight: 600;
+        }
+
+        .footer-kanan p {
+            font-size: 15px;
+            line-height: 1.7;
+            color: #444455;
+            margin-bottom: 5px;
+        }
+
+        .sosmed-teks {
+            margin-top: 25px;
+            margin-bottom: 15px;
+            font-size: 18px;
+            color: #444455;
+             font-weight: 600;
+        }
+
+        .sosmed-ikon {
+            display: flex;
+            gap: 12px;
+        }
+
+        .sosmed-ikon a {
+            width: 40px;
+            height: 40px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #555;
+            background-color: #fff;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        /* FACEBOOK - BIRU */
+        .sosmed-ikon a:nth-child(1):hover {
+            background-color: #1877F2;
+            border-color: #1877F2;
+            color: #fff;
+            transform: translateY(-3px);
+        }
+
+        /* INSTAGRAM - BIRU */
+        .sosmed-ikon a:nth-child(2):hover {
+            background-color: #1877F2;
+            border-color: #1877F2;
+            color: #fff;
+            transform: translateY(-3px);
+        }
+
+        /* YOUTUBE - MERAH */
+        .sosmed-ikon a:nth-child(3):hover {
+            background-color: #FF0000;
+            border-color: #FF0000;
+            color: #fff;
+            transform: translateY(-3px);
+        }
+
+        /* TWITTER - BIRU */
+        .sosmed-ikon a:nth-child(4):hover {
+            background-color: #1877F2;
+            border-color: #1877F2;
+            color: #fff;
+            transform: translateY(-3px);
+        }
+
+        /* --- FOOTER BAWAH --- */
+        .footer-bawah {
+            background-color: #222244;
+            color: #fff;
+            padding: 20px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 0;
+        }
+
+        .footer-bawah a {
+            color: #ddd;
+            text-decoration: none;
+            margin-left: 20px;
+        }
+
+        /* --- RESPONSIVE --- */
+        @media (max-width: 992px) {
+            .artikel-container { grid-template-columns: repeat(2, 1fr); }
+        }
+
         @media (max-width: 768px) {
-            header {
-                flex-direction: column;
-                gap: 15px;
-            }
-            nav a {
-                margin: 0 8px;
-                font-size: 14px;
-            }
+            .navbar { flex-direction: column; gap: 15px; }
+            .artikel-container { grid-template-columns: 1fr; }
+            .footer-atas { flex-direction: column; }
         }
     </style>
 </head>
+
 <body>
 
-<header>
-    <a href="index.html" class="logo">Gasmi</a>
-    <nav>
-        <a href="sejarah.html">Sejarah</a>
-        <a href="cari-murid.html">Cari Murid</a>
-        <a href="cari-pelatih.html">Cari Pelatih</a>
-        <a href="kantor-cabang.html">Kantor Cabang</a>
-        <a href="informasi.html">Informasi</a>
-        <a href="shop.html">Shop</a>
-    </nav>
-    <a href="hubungi-kami.html" class="tombol-merah">Hubungi Kami</a>
+<!-- =========================
+     LOADING SCREEN
+========================= -->
+<div id="loading-screen">
+    <div class="loading-logo">Gasmi</div>
+    <div class="loading-spinner"></div>
+    <p>Memuat halaman...</p>
+</div>
+
+
+<!-- =========================
+     NAVBAR
+========================= -->
+<header class="navbar">
+    <div class="logo">
+        <a href="index.html" onclick="mulaiLoading(event)">Gasmi</a>
+    </div>
+
+<nav class="nav-links">
+    <a href="sejarah.html">Sejarah</a>
+    <a href="cari-murid.html">Cari Murid</a>
+    <a href="#">Cari Pelatih</a>
+    <a href="#">Kantor Cabang</a>
+    <a href="#">Informasi</a>
+    <a href="#">Shop</a>
+</nav>
+
+    <a href="#" class="btn-kontak">Hubungi Kami</a>
 </header>
 
-<div class="konten-gambar">
-    <img src="gus-maksum.jpg" alt="Gasmi Ponorogo" class="gambar-utama">
+
+<!-- =========================
+     SLIDER
+========================= -->
+<section class="hero-slider" id="utama">
+    <div class="isi-slider">
+        <div class="slide aktif"><img src="images/artikel4.jpg" alt="Slide 1"></div>
+        <div class="slide"><img src="images/artikel2.jpg" alt="Gus Maksum"></div>
+        <div class="slide"><img src="images/gus-maksum.jpg" alt="Slide 3"></div>
+    </div>
+    <button class="panah panah-kiri">&#10094;</button>
+    <button class="panah panah-kanan">&#10095;</button>
+    <div class="tombol-bawah">
+        <button class="lingkaran aktif" data-ke="0"></button>
+        <button class="lingkaran" data-ke="1"></button>
+        <button class="lingkaran" data-ke="2"></button>
+    </div>
+</section>
+
+
+<!-- =========================
+     ARTIKEL
+========================= -->
+<section class="artikel-container">
+    <article class="card">
+        <div class="card-gambar"><img src="images/gus-maksum.jpg" alt="Latar Belakang GASMI"></div>
+        <div class="card-isi">
+            <p class="card-tanggal">Sabtu, 07-01-2023</p>
+            <h3 class="card-judul"><a href="#">Latar Belakang Berdirinya Pencak Silat GASMI</a></h3>
+        </div>
+    </article>
+    <article class="card">
+        <div class="card-gambar"><img src="images/artikel1.jpg" alt="Pendiri GASMI"></div>
+        <div class="card-isi">
+            <p class="card-tanggal">Sabtu, 07-01-2023</p>
+            <h3 class="card-judul"><a href="#">Sosok Pendiri GASMI KH.Abdullah Maksum Jauhari</a></h3>
+        </div>
+    </article>
+    <article class="card">
+        <div class="card-gambar"><img src="images/artikel3.jpg" alt="Silsilah Keluarga"></div>
+        <div class="card-isi">
+            <p class="card-tanggal">Sabtu, 07-01-2023</p>
+            <h3 class="card-judul"><a href="#">Silsilah Keluarga KH.Maksum Jauhari (Gus Maksum)</a></h3>
+        </div>
+    </article>
+</section>
+
+
+<!-- =========================
+     FOOTER ATAS
+========================= -->
+<div class="footer-atas">
+    <div class="footer-kiri">
+        <h3>Gasmi</h3>
+        <p>Jl. KH. Abdul Karim, Lirboyo, No. 45, Kec. Mojoroto, Kota Kediri.</p>
+    </div>
+    <div class="footer-kanan">
+        <h3>Kontak</h3>
+        <p>gasmihosting@gmail.com</p>
+        <p>6285878079700</p>
+        <p class="sosmed-teks" style="font-size: 18px !important;">Atau terhubung dengan kami di:</p>
+                    <div class="sosmed-ikon">
+            <a href="#"><i class="fab fa-facebook-f"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-youtube"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+        </div>
+    </div>
 </div>
+
+
+<!-- =========================
+     FOOTER BAWAH
+========================= -->
+<div class="footer-bawah">
+    <p>2026 © Gasmi</p>
+    <div>
+        <a href="#">Masuk</a>
+        <a href="#">Kontak</a>
+    </div>
+</div>
+
+
+<!-- =========================
+     JAVASCRIPT
+========================= -->
+<script>
+    function mulaiLoading(event) {
+        event.preventDefault();
+        const loading = document.getElementById('loading-screen');
+        loading.style.display = 'flex';
+        setTimeout(function() {
+            loading.style.display = 'none';
+            document.getElementById('utama').scrollIntoView({ behavior: 'smooth' });
+        }, 1500);
+    }
+
+    const semuaSlide = document.querySelectorAll('.slide');
+    const semuaTombol = document.querySelectorAll('.lingkaran');
+    const panahKiri = document.querySelector('.panah-kiri');
+    const panahKanan = document.querySelector('.panah-kanan');
+    let slideSekarang = 0;
+
+    function tampilkanSlide(indeks) {
+        if (indeks < 0) indeks = semuaSlide.length - 1;
+        if (indeks >= semuaSlide.length) indeks = 0;
+        semuaSlide.forEach((s, i) => s.classList.toggle('aktif', i === indeks));
+        semuaTombol.forEach((t, i) => t.classList.toggle('aktif', i === indeks));
+        slideSekarang = indeks;
+    }
+
+    semuaTombol.forEach((tombol, indeks) => tombol.addEventListener('click', () => tampilkanSlide(indeks)));
+    panahKiri.addEventListener('click', () => tampilkanSlide(slideSekarang - 1));
+    panahKanan.addEventListener('click', () => tampilkanSlide(slideSekarang + 1));
+</script>
 
 </body>
 </html>
