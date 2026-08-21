@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Latar Belakang Berdirinya Pencak Silat GASMI | Gasmi</title>
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+        }
+
+        body {
+            color: #334155;
+            line-height: 1.7;
+            background-color: #ffffff;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        /* === NAVIGASI / MENU === */
+        header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 16px 32px;
+            border-bottom: 1px solid #f1f5f9;
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: 700;
+            color: #1e293b;
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 36px;
+            align-items: center;
+        }
+
+        .nav-menu a {
+            font-size: 16px;
+            color: #475569;
+            padding: 8px 4px;
+            transition: color 0.2s;
+        }
+
+        .nav-menu a:hover {
+            color: #1e293b;
+        }
+
+        .nav-menu a.active {
+            color: #dc2626;
+            font-weight: 600;
+            border-bottom: 2px solid #dc2626;
+        }
+
+        .btn-hubungi {
+            background-color: #dc2626;
+            color: #ffffff;
+            padding: 10px 24px;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: background-color 0.2s;
+        }
+
+        .btn-hubungi:hover {
+            background-color: #b91c1c;
+        }
+
+        /* === BREADCRUMB === */
+        .breadcrumb {
+            padding: 16px 32px;
+            font-size: 14px;
+            color: #64748b;
+        }
+
+        .breadcrumb a {
+            color: #64748b;
+        }
+
+        .breadcrumb span {
+            margin: 0 8px;
+        }
+
+        /* === KONTEN UTAMA === */
+        .content-wrapper {
+            padding: 0 32px 48px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        /* === KARTU ARTIKEL === */
+        .article-card {
+            background-color: #ffffff;
+            border: 1px solid #f1f5f9;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+        }
+
+        /* GAMBAR LEBAR PENUH & DIPERBESAR */
+        .article-card img {
+            width: 100%;
+            height: 420px;
+            object-fit: cover;
+        }
+
+        /* === JUDUL ARTIKEL === */
+        .article-title {
+            padding: 24px 24px 8px;
+            font-size: 26px;
+            font-weight: 600;
+            color: #dc2626;
+            line-height: 1.4;
+        }
+
+        /* === GARIS PEMISAH === */
+        .divider {
+            height: 1px;
+            background-color: #e5e7eb;
+            margin: 8px 24px 16px;
+        }
+
+        /* === ISI NARASI === */
+        .article-body {
+            padding: 0 24px 28px;
+            font-size: 16px;
+            color: #374151;
+        }
+
+        .article-body p {
+            margin-bottom: 18px;
+            text-align: justify;
+        }
+
+        /* === BAGIKAN === */
+        .share-section {
+            padding: 0 24px 24px;
+        }
+
+        .share-title {
+            font-size: 15px;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: #475569;
+        }
+
+        .share-icons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .share-icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 36px;
+            height: 36px;
+            border-radius: 8px;
+            color: #ffffff;
+            font-size: 16px;
+            transition: opacity 0.2s;
+        }
+
+        .share-icon:hover {
+            opacity: 0.85;
+        }
+
+        .share-icon.facebook { background-color: #1877f2; }
+        .share-icon.twitter { background-color: #1da1f2; }
+        .share-icon.whatsapp { background-color: #25d366; }
+
+        /* === FOOTER === */
+        .footer-top {
+            display: flex;
+            justify-content: space-between;
+            padding: 40px 32px;
+            background-color: #f8fafc;
+            border-top: 1px solid #f1f5f9;
+            margin-top: 20px;
+        }
+
+        .footer-left h2 {
+            font-size: 24px;
+            margin-bottom: 12px;
+            color: #1e293b;
+        }
+
+        .footer-left p {
+            color: #475569;
+            font-size: 16px;
+        }
+
+        .footer-right h3 {
+            font-size: 22px;
+            margin-bottom: 14px;
+            color: #1e293b;
+        }
+
+        .footer-right p {
+            margin-bottom: 6px;
+            color: #475569;
+        }
+
+        .footer-right .info-text {
+            margin-top: 16px;
+            margin-bottom: 12px;
+            font-size: 16px;
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 12px;
+        }
+
+        .social-icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 42px;
+            height: 42px;
+            background-color: #ffffff;
+            color: #64748b;
+            border: 1px solid #e2e8f0;
+            border-radius: 10px;
+            font-size: 18px;
+            transition: all 0.3s ease;
+        }
+
+        .social-icon:hover {
+            background-color: #2563eb;
+            color: #ffffff;
+            border-color: #2563eb;
+        }
+
+        .social-icon.facebook:hover { background-color: #1877f2; border-color: #1877f2; }
+        .social-icon.instagram:hover { background-color: #e1306c; border-color: #e1306c; }
+        .social-icon.youtube:hover { background-color: #ff0000; border-color: #ff0000; }
+        .social-icon.twitter:hover { background-color: #1da1f2; border-color: #1da1f2; }
+
+        .footer-bottom {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 32px;
+            background-color: #1e293b;
+            color: #cbd5e1;
+            font-size: 15px;
+        }
+
+        .footer-links a {
+            color: #e2e8f0;
+            margin-left: 24px;
+        }
+
+        .footer-links a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- === HEADER & MENU === -->
+    <header>
+        <div class="logo">Gasmi</div>
+        <nav class="nav-menu">
+            <a href="#">Sejarah</a>
+            <a href="#">Cari Murid</a>
+            <a href="#">Cari Pelatih</a>
+            <a href="#">Kantor Cabang</a>
+            <a href="informasi.html" class="active">Informasi</a>
+            <a href="#">Shop</a>
+            <a href="#" class="btn-hubungi">Hubungi Kami</a>
+        </nav>
+    </header>
+
+    <!-- === BREADCRUMB === -->
+    <div class="breadcrumb">
+        <a href="#">Rumah</a>
+        <span>&gt;</span>
+        <a href="informasi.html">Informasi</a>
+        <span>&gt;</span>
+        <span>Latar Belakang Berdirinya Pencak Silat GASMI</span>
+    </div>
+
+    <!-- === KONTEN === -->
+    <div class="content-wrapper">
+        <div class="article-card">
+            <img src="images/gus-maksum.jpg" alt="Latar Belakang Berdirinya Pencak Silat GASMI">
+
+            <h1 class="article-title">Latar Belakang Berdirinya Pencak Silat GASMI</h1>
+            <div class="divider"></div>
+
+            <div class="article-body">
+                <p>Pencak silat adalah salah satu seni bela diri tradisional yang berasal dari Kepulauan Nusantara (Indonesia). Seni bela diri ini secara luas dikenal di Indonesia, Malaysia, Brunei, Singapura, Filipina selatan, dan Thailand selatan sesuai dengan penyebaran berbagai suku bangsa Indonesia. Unsur-unsur untuk membela diri dengan seni bela diri, yaitu dengan menggunakan pukulan dan tendangan. Pencak silat merupakan bela diri yang banyak diminati oleh banyak orang terutama masyarakat Indonesia.</p>
+
+                <p>Meskipun demikian, masing-masing negara memiliki penyebutan yang berbeda, seperti gayong dan cekak (Malaysia dan Singapura), Bersilat (Thailand), dan Pasilat (Filipina). Pencak silat adalah seni bela diri asli Indonesia yang telah tersebar ke seluruh kepulauan Nusantara sejak abad ke-7.</p>
+
+                <p>Pencak silat diwariskan secara turun-temurun dari satu generasi ke generasi selanjutnya. Dengan perkembangan peradaban manusia, maka seni bela diri pun ikut berkembang ke arah yang lebih sempurna hingga akhirnya bela diri tersebut dinamakan pencak silat.</p>
+
+                <p>Pencak silat merupakan sarana dan materi pendidikan untuk membentuk manusia-manusia yang mampu melaksanakan perbuatan dan tindakan yang bermanfaat dalam rangka menjalin keamanan, membentuk karakteristik, mental spiritual, dan kesejahteraan bersama. Pencak silat merupakan hasil budi daya manusia yang dilestarikan untuk menjamin keamanan dan kesejahteraan bersama, juga diajarkan pada masyarakat yang meminatinya.</p>
+
+                <p>GASMI adalah salah satu pencak silat legendaris dari Kediri Jawa Timur. Perguruan ini tumbuh dan berkembang di pondok pesantren, pencak silat legendaris ini sangat familiar di kalangan para santri sejak pertama didirikan, khususnya di wilayah keresidenan Kediri.</p>
+
+                <p>Berkembangnya konflik masyarakat antara kaum Muslim dan golongan komunis menumbuhkan rasa prihatin di hati Gus Maksum. Hal tersebut memotivasi beliau untuk melakukan latihan pencak silat. Kegiatan ini dilakukan dengan harapan dapat menjadi bekal bagi masyarakat dalam menghadapi ancaman teror dari PKI yang semakin brutal.</p>
+
+                <p>Seiring berjalannya waktu, berbagai kelompok latihan pencak silat tersebut dipertemukan dalam sebuah perguruan yang diberi nama GASMI (Gerakan Aksi Silat Muslimin Indonesia). GASMI resmi berdiri di Pondok Pesantren Lirboyo pada tanggal 11 Januari 1966. Pada era 1966 sampai 1970-an GASMI berada dalam masa kejayaannya.</p>
+
+                <p>GASMI selalu dapat meredam pemberontakan-pemberontakan ini. Selain itu kejayaan GASMI juga terlihat dari banyaknya pendekar dari berbagai wilayah di Indonesia mengikuti pelatihan yang secara langsung dipimpin oleh KH. Abdullah Maksum Jauhari.</p>
+
+                <p>Pada tahun 1966 GASMI mulai mengadakan beberapa tempat latihan di pondok pesantren Lirboyo yang dipimpin oleh KH. Maksum Jauhari (Gus Maksum), akan tetapi masih diikuti oleh santri yang tinggal di dalam pondok pesantren saja hingga pada tahun 1970 M. GASMI telah resmi diperkenalkan di kalangan umum dengan diikuti oleh berbagai kalangan masyarakat.</p>
+
+                <p>Dari sinilah awal mula perkembangan pesat GASMI, bukan hanya di lingkungan pondok pesantren Lirboyo saja, akan tetapi meluas hingga di berbagai daerah sekitar Kediri, Nganjuk hingga Ponorogo. Pada era KH. Maksum Jauhari pula, GASMI mulai memiliki peranan penting dalam menjaga kedaulatan NKRI dan meredam setiap kerusuhan yang dilakukan oleh gerakan komunis.</p>
+            </div>
+
+            <div class="share-section">
+                <h4 class="share-title">Bagikan:</h4>
+                <div class="share-icons">
+                    <a href="https://www.facebook.com/sharer/sharer.php?u=https://gasmi.id/info/latar-belakang-berdirinya-pencak-silat-gasmi" target="_blank" class="share-icon facebook" title="Bagikan ke Facebook">
+                        <i class="fab fa-facebook-f"></i>
+                    </a>
+                    <a href="https://twitter.com/intent/tweet?url=https://gasmi.id/info/latar-belakang-berdirinya-pencak-silat-gasmi&text=Latar%20Belakang%20Berdirinya%20Pencak%20Silat%20GASMI" target="_blank" class="share-icon twitter" title="Bagikan ke Twitter">
+                        <i class="fab fa-twitter"></i>
+                    </a>
+                    <a href="https://wa.me/?text=Latar%20Belakang%20Berdirinya%20Pencak%20Silat%20GASMI%0A%0Ahttps://gasmi.id/info/latar-belakang-berdirinya-pencak-silat-gasmi" target="_blank" class="share-icon whatsapp" title="Bagikan ke WhatsApp">
+                        <i class="fab fa-whatsapp"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- === FOOTER === -->
+    <section class="footer-top">
+        <div class="footer-left">
+            <h2>Gasmi</h2>
+            <p>Jl. KH. Abdul Karim, Lirboyo, No. 45, Kec. Mojoroto, Kota Kediri.</p>
+        </div>
+        <div class="footer-right">
+            <h3>Kontak</h3>
+            <p>gasmihosting@gmail.com</p>
+            <p>6285878079700</p>
+            <p class="info-text">Atau terhubung dengan kami di:</p>
+
+            <div class="social-icons">
+                <a href="https://facebook.com/" target="_blank" class="social-icon facebook"><i class="fab fa-facebook-f"></i></a>
+                <a href="https://www.instagram.com/gasmi.id" target="_blank" class="social-icon instagram"><i class="fab fa-instagram"></i></a>
+                <a href="https://youtube.com/" target="_blank" class="social-icon youtube"><i class="fab fa-youtube"></i></a>
+                <a href="https://twitter.com/" target="_blank" class="social-icon twitter"><i class="fab fa-twitter"></i></a>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer-bottom">
+        <p>2026 © Gasmi</p>
+        <div class="footer-links">
+            <a href="#">Masuk</a>
+            <a href="#">Kontak</a>
+        </div>
+    </footer>
+
+</body>
+</html>

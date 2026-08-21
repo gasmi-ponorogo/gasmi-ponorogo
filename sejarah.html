@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sejarah - Gasmi</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+    <style>
+        * {margin: 0; padding: 0; box-sizing: border-box;}
+        html, body {height: 100%;}
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: #333355;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* --- NAVBAR --- */
+        .atas {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 3%;
+        }
+
+        .logo a {
+            font-size: 28px;
+            font-weight: 500;
+            color: #000033;
+            text-decoration: none;
+        }
+
+        .menu a {
+            text-decoration: none;
+            color: #555577;
+            margin: 0 14px;
+            font-size: 17px;
+        }
+
+        .menu a.aktif {
+            color: #dd2222;
+            font-weight: 600;
+        }
+
+        .tombol-merah {
+            background-color: #dd2222;
+            color: #ffffff;
+            padding: 12px 28px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 16px;
+        }
+
+        /* --- KOTAK BERITA TENGAH --- */
+        .berita-tengah {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 40px 3%;
+            background-color: #f8f9ff;
+            border-bottom-left-radius: 50% 15%;
+            border-bottom-right-radius: 50% 15%;
+        }
+
+        .kotak-berita {
+            width: 360px;
+            height: 200px;
+            background-color: #d0d0d0;
+            border-radius: 12px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 50px;
+            font-weight: bold;
+            font-style: italic;
+            color: #807e7e;            
+            font-family: Monotype corsiva;
+        }
+
+        /* --- FOOTER UTAMA --- */
+        .footer-utama {
+            padding: 50px 3%;
+            background-color: #ffffff;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .footer-utama h3 {
+            font-size: 24px;
+            color: #222244;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        .footer-utama p {
+            font-size: 16px;
+            color: #444466;
+            line-height: 1.7;
+        }
+
+        .medsos-teks {
+            font-size: 17px;
+            color: #444466;
+            margin-bottom: 15px;
+        }
+
+        .medsos-ikon {
+            display: flex;
+            gap: 15px;
+        }
+
+        .medsos-ikon a {
+            width: 42px;
+            height: 42px;
+            border: 1px solid #ddd;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #555;
+            text-decoration: none;
+        }
+
+        /* --- GARIS BAWAH GELAP --- */
+        .footer-bawah {
+            background-color: #222244;
+            color: #ffffff;
+            padding: 15px 3%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 15px;
+        }
+
+        .footer-bawah a {
+            color: #ffffff;
+            text-decoration: none;
+            margin: 0 12px;
+        }
+    </style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<div class="atas">
+    <div class="logo"><a href="index.html">Gasmi</a></div>
+    <div class="menu">
+        <a href="index.html">Beranda</a>
+        <a href="sejarah.html" class="aktif">Sejarah</a>
+        <a href="cari-murid.html">Cari Murid</a>
+        <a href="cari-pelatih.html">Cari Pelatih</a>
+        <a href="kantor-cabang.html">Kantor Cabang</a>
+        <a href="informasi.html">Informasi</a>
+        <a href="shop.html">Shop</a>
+    </div>
+    <a href="#" class="tombol-merah">Hubungi Kami</a>
+</div>
+
+<!-- KOTAK BERITA TENGAH -->
+<div class="berita-tengah">
+    <div class="kotak-berita">Berita 1</div>
+</div>
+
+<!-- FOOTER UTAMA -->
+<div class="footer-utama">
+    <div>
+        <h3>Gasmi</h3>
+        <p>Jl. KH. Abdul Karim, Lirboyo, No. 45, Kec. Mojoroto, Kota Kediri.</p>
+    </div>
+    <div>
+        <h3>Kontak</h3>
+        <p>gasmihosting@gmail.com</p>
+        <p>6285878079700</p>
+        <p class="medsos-teks">Atau terhubung dengan kami di:</p>
+        <div class="medsos-ikon">
+            <a href="https://facebook.com/" target="_blank"><i class="fab fa-facebook-f"></i></a>
+            <a href="https://www.instagram.com/gasmi.id" target="_blank"><i class="fab fa-instagram"></i></a>
+            <a href="https://youtube.com/" target="_blank"><i class="fab fa-youtube"></i></a>
+            <a href="https://twitter.com/" target="_blank"><i class="fab fa-twitter"></i></a>
+        </div>
+    </div>
+</div>
+
+<!-- GARIS BAWAH GELAP -->
+<div class="footer-bawah">
+    <p>2026 © Gasmi</p>
+    <div>
+        <a href="#">Masuk</a>
+        <a href="#">Kontak</a>
+    </div>
+</div>
+
+</body>
+</html>
