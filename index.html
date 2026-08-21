@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gasmi Ponorogo</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        body {
+            background-color: #ffffff;
+            color: #333;
+            line-height: 1.6;
+        }
+        /* === MENU ATAS === */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 30px;
+            border-bottom: 2px solid #eee;
+            flex-wrap: wrap;
+        }
+        .logo {
+            font-size: 26px;
+            font-weight: bold;
+            color: #222244;
+            text-decoration: none;
+        }
+        nav {
+            margin: 10px 0;
+        }
+        nav a {
+            margin: 0 12px;
+            text-decoration: none;
+            color: #444;
+            font-size: 15px;
+        }
+        nav a:hover {
+            color: #dd2222;
+        }
+        .tombol-merah {
+            background-color: #dd2222;
+            color: white;
+            padding: 10px 25px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: bold;
+            white-space: nowrap;
+        }
+        .tombol-merah:hover {
+            background-color: #b91c1c;
+        }
+
+        /* === BAGIAN SLIDE GAMBAR === */
+        .wadah-slide {
+            max-width: 900px;
+            margin: 30px auto;
+            position: relative;
+            overflow: hidden;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+            background-color: #f5f5f5;
+        }
+        .daftar-gambar {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+        }
+        .slide {
+            min-width: 100%;
+        }
+        .slide img {
+            width: 100%;
+            height: 450px;
+            object-fit: cover;
+            display: block;
+        }
+
+        /* TOMBOL SEBELAH & SELANJUTNYA */
+        .tombol-slide {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: rgba(0,0,0,0.5);
+            color: white;
+            border: none;
+            font-size: 24px;
+            padding: 12px 16px;
+            cursor: pointer;
+            border-radius: 50%;
+        }
+        .tombol-slide:hover {
+            background-color: rgba(0,0,0,0.8);
+        }
+        .kiri { left: 15px; }
+        .kanan { right: 15px; }
+
+        /* TITIK PENANDA POSISI */
+        .titik-posisi {
+            position: absolute;
+            bottom: 15px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 10px;
+        }
+        .titik {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background-color: rgba(255,255,255,0.5);
+            cursor: pointer;
+        }
+        .titik.aktif {
+            background-color: white;
+            box-shadow: 0 0 4px rgba(0,0,0,0.3);
+        }
+
+        /* TAMPILAN DI HP */
+        @media (max-width: 768px) {
+            header {
+                flex-direction: column;
+                gap: 15px;
+            }
+            nav a {
+                margin: 0 6px;
+                font-size: 13px;
+            }
+            .slide img {
+                height: 250px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<!-- === MENU ATAS === -->
+<header>
+    <a href="index.html" class="logo">Gasmi</a>
+    <nav>
+        <a href="sejarah.html">Sejarah</a>
+        <a href="cari-murid.html">Cari Murid</a>
+        <a href="cari-pelatih.html">Cari Pelatih</a>
+        <a href="kantor-cabang.html">Kantor Cabang</a>
+        <a href="informasi.html">Informasi</a>
+        <a href="shop.html">Shop</a>
+    </nav>
+    <a href="hubungi-kami.html" class="tombol-merah">Hubungi Kami</a>
+</header>
+
+<!-- === BAGIAN SLIDE GAMBAR === -->
+<div class="wadah-slide">
+    <div class="daftar-gambar">
+        <div class="slide"><img src="images/artikel1.jpg" alt="Gasmi 1"></div>
+        <div class="slide"><img src="images/artikel2.jpg" alt="Gasmi 2"></div>
+        <div class="slide"><img src="images/artikel3.jpg" alt="Gasmi 3"></div>
+        <div class="slide"><img src="images/artikel4.jpg" alt="Gasmi 4"></div>
+        <div class="slide"><img src="images/artikel5.jpg" alt="Gasmi 5"></div>
+    </div>
+
+    <!-- Tombol Geser -->
+    <button class="tombol-slide kiri" onclick="geserKiri()">&#10094;</button>
+    <button class="tombol-slide kanan" onclick="geserKanan()">&#10095;</button>
+
+    <!-- Titik Posisi -->
+    <div class="titik-posisi">
+        <span class="titik aktif" onclick="pindahKe(0)"></span>
+        <span class="titik" onclick="pindahKe(1)"></span>
+        <span class="titik" onclick="pindahKe(2)"></span>
+        <span class="titik" onclick="pindahKe(3)"></span>
+        <span class="titik" onclick="pindahKe(4)"></span>
+    </div>
+</div>
+
+<!-- === JAVASCRIPT UNTUK MENGGERAKKAN SLIDE === -->
+<script>
+    let posisi = 0;
+    let jumlahSlide = 5;
+    let daftarGambar = document.querySelector('.daftar-gambar');
+    let titik = document.querySelectorAll('.titik');
+
+    function perbaruiPosisi() {
+        daftarGambar.style.transform = `translateX(-${posisi * 100}%)`;
+        titik.forEach((t, i) => t.classList.toggle('aktif', i === posisi));
+    }
+
+    function geserKiri() {
+        posisi = (posisi - 1 + jumlahSlide) % jumlahSlide;
+        perbaruiPosisi();
+    }
+
+    function geserKanan() {
+        posisi = (posisi + 1) % jumlahSlide;
+        perbaruiPosisi();
+    }
+
+    function pindahKe(ke) {
+        posisi = ke;
+        perbaruiPosisi();
+    }
+
+    // BERGESER OTOMATIS SETIAP 4 DETIK
+    setInterval(geserKanan, 4000);
+</script>
+
+</body>
+</html>
