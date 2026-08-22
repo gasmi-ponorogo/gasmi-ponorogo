@@ -15,6 +15,58 @@
         a { text-decoration: none; color: inherit; }
 
 
+        /* ===================================== */
+        /* === TAMBAHAN: LAYAR LOADING === */
+        /* ===================================== */
+        #layar-loading {
+            position: fixed;
+            inset: 0;
+            background-color: #ffffff;
+            z-index: 99999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+
+        #layar-loading.tampil {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        .loading-logo {
+            font-size: 38px;
+            font-weight: 600;
+            color: #dc2626;
+            margin-bottom: 20px;
+            letter-spacing: 1px;
+        }
+
+        .loading-putar {
+            width: 45px;
+            height: 45px;
+            border: 5px solid #eeeeee;
+            border-top: 5px solid #dc2626;
+            border-radius: 50%;
+            animation: berputar 0.8s linear infinite;
+        }
+
+        #layar-loading p {
+            margin-top: 15px;
+            color: #555;
+            font-size: 15px;
+        }
+
+        @keyframes berputar {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        /* === AKHIR TAMBAHAN LOADING === */
+
+
         /* NAVIGASI */
         header {
             width: 100%; padding: 24px 32px;
@@ -126,6 +178,7 @@
         }
         .bottom-links a:hover { color: #fff; }
 
+
         /* RESPONSIVE */
         @media (max-width: 900px) {
             header { flex-direction: column; text-align: center; }
@@ -135,17 +188,29 @@
 </head>
 <body>
 
+
+<!-- ===================================== -->
+<!-- === TAMBAHAN: LAYAR LOADING === -->
+<!-- ===================================== -->
+<div id="layar-loading">
+    <div class="loading-logo">Gasmi</div>
+    <div class="loading-putar"></div>
+    <p>Memuat halaman...</p>
+</div>
+<!-- === AKHIR TAMBAHAN LOADING === -->
+
+
     <header>
-        <div class="logo"><a href="index.html">Gasmi</a></div>
+        <div class="logo"><a href="index.html" onclick="mulaiLoading(event)">Gasmi</a></div>
         <nav>
-            <a href="sejarah.html">Sejarah</a>
-            <a href="cari-murid.html" class="active">Cari Murid</a>
-            <a href="cari-pelatih.html">Cari Pelatih</a>
-            <a href="kantor-cabang.html">Kantor Cabang</a>
-            <a href="informasi.html">Informasi</a>
-            <a href="shop.html">Shop</a>
+            <a href="sejarah.html" onclick="mulaiLoading(event)">Sejarah</a>
+            <a href="cari-murid.html" class="active" onclick="mulaiLoading(event)">Cari Murid</a>
+            <a href="cari-pelatih.html" onclick="mulaiLoading(event)">Cari Pelatih</a>
+            <a href="kantor-cabang.html" onclick="mulaiLoading(event)">Kantor Cabang</a>
+            <a href="informasi.html" onclick="mulaiLoading(event)">Informasi</a>
+            <a href="shop.html" onclick="mulaiLoading(event)">Shop</a>
         </nav>
-        <a href="hubungi-kami.html" class="btn-hubungi">Hubungi Kami</a>
+        <a href="hubungi-kami.html" class="btn-hubungi" onclick="mulaiLoading(event)">Hubungi Kami</a>
     </header>
 
 
@@ -237,6 +302,26 @@
             </div>
         </div>
     </div>
+
+
+<!-- ===================================== -->
+<!-- === TAMBAHAN: FUNGSI LOADING === -->
+<!-- ===================================== -->
+<script>
+    function mulaiLoading(event) {
+        event.preventDefault(); // Tahan pindah halaman sebentar
+        const tautan = event.currentTarget.href; // Simpan alamat tujuan
+        const loading = document.getElementById('layar-loading');
+        loading.classList.add('tampil'); // Tampilkan layar loading
+
+        // Tunggu 1,5 detik lalu pindah halaman
+        setTimeout(function() {
+            window.location.href = tautan;
+        }, 1500);
+    }
+</script>
+<!-- === AKHIR TAMBAHAN LOADING === -->
+
 
 </body>
 </html>
