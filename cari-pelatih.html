@@ -14,15 +14,72 @@
         }
         a { text-decoration: none; color: inherit; }
 
+
+        /* ===================================== */
+        /* === TAMBAHAN: LAYAR LOADING === */
+        /* ===================================== */
+        #layar-loading {
+            position: fixed;
+            inset: 0;
+            background-color: #ffffff;
+            z-index: 99999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+
+        #layar-loading.tampil {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        .loading-logo {
+            font-size: 38px;
+            font-weight: 600;
+            color: #dc2626;
+            margin-bottom: 20px;
+            letter-spacing: 1px;
+        }
+
+        .loading-putar {
+            width: 45px;
+            height: 45px;
+            border: 5px solid #eeeeee;
+            border-top: 5px solid #dc2626;
+            border-radius: 50%;
+            animation: berputar 0.8s linear infinite;
+        }
+
+        #layar-loading p {
+            margin-top: 15px;
+            color: #555;
+            font-size: 15px;
+        }
+
+        @keyframes berputar {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        /* === AKHIR TAMBAHAN LOADING === */
+
+
         /* NAVIGASI */
         header {
             width: 100%; padding: 24px 32px;
             display: flex; justify-content: space-between; align-items: center;
+            flex-wrap: wrap; gap: 15px;
         }
         .logo { font-size: 30px; font-weight: 600; color: #2a3342; letter-spacing: -0.3px; }
+        .logo a { color: inherit; text-decoration: none; }
         nav a { margin: 0 16px; font-size: 18px; color: #4b5563; padding-bottom: 4px; }
         nav a.active { color: #dc2626; font-weight: 500; border-bottom: 2px solid #dc2626; }
         .btn-hubungi { background-color: #dc2626; color: #fff; padding: 12px 28px; border-radius: 10px; font-weight: 500; font-size: 17px; }
+        .btn-hubungi:hover { background-color: #b91c1c; }
+
 
         /* KONTEN */
         main { padding: 32px; }
@@ -43,6 +100,8 @@
             border-radius: 8px; font-size: 17px;
             cursor: pointer; font-weight: 500;
         }
+        .btn-cari:hover { background-color: #b91c1c; }
+
 
         /* FOOTER PENUH LAYAR */
         .main-footer {
@@ -53,6 +112,7 @@
         .footer-content {
             display: flex; justify-content: space-between;
             align-items: flex-start; max-width: 1200px; margin: 0 auto;
+            flex-wrap: wrap; gap: 30px;
         }
         .footer-left h2 {
             font-size: 24px; font-weight: bold;
@@ -84,14 +144,20 @@
             font-size: 17px;
             transition: background-color 0.2s ease, color 0.2s ease;
         }
-        /* Ikon biasa berwarna BIRU saat disentuh */
         .icon-btn:hover {
             background-color: #2563eb;
             color: #ffffff;
         }
-        /* Khusus YouTube: biasa = abu-abu, disentuh = MERAH */
         .icon-btn.youtube:hover {
             background-color: #ff0000;
+            color: #ffffff;
+        }
+        .icon-btn.instagram:hover {
+            background-color: #E4405F;
+            color: #ffffff;
+        }
+        .icon-btn.twitter:hover {
+            background-color: #1DA1F2;
             color: #ffffff;
         }
         .bottom-footer {
@@ -104,28 +170,49 @@
             max-width: 1200px; margin: 0 auto;
             display: flex; justify-content: space-between;
             align-items: center;
+            flex-wrap: wrap; gap: 10px;
         }
         .bottom-links a {
             color: #94a3b8; text-decoration: none;
             margin-left: 24px;
         }
         .bottom-links a:hover { color: #fff; }
+
+
+        /* RESPONSIVE */
+        @media (max-width: 900px) {
+            header { flex-direction: column; text-align: center; }
+            nav { margin: 10px 0; }
+        }
     </style>
 </head>
 <body>
 
-    <header>
-        <div class="logo">Gasmi</div>
-        <nav>
-            <a href="#">Sejarah</a>
-            <a href="cari-murid.html">Cari Murid</a>
-            <a href="#" class="active">Cari Pelatih</a>
-            <a href="#">Kantor Cabang</a>
-            <a href="#">Informasi</a>
-            <a href="#">Shop</a>
-        </nav>
-        <a href="#" class="btn-hubungi">Hubungi Kami</a>
-    </header>
+
+<!-- ===================================== -->
+<!-- === TAMBAHAN: LAYAR LOADING === -->
+<!-- ===================================== -->
+<div id="layar-loading">
+    <div class="loading-logo">Gasmi</div>
+    <div class="loading-putar"></div>
+    <p>Memuat halaman...</p>
+</div>
+<!-- === AKHIR TAMBAHAN LOADING === -->
+
+
+<header>
+    <div class="logo"><a href="index.html" onclick="mulaiLoading(event)">Gasmi</a></div>
+    <nav class="nav-links">
+        <a href="sejarah.html" onclick="mulaiLoading(event)">Sejarah</a>
+        <a href="cari-murid.html" onclick="mulaiLoading(event)">Cari Murid</a>
+        <a href="cari-pelatih.html" class="active" onclick="mulaiLoading(event)">Cari Pelatih</a>
+        <a href="kantor-cabang.html" onclick="mulaiLoading(event)">Kantor Cabang</a>
+        <a href="informasi.html" onclick="mulaiLoading(event)">Informasi</a>
+        <a href="shop.html" onclick="mulaiLoading(event)">Shop</a>
+    </nav>
+    <a href="hubungi-kami.html" class="btn-hubungi" onclick="mulaiLoading(event)">Hubungi Kami</a>
+</header>
+
 
     <main>
         <h1 class="page-title">Pencarian SK Pelatih Gasmi</h1>
@@ -179,6 +266,7 @@
         <button class="btn-cari">Cari</button>
     </main>
 
+
     <div class="main-footer">
         <div class="footer-content">
             <div class="footer-left">
@@ -191,28 +279,47 @@
                 <p>6285878079700</p>
                 <p class="social-label">Atau terhubung dengan kami di:</p>
                 <div class="social-icons">
-                    <a href="#" class="icon-btn"><i class="fab fa-facebook-f"></i></a>
-                    <a href="#" class="icon-btn"><i class="fab fa-instagram"></i></a>
-                    <a href="#" class="icon-btn youtube">
+                    <a href="https://facebook.com/" target="_blank" class="icon-btn"><i class="fab fa-facebook-f"></i></a>
+                    <a href="https://www.instagram.com/gasmi.id" target="_blank" class="icon-btn instagram"><i class="fab fa-instagram"></i></a>
+                    <a href="https://youtube.com/" target="_blank" class="icon-btn youtube">
                         <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
                             <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.141C19.505 3.53 12 3.53 12 3.53s-7.505 0-9.376.515A3.016 3.016 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.141c1.871.515 9.376.515 9.376.515s7.505 0 9.376-.515a3.016 3.016 0 0 0 2.122-2.141C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
                         </svg>
                     </a>
-                    <a href="#" class="icon-btn"><i class="fab fa-twitter"></i></a>
+                    <a href="https://twitter.com/" target="_blank" class="icon-btn twitter"><i class="fab fa-twitter"></i></a>
                 </div>
             </div>
         </div>
     </div>
 
+
     <div class="bottom-footer">
         <div class="bottom-container">
             <div>2026 © Gasmi</div>
             <div class="bottom-links">
-                <a href="#">Masuk</a>
-                <a href="#">Kontak</a>
+                <a href="hubungi-kami.html">Masuk</a>
+                <a href="hubungi-kami.html">Kontak</a>
             </div>
         </div>
     </div>
+
+
+<!-- ===================================== -->
+<!-- === TAMBAHAN: FUNGSI LOADING === -->
+<!-- ===================================== -->
+<script>
+    function mulaiLoading(event) {
+        event.preventDefault();
+        const tautan = event.currentTarget.href;
+        const loading = document.getElementById('layar-loading');
+        loading.classList.add('tampil');
+        setTimeout(function() {
+            window.location.href = tautan;
+        }, 1500);
+    }
+</script>
+<!-- === AKHIR TAMBAHAN LOADING === -->
+
 
 </body>
 </html>
