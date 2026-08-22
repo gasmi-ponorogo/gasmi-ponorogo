@@ -16,13 +16,17 @@
             min-height: 100vh;
         }
 
+
         /* --- NAVBAR --- */
         .atas {
             display: flex;
             justify-content: space-between;
             align-items: center;
             padding: 20px 3%;
+            flex-wrap: wrap;
+            gap: 15px;
         }
+
 
         .logo a {
             font-size: 28px;
@@ -31,17 +35,22 @@
             text-decoration: none;
         }
 
-        .menu a {
+
+        .nav-links a {
             text-decoration: none;
             color: #555577;
             margin: 0 14px;
             font-size: 17px;
         }
 
-        .menu a.aktif {
+
+        .nav-links a.aktif {
             color: #dd2222;
             font-weight: 600;
+            border-bottom: 2px solid #dd2222;
+            padding-bottom: 4px;
         }
+
 
         .tombol-merah {
             background-color: #dd2222;
@@ -52,6 +61,11 @@
             font-weight: 600;
             font-size: 16px;
         }
+
+        .tombol-merah:hover {
+            background-color: #b91c1c;
+        }
+
 
         /* --- KOTAK BERITA TENGAH --- */
         .berita-tengah {
@@ -64,6 +78,7 @@
             border-bottom-left-radius: 50% 15%;
             border-bottom-right-radius: 50% 15%;
         }
+
 
         .kotak-berita {
             width: 360px;
@@ -80,13 +95,17 @@
             font-family: Monotype corsiva;
         }
 
+
         /* --- FOOTER UTAMA --- */
         .footer-utama {
             padding: 50px 3%;
             background-color: #ffffff;
             display: flex;
             justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 30px;
         }
+
 
         .footer-utama h3 {
             font-size: 24px;
@@ -95,11 +114,13 @@
             font-weight: 600;
         }
 
+
         .footer-utama p {
             font-size: 16px;
             color: #444466;
             line-height: 1.7;
         }
+
 
         .medsos-teks {
             font-size: 17px;
@@ -107,10 +128,12 @@
             margin-bottom: 15px;
         }
 
+
         .medsos-ikon {
             display: flex;
             gap: 15px;
         }
+
 
         .medsos-ikon a {
             width: 42px;
@@ -122,7 +145,16 @@
             justify-content: center;
             color: #555;
             text-decoration: none;
+            transition: all 0.3s ease;
         }
+
+        .medsos-ikon a:hover {
+            background-color: #dd2222;
+            border-color: #dd2222;
+            color: #fff;
+            transform: translateY(-3px);
+        }
+
 
         /* --- GARIS BAWAH GELAP --- */
         .footer-bawah {
@@ -133,36 +165,52 @@
             justify-content: space-between;
             align-items: center;
             font-size: 15px;
+            flex-wrap: wrap;
+            gap: 10px;
         }
+
 
         .footer-bawah a {
             color: #ffffff;
             text-decoration: none;
             margin: 0 12px;
         }
+
+        .footer-bawah a:hover {
+            color: #ffcccc;
+        }
+
+        /* --- RESPONSIVE --- */
+        @media (max-width: 900px) {
+            .atas { flex-direction: column; text-align: center; }
+            .nav-links { margin: 10px 0; }
+            .footer-utama { flex-direction: column; }
+        }
     </style>
 </head>
 <body>
 
+
 <!-- NAVBAR -->
 <div class="atas">
     <div class="logo"><a href="index.html">Gasmi</a></div>
-    <div class="menu">
-        <a href="index.html">Beranda</a>
+    <nav class="nav-links">
         <a href="sejarah.html" class="aktif">Sejarah</a>
         <a href="cari-murid.html">Cari Murid</a>
         <a href="cari-pelatih.html">Cari Pelatih</a>
         <a href="kantor-cabang.html">Kantor Cabang</a>
         <a href="informasi.html">Informasi</a>
         <a href="shop.html">Shop</a>
-    </div>
-    <a href="#" class="tombol-merah">Hubungi Kami</a>
+    </nav>
+    <a href="hubungi-kami.html" class="tombol-merah">Hubungi Kami</a>
 </div>
+
 
 <!-- KOTAK BERITA TENGAH -->
 <div class="berita-tengah">
     <div class="kotak-berita">Berita 1</div>
 </div>
+
 
 <!-- FOOTER UTAMA -->
 <div class="footer-utama">
@@ -184,14 +232,16 @@
     </div>
 </div>
 
+
 <!-- GARIS BAWAH GELAP -->
 <div class="footer-bawah">
     <p>2026 © Gasmi</p>
     <div>
-        <a href="#">Masuk</a>
-        <a href="#">Kontak</a>
+        <a href="hubungi-kami.html">Masuk</a>
+        <a href="hubungi-kami.html">Kontak</a>
     </div>
 </div>
+
 
 </body>
 </html>
