@@ -3,314 +3,226 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Shop | Gasmi</title>
-
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
-
+    <title>Shop - Gasmi</title>
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
         }
 
         body {
-            color: #334155;
-            line-height: 1.6;
             background-color: #ffffff;
+            color: #333344;
+            line-height: 1.6;
         }
 
-        a {
-            text-decoration: none;
-            color: inherit;
+        /* ===== LAYAR LOADING ===== */
+        #layar-loading {
+            position: fixed;
+            inset: 0;
+            background-color: #ffffff;
+            z-index: 99999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
         }
+        #layar-loading.tampil {
+            opacity: 1;
+            pointer-events: all;
+        }
+        .loading-logo {
+            font-size: 38px;
+            font-weight: 600;
+            color: #dd2222;
+            margin-bottom: 20px;
+            letter-spacing: 1px;
+        }
+        .loading-putar {
+            width: 45px;
+            height: 45px;
+            border: 5px solid #eeeeee;
+            border-top: 5px solid #dd2222;
+            border-radius: 50%;
+            animation: berputar 0.8s linear infinite;
+        }
+        #layar-loading p {
+            margin-top: 15px;
+            color: #555;
+            font-size: 15px;
+        }
+        @keyframes berputar {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        /* ===== AKHIR LOADING ===== */
 
-        /* === HEADER & MENU === */
         header {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 16px 32px;
-            border-bottom: 1px solid #f1f5f9;
+            padding: 24px 40px;
+            flex-wrap: wrap;
+            gap: 20px;
         }
-
         .logo {
-            font-size: 28px;
+            font-size: 32px;
             font-weight: 700;
-            color: #1e293b;
+            color: #222244;
+            text-decoration: none;
         }
-
-        .nav-menu {
+        .nav-links {
             display: flex;
-            gap: 36px;
+            gap: 40px;
             align-items: center;
+            flex-wrap: wrap;
         }
-
-        .nav-menu a {
-            font-size: 16px;
-            color: #475569;
-            padding: 8px 4px;
-            transition: color 0.2s;
+        .nav-links a {
+            font-size: 18px;
+            color: #444455;
+            text-decoration: none;
+            padding: 6px 0;
+            transition: all 0.2s;
         }
-
-        .nav-menu a:hover {
-            color: #1e293b;
+        .nav-links a:hover {
+            color: #dd2222;
         }
-
-        .nav-menu a.active {
-            color: #dc2626;
+        .nav-links a.active {
+            color: #dd2222;
             font-weight: 600;
-            border-bottom: 2px solid #dc2626;
+            border-bottom: 2px solid #dd2222;
         }
-
-        .btn-hubungi {
-            background-color: #dc2626;
+        .hubungi-btn {
+            background-color: #dd2222;
             color: #ffffff;
-            padding: 10px 24px;
+            padding: 10px 26px;
             border-radius: 8px;
+            font-size: 17px;
             font-weight: 600;
+            text-decoration: none;
+            border: none;
+            cursor: pointer;
             transition: background-color 0.2s;
         }
-
-        .btn-hubungi:hover {
+        .hubungi-btn:hover {
             background-color: #b91c1c;
         }
-
-        /* === KONTEN UTAMA === */
-        .content-wrapper {
-            padding: 60px 32px 80px;
-            max-width: 1400px;
+        main {
+            padding: 40px 40px 80px;
+        }
+        .page-title {
+            text-align: center;
+            font-size: 42px;
+            color: #444466;
+            margin-bottom: 50px;
+            font-weight: 600;
+        }
+        .shop-content {
+            max-width: 800px;
             margin: 0 auto;
-        }
-
-        .marketplace-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 32px;
-        }
-
-        .marketplace-card {
-            background-color: #ffffff;
+            background: #ffffff;
+            padding: 50px 40px;
             border-radius: 16px;
-            box-shadow: 0 2px 12px rgba(0,0,0,0.06);
-            padding: 40px 24px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 24px;
-            transition: transform 0.2s, box-shadow 0.2s;
+            box-shadow: 0 6px 18px rgba(0,0,0,0.06);
+            text-align: center;
         }
-
-        .marketplace-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 6px 20px rgba(0,0,0,0.1);
-        }
-
-        .marketplace-logo {
-            width: 100%;
-            height: 120px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .marketplace-logo img {
-            max-width: 100%;
-            max-height: 100%;
-            object-fit: contain;
-        }
-
-        .marketplace-name {
-            font-size: 18px;
-            font-weight: 500;
-            color: #dc2626;
-            text-decoration: underline;
-        }
-
-        /* === FOOTER === */
-        .footer-top {
-            display: flex;
-            justify-content: space-between;
-            padding: 40px 32px;
-            background-color: #f8fafc;
-            border-top: 1px solid #f1f5f9;
-        }
-
-        .footer-left h2 {
+        .shop-content h2 {
             font-size: 24px;
-            margin-bottom: 12px;
-            color: #1e293b;
-        }
-
-        .footer-left p {
-            color: #475569;
-            font-size: 16px;
-            line-height: 1.7;
-        }
-
-        .footer-right h3 {
-            font-size: 22px;
-            margin-bottom: 14px;
-            color: #1e293b;
-        }
-
-        .footer-right p {
-            margin-bottom: 6px;
-            color: #475569;
-        }
-
-        .footer-right .info-text {
-            margin-top: 24px;
+            color: #333344;
             margin-bottom: 16px;
-            font-size: 16px;
         }
-
-        .social-icons {
-            display: flex;
-            gap: 12px;
+        .shop-content p {
+            font-size: 17px;
+            color: #444455;
+            margin-bottom: 12px;
+            line-height: 1.8;
         }
-
-        .social-icon {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 42px;
-            height: 42px;
-            background-color: #ffffff;
-            color: #64748b;
-            border: 1px solid #e2e8f0;
-            border-radius: 10px;
-            font-size: 18px;
-            transition: all 0.3s ease;
-        }
-
-        .social-icon:hover {
-            background-color: #2563eb;
+        footer {
+            background-color: #333344;
             color: #ffffff;
-            border-color: #2563eb;
-        }
-
-        .social-icon.facebook:hover { background-color: #1877f2; border-color: #1877f2; }
-        .social-icon.instagram:hover { background-color: #e1306c; border-color: #e1306c; }
-        .social-icon.youtube:hover { background-color: #ff0000; border-color: #ff0000; }
-        .social-icon.twitter:hover { background-color: #1da1f2; border-color: #1da1f2; }
-
-        .footer-bottom {
+            padding: 18px 40px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 16px 32px;
-            background-color: #1e293b;
-            color: #cbd5e1;
-            font-size: 15px;
+            font-size: 16px;
+            flex-wrap: wrap;
+            gap: 10px;
         }
-
         .footer-links a {
-            color: #e2e8f0;
+            color: #ffffff;
+            text-decoration: none;
             margin-left: 24px;
         }
-
         .footer-links a:hover {
-            text-decoration: underline;
+            color: #ffcccc;
         }
-
-        /* === RESPONSIVE === */
-        @media (max-width: 1024px) {
-            .marketplace-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-        }
-
-        @media (max-width: 600px) {
-            .marketplace-grid {
-                grid-template-columns: 1fr;
-            }
+        @media (max-width: 900px) {
+            header { flex-direction: column; text-align: center; }
+            .nav-links { justify-content: center; gap: 20px; margin: 10px 0; }
+            .shop-content { padding: 30px 20px; }
         }
     </style>
 </head>
 <body>
 
-    <!-- === HEADER & MENU === -->
-    <header>
-        <div class="logo">Gasmi</div>
-        <nav class="nav-menu">
-            <a href="#">Sejarah</a>
-            <a href="#">Cari Murid</a>
-            <a href="#">Cari Pelatih</a>
-            <a href="#">Kantor Cabang</a>
-            <a href="informasi.html">Informasi</a>
-            <a href="shop.html" class="active">Shop</a>
-            <a href="#" class="btn-hubungi">Hubungi Kami</a>
-        </nav>
-    </header>
+<!-- ===== LAYAR LOADING ===== -->
+<div id="layar-loading">
+    <div class="loading-logo">Gasmi</div>
+    <div class="loading-putar"></div>
+    <p>Memuat halaman...</p>
+</div>
 
-    <!-- === KONTEN === -->
-    <div class="content-wrapper">
-        <div class="marketplace-grid">
-            <!-- Tokopedia -->
-            <div class="marketplace-card">
-                <div class="marketplace-logo">
-                    <img src="images/tokopedia.png" alt="Tokopedia">
-                </div>
-                <a href="#" class="marketplace-name">Tokopedia Gasmi</a>
-            </div>
+<!-- ===== HEADER ===== -->
+<header>
+    <a href="index.html" class="logo" onclick="mulaiLoading(event)">Gasmi</a>
+    <nav class="nav-links">
+        <a href="sejarah.html" onclick="mulaiLoading(event)">Sejarah</a>
+        <a href="cari-murid.html" onclick="mulaiLoading(event)">Cari Murid</a>
+        <a href="cari-pelatih.html" onclick="mulaiLoading(event)">Cari Pelatih</a>
+        <a href="kantor-cabang.html" onclick="mulaiLoading(event)">Kantor Cabang</a>
+        <a href="informasi.html" onclick="mulaiLoading(event)">Informasi</a>
+        <a href="shop.html" class="active" onclick="mulaiLoading(event)">Shop</a>
+    </nav>
+    <a href="hubungi-kami.html" class="hubungi-btn" onclick="mulaiLoading(event)">Hubungi Kami</a>
+</header>
 
-            <!-- Shopee -->
-            <div class="marketplace-card">
-                <div class="marketplace-logo">
-                    <img src="images/shopee.png" alt="Shopee">
-                </div>
-                <a href="#" class="marketplace-name">Shopee Gasmi</a>
-            </div>
-
-            <!-- Lazada -->
-            <div class="marketplace-card">
-                <div class="marketplace-logo">
-                    <img src="images/lazada.png" alt="Lazada">
-                </div>
-                <a href="#" class="marketplace-name">Lazada Gasmi</a>
-            </div>
-
-            <!-- Bukalapak -->
-            <div class="marketplace-card">
-                <div class="marketplace-logo">
-                    <img src="images/bukalapak.png" alt="Bukalapak">
-                </div>
-                <a href="#" class="marketplace-name">Bukalapak Gasmi</a>
-            </div>
-        </div>
+<!-- ===== KONTEN ===== -->
+<main>
+    <h1 class="page-title">Toko Gasmi</h1>
+    <div class="shop-content">
+        <h2>Segera Hadir</h2>
+        <p>Halaman toko sedang dalam pengembangan.</p>
+        <p>Di sini nantinya akan tersedia berbagai produk resmi dan perlengkapan Gasmi.</p>
+        <p>Pantau terus halaman ini untuk informasi terbaru!</p>
     </div>
+</main>
 
-    <!-- === FOOTER === -->
-    <section class="footer-top">
-        <div class="footer-left">
-            <h2>Gasmi</h2>
-            <p>Jl. KH. Abdul Karim, Lirboyo, No. 45, Kec. Mojoroto, Kota Kediri.</p>
-        </div>
-        <div class="footer-right">
-            <h3>Kontak</h3>
-            <p>gasmihosting@gmail.com</p>
-            <p>6285878079700</p>
-            <p class="info-text">Atau terhubung dengan kami di:</p>
+<!-- ===== FOOTER ===== -->
+<footer>
+    <div>2026 © Gasmi</div>
+    <div class="footer-links">
+        <a href="hubungi-kami.html">Masuk</a>
+        <a href="hubungi-kami.html">Kontak</a>
+    </div>
+</footer>
 
-            <div class="social-icons">
-                <a href="https://facebook.com/" target="_blank" class="social-icon facebook"><i class="fab fa-facebook-f"></i></a>
-                <a href="https://www.instagram.com/gasmi.id" target="_blank" class="social-icon instagram"><i class="fab fa-instagram"></i></a>
-                <a href="https://youtube.com/" target="_blank" class="social-icon youtube"><i class="fab fa-youtube"></i></a>
-                <a href="https://twitter.com/" target="_blank" class="social-icon twitter"><i class="fab fa-twitter"></i></a>
-            </div>
-        </div>
-    </section>
-
-    <footer class="footer-bottom">
-        <p>2026 © Gasmi</p>
-        <div class="footer-links">
-            <a href="#">Masuk</a>
-            <a href="#">Kontak</a>
-        </div>
-    </footer>
+<!-- ===== SCRIPT LOADING ===== -->
+<script>
+    function mulaiLoading(event) {
+        event.preventDefault();
+        const tautan = event.currentTarget.href;
+        const loading = document.getElementById('layar-loading');
+        loading.classList.add('tampil');
+        setTimeout(function() {
+            window.location.href = tautan;
+        }, 1500);
+    }
+</script>
 
 </body>
 </html>
