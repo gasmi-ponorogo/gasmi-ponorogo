@@ -17,6 +17,58 @@
         }
 
 
+        /* ===================================== */
+        /* === TAMBAHAN: LAYAR LOADING === */
+        /* ===================================== */
+        #layar-loading {
+            position: fixed;
+            inset: 0;
+            background-color: #ffffff;
+            z-index: 99999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+
+        #layar-loading.tampil {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        .loading-logo {
+            font-size: 38px;
+            font-weight: 600;
+            color: #dd2222;
+            margin-bottom: 20px;
+            letter-spacing: 1px;
+        }
+
+        .loading-putar {
+            width: 45px;
+            height: 45px;
+            border: 5px solid #eeeeee;
+            border-top: 5px solid #dd2222;
+            border-radius: 50%;
+            animation: berputar 0.8s linear infinite;
+        }
+
+        #layar-loading p {
+            margin-top: 15px;
+            color: #555;
+            font-size: 15px;
+        }
+
+        @keyframes berputar {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        /* === AKHIR TAMBAHAN LOADING === */
+
+
         /* --- NAVBAR --- */
         .atas {
             display: flex;
@@ -27,14 +79,12 @@
             gap: 15px;
         }
 
-
         .logo a {
             font-size: 28px;
             font-weight: 500;
             color: #000033;
             text-decoration: none;
         }
-
 
         .nav-links a {
             text-decoration: none;
@@ -43,14 +93,12 @@
             font-size: 17px;
         }
 
-
         .nav-links a.aktif {
             color: #dd2222;
             font-weight: 600;
             border-bottom: 2px solid #dd2222;
             padding-bottom: 4px;
         }
-
 
         .tombol-merah {
             background-color: #dd2222;
@@ -79,7 +127,6 @@
             border-bottom-right-radius: 50% 15%;
         }
 
-
         .kotak-berita {
             width: 360px;
             height: 200px;
@@ -106,7 +153,6 @@
             gap: 30px;
         }
 
-
         .footer-utama h3 {
             font-size: 24px;
             color: #222244;
@@ -114,13 +160,11 @@
             font-weight: 600;
         }
 
-
         .footer-utama p {
             font-size: 16px;
             color: #444466;
             line-height: 1.7;
         }
-
 
         .medsos-teks {
             font-size: 17px;
@@ -128,12 +172,10 @@
             margin-bottom: 15px;
         }
 
-
         .medsos-ikon {
             display: flex;
             gap: 15px;
         }
-
 
         .medsos-ikon a {
             width: 42px;
@@ -169,7 +211,6 @@
             gap: 10px;
         }
 
-
         .footer-bawah a {
             color: #ffffff;
             text-decoration: none;
@@ -179,6 +220,7 @@
         .footer-bawah a:hover {
             color: #ffcccc;
         }
+
 
         /* --- RESPONSIVE --- */
         @media (max-width: 900px) {
@@ -191,18 +233,29 @@
 <body>
 
 
+<!-- ===================================== -->
+<!-- === TAMBAHAN: LAYAR LOADING === -->
+<!-- ===================================== -->
+<div id="layar-loading">
+    <div class="loading-logo">Gasmi</div>
+    <div class="loading-putar"></div>
+    <p>Memuat halaman...</p>
+</div>
+<!-- === AKHIR TAMBAHAN LOADING === -->
+
+
 <!-- NAVBAR -->
 <div class="atas">
-    <div class="logo"><a href="index.html">Gasmi</a></div>
+    <div class="logo"><a href="index.html" onclick="mulaiLoading(event)">Gasmi</a></div>
     <nav class="nav-links">
-        <a href="sejarah.html" class="aktif">Sejarah</a>
-        <a href="cari-murid.html">Cari Murid</a>
-        <a href="cari-pelatih.html">Cari Pelatih</a>
-        <a href="kantor-cabang.html">Kantor Cabang</a>
-        <a href="informasi.html">Informasi</a>
-        <a href="shop.html">Shop</a>
+        <a href="sejarah.html" class="aktif" onclick="mulaiLoading(event)">Sejarah</a>
+        <a href="cari-murid.html" onclick="mulaiLoading(event)">Cari Murid</a>
+        <a href="cari-pelatih.html" onclick="mulaiLoading(event)">Cari Pelatih</a>
+        <a href="kantor-cabang.html" onclick="mulaiLoading(event)">Kantor Cabang</a>
+        <a href="informasi.html" onclick="mulaiLoading(event)">Informasi</a>
+        <a href="shop.html" onclick="mulaiLoading(event)">Shop</a>
     </nav>
-    <a href="hubungi-kami.html" class="tombol-merah">Hubungi Kami</a>
+    <a href="hubungi-kami.html" class="tombol-merah" onclick="mulaiLoading(event)">Hubungi Kami</a>
 </div>
 
 
@@ -241,6 +294,25 @@
         <a href="hubungi-kami.html">Kontak</a>
     </div>
 </div>
+
+
+<!-- ===================================== -->
+<!-- === TAMBAHAN: FUNGSI LOADING === -->
+<!-- ===================================== -->
+<script>
+    function mulaiLoading(event) {
+        event.preventDefault(); // Tahan pindah halaman sebentar
+        const tautan = event.currentTarget.href; // Simpan alamat tujuan
+        const loading = document.getElementById('layar-loading');
+        loading.classList.add('tampil'); // Tampilkan layar loading
+
+        // Tunggu 1,5 detik lalu pindah halaman
+        setTimeout(function() {
+            window.location.href = tautan;
+        }, 1500);
+    }
+</script>
+<!-- === AKHIR TAMBAHAN LOADING === -->
 
 
 </body>
