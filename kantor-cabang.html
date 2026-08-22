@@ -18,12 +18,67 @@
             line-height: 1.6;
         }
 
+
+        /* ===================================== */
+        /* === TAMBAHAN: LAYAR LOADING === */
+        /* ===================================== */
+        #layar-loading {
+            position: fixed;
+            inset: 0;
+            background-color: #ffffff;
+            z-index: 99999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+
+        #layar-loading.tampil {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        .loading-logo {
+            font-size: 38px;
+            font-weight: 600;
+            color: #dd2222;
+            margin-bottom: 20px;
+            letter-spacing: 1px;
+        }
+
+        .loading-putar {
+            width: 45px;
+            height: 45px;
+            border: 5px solid #eeeeee;
+            border-top: 5px solid #dd2222;
+            border-radius: 50%;
+            animation: berputar 0.8s linear infinite;
+        }
+
+        #layar-loading p {
+            margin-top: 15px;
+            color: #555;
+            font-size: 15px;
+        }
+
+        @keyframes berputar {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        /* === AKHIR TAMBAHAN LOADING === */
+
+
         /* ===== Header & Navigasi ===== */
         header {
             display: flex;
             align-items: center;
             justify-content: space-between;
             padding: 24px 40px;
+            flex-wrap: wrap;
+            gap: 20px;
         }
 
         .logo {
@@ -33,13 +88,14 @@
             text-decoration: none;
         }
 
-        nav {
+        .nav-links {
             display: flex;
             gap: 40px;
             align-items: center;
+            flex-wrap: wrap;
         }
 
-        nav a {
+        .nav-links a {
             font-size: 18px;
             color: #444455;
             text-decoration: none;
@@ -47,7 +103,11 @@
             transition: all 0.2s;
         }
 
-        nav a.active {
+        .nav-links a:hover {
+            color: #dd2222;
+        }
+
+        .nav-links a.active {
             color: #dd2222;
             font-weight: 600;
             border-bottom: 2px solid #dd2222;
@@ -63,6 +123,11 @@
             text-decoration: none;
             border: none;
             cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        .hubungi-btn:hover {
+            background-color: #b91c1c;
         }
 
         /* ===== Bagian Konten ===== */
@@ -86,6 +151,8 @@
             box-shadow: 0 6px 18px rgba(0,0,0,0.06);
             text-align: center;
             margin-bottom: 70px;
+            margin-left: auto;
+            margin-right: auto;
         }
 
         .location-icon {
@@ -115,6 +182,7 @@
             justify-content: space-between;
             align-items: flex-start;
             gap: 40px;
+            flex-wrap: wrap;
         }
 
         .company-info h3 {
@@ -153,9 +221,7 @@
             gap: 14px;
         }
 
-        /* ====================================== */
-        /* ==== GAYA IKON SOSIAL SERAGAM ==== */
-        /* ====================================== */
+        /* ==== Gaya Ikon Sosial ==== */
         .social-icon {
             width: 44px;
             height: 44px;
@@ -172,15 +238,11 @@
         .social-icon svg {
             width: 20px;
             height: 20px;
-            fill: #888899; /* Warna ikon default: abu-abu */
+            fill: #888899;
             transition: fill 0.25s ease;
         }
 
-        /* ====================================== */
-        /* ==== HOVER: LATAR PENUH BERWARNA ==== */
-        /* ====================================== */
-
-        /* Facebook: Latar biru penuh + ikon putih */
+        /* Facebook */
         .social-icon.fb:hover {
             background-color: #1877F2;
             border-color: #1877F2;
@@ -189,7 +251,7 @@
             fill: #ffffff;
         }
 
-        /* Instagram: Latar merah muda penuh + ikon putih */
+        /* Instagram */
         .social-icon.ig:hover {
             background-color: #E4405F;
             border-color: #E4405F;
@@ -198,7 +260,7 @@
             fill: #ffffff;
         }
 
-        /* YouTube: Latar merah penuh + ikon putih */
+        /* YouTube */
         .social-icon.yt:hover {
             background-color: #FF0000;
             border-color: #FF0000;
@@ -207,7 +269,7 @@
             fill: #ffffff;
         }
 
-        /* Twitter: Latar biru penuh + ikon putih */
+        /* Twitter */
         .social-icon.tw:hover {
             background-color: #1DA1F2;
             border-color: #1DA1F2;
@@ -225,6 +287,8 @@
             justify-content: space-between;
             align-items: center;
             font-size: 16px;
+            flex-wrap: wrap;
+            gap: 10px;
         }
 
         .footer-links a {
@@ -232,22 +296,47 @@
             text-decoration: none;
             margin-left: 24px;
         }
+
+        .footer-links a:hover {
+            color: #ffcccc;
+        }
+
+        /* ===== Tampilan HP ===== */
+        @media (max-width: 900px) {
+            header { flex-direction: column; text-align: center; }
+            .nav-links { justify-content: center; gap: 20px; margin: 10px 0; }
+            .branch-card { width: 100%; }
+        }
     </style>
 </head>
 <body>
 
+
+<!-- ===================================== -->
+<!-- === TAMBAHAN: LAYAR LOADING === -->
+<!-- ===================================== -->
+<div id="layar-loading">
+    <div class="loading-logo">Gasmi</div>
+    <div class="loading-putar"></div>
+    <p>Memuat halaman...</p>
+</div>
+<!-- === AKHIR TAMBAHAN LOADING === -->
+
+
 <!-- ===== Header & Navigasi ===== -->
 <header>
-    <a href="#" class="logo">Gasmi</a>
-   <nav>
-    <a href="sejarah.html">Sejarah</a>
-    <a href="cari-murid.html">Cari Murid</a>
-    <a href="cari-pelatih.html">Cari Pelatih</a>
-    <a href="kantor-cabang.html" class="active">Kantor Cabang</a>
-    <a href="informasi.html">Informasi</a>
-    <a href="shop.html">Shop</a>
-</nav>
+    <a href="index.html" class="logo" onclick="mulaiLoading(event)">Gasmi</a>
+    <nav class="nav-links">
+        <a href="sejarah.html" onclick="mulaiLoading(event)">Sejarah</a>
+        <a href="cari-murid.html" onclick="mulaiLoading(event)">Cari Murid</a>
+        <a href="cari-pelatih.html" onclick="mulaiLoading(event)">Cari Pelatih</a>
+        <a href="kantor-cabang.html" class="active" onclick="mulaiLoading(event)">Kantor Cabang</a>
+        <a href="informasi.html" onclick="mulaiLoading(event)">Informasi</a>
+        <a href="shop.html" onclick="mulaiLoading(event)">Shop</a>
+    </nav>
+    <a href="hubungi-kami.html" class="hubungi-btn" onclick="mulaiLoading(event)">Hubungi Kami</a>
 </header>
+
 
 <!-- ===== Konten Halaman ===== -->
 <main>
@@ -263,6 +352,7 @@
     </div>
 </main>
 
+
 <!-- ===== Bagian Alamat & Kontak ===== -->
 <section class="info-section">
     <div class="company-info">
@@ -277,28 +367,28 @@
         <div class="social-icons">
 
             <!-- Facebook -->
-            <a href="https://facebook.com" target="_blank" class="social-icon fb" aria-label="Facebook">
+            <a href="https://facebook.com/" target="_blank" class="social-icon fb" aria-label="Facebook">
                 <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                     <path d="M15.997 24H8.003C3.582 24 0 20.418 0 16.003V7.997C0 3.582 3.582 0 7.997 0h8.006C20.418 0 24 3.582 24 7.997v8.006C24 20.418 20.418 24 15.997 24zm-3.406-6.432v-6.398h2.084l.307-2.412h-2.391v-1.538c0-.698.194-1.172 1.194-1.172h1.276V4.07c-.22-.029-.98-.094-1.864-.094-1.846 0-3.108 1.128-3.108 3.2v1.788H8.002v2.412h2.087v6.398z"/>
                 </svg>
             </a>
 
             <!-- Instagram -->
-            <a href="#" class="social-icon ig" aria-label="Instagram">
+            <a href="https://www.instagram.com/gasmi.id" target="_blank" class="social-icon ig" aria-label="Instagram">
                 <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M7.8 2h8.4C20 2 22 4 22 7.8v8.4a5.8 5.8 0 0 1-5.8 5.8H7.8C4 22 2 20 2 16.2V7.8A5.8 5.8 0 0 1 7.8 2zm-.2 2A3.6 3.6 0 0 0 4 7.6v8.8A3.6 3.6 0 0 0 7.6 20h8.8a3.6 3.6 0 0 0 3.6-3.6V7.6A3.6 3.6 0 0 0 16.4 4H7.6zm8.7 3.3a1.1 1.1 0 1 1 0 2.2 1.1 1.1 0 0 1 0-2.2zM12 7a5 5 0 1 1 0 10 5 5 0 0 1 0-10zm0 2a3 3 0 1 0 0 6 3 3 0 0 0 0-6z"/>
+                    <path d="M7.8 2h8.4C20 2 22 4 22 7.8v8.4a5.8 5.8 0 0 1-5.8 5.8H7.8C4 22 2 20 2 16.2V7.8A5.8 5.8 0 0 1 7.8 2zm-.2 2A3.6 3.6 0 0 0 4 7.6v8.8A3.6 3.6 0 0 0 7.6 20h8.8a3.6 3.6 0 0 0 3.6-3.6V7.6A3.6 3.6 0 0 0 16.4 4H7.6zm8.7 3.3a1.1 1.1 0 1 1 0 2.2 1.1 1.1 0 0 1 0-2.2zM12 7a5 5 0 1 1 0 10 5 5 0 0 1 0-10z"/>
                 </svg>
             </a>
 
             <!-- YouTube -->
-            <a href="#" class="social-icon yt" aria-label="YouTube">
+            <a href="https://youtube.com/" target="_blank" class="social-icon yt" aria-label="YouTube">
                 <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                     <path d="M22.54 6.54a2.78 2.78 0 0 0-1.96-1.97C18.88 4 12 4 12 4s-6.88 0-8.58.57A2.78 2.78 0 0 0 1.46 6.54C1 8.24 1 12 1 12s0 3.76.46 5.46a2.78 2.78 0 0 0 1.96 1.97c1.7.57 8.58.57 8.58.57s6.88 0 8.58-.57a2.78 2.78 0 0 0 1.96-1.97c.46-1.7.46-5.46.46-5.46s0-3.76-.46-5.46zM9.75 15.02V8.98L15.5 12l-5.75 3.02z"/>
                 </svg>
             </a>
 
-            <!-- Twitter Burung -->
-            <a href="https://twitter.com" target="_blank" class="social-icon tw" aria-label="Twitter">
+            <!-- Twitter -->
+            <a href="https://twitter.com/" target="_blank" class="social-icon tw" aria-label="Twitter">
                 <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                     <path d="M23.954 4.569c-.885.389-1.83.654-2.825.775 1.014-.611 1.794-1.574 2.163-2.723-.951.555-2.005.959-3.127 1.184-.896-.959-2.173-1.559-3.591-1.559-2.717 0-4.92 2.203-4.92 4.917 0 .39.045.765.127 1.124C7.691 8.094 4.066 6.13 1.64 3.161c-.427.722-.666 1.561-.666 2.475 0 1.71.87 3.213 2.188 4.096-.807-.026-1.566-.248-2.228-.616v.061c0 2.385 1.693 4.374 3.946 4.827-.413.111-.849.171-1.296.171-.314 0-.615-.03-.916-.086.631 1.953 2.445 3.377 4.604 3.417-1.68 1.319-3.809 2.105-6.102 2.105-.39 0-.779-.023-1.17-.067 2.189 1.394 4.768 2.209 7.557 2.209 9.054 0 14-7.503 14-14 0-.21 0-.42-.015-.63.961-.689 1.8-1.56 2.46-2.548l-.047-.02z"/>
                 </svg>
@@ -308,14 +398,33 @@
     </div>
 </section>
 
+
 <!-- ===== Footer ===== -->
 <footer>
     <div>2026 © Gasmi</div>
     <div class="footer-links">
-        <a href="#">Masuk</a>
-        <a href="#">Kontak</a>
+        <a href="hubungi-kami.html">Masuk</a>
+        <a href="hubungi-kami.html">Kontak</a>
     </div>
 </footer>
+
+
+<!-- ===================================== -->
+<!-- === TAMBAHAN: FUNGSI LOADING === -->
+<!-- ===================================== -->
+<script>
+    function mulaiLoading(event) {
+        event.preventDefault();
+        const tautan = event.currentTarget.href;
+        const loading = document.getElementById('layar-loading');
+        loading.classList.add('tampil');
+        setTimeout(function() {
+            window.location.href = tautan;
+        }, 1500);
+    }
+</script>
+<!-- === AKHIR TAMBAHAN LOADING === -->
+
 
 </body>
 </html>
