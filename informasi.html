@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sosok Pendiri GASMI</title>
+    <title>Informasi | GASMI</title>
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
     
@@ -19,19 +19,20 @@
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background-color: #ffffff;
             color: #333;
-            line-height: 1.8;
+            line-height: 1.6;
         }
 
         .container {
-            max-width: 900px;
+            max-width: 1200px;
             margin: 0 auto;
-            padding: 40px 5%;
+            padding: 30px 5%;
         }
 
+        /* --- BREADCRUMB --- */
         .breadcrumb {
             font-size: 15px;
             color: #777;
-            margin-bottom: 30px;
+            margin-bottom: 25px;
         }
 
         .breadcrumb a {
@@ -39,210 +40,159 @@
             text-decoration: none;
         }
 
-        .judul-artikel {
-            font-size: 32px;
+        /* --- JUDUL HALAMAN --- */
+        h1 {
+            font-size: 40px;
             color: #252547;
-            cursor: pointer;
-            transition: color 0.3s ease;
-            line-height: 1.4;
-            margin-bottom: 40px;
-            text-align: center;
+            margin-bottom: 35px;
         }
 
-        .judul-artikel.sentuh {
-            color: #e53935;
+        /* --- TATA LETAK UTAMA --- */
+        .bungkus {
+            display: grid;
+            grid-template-columns: 1fr 300px;
+            gap: 40px;
+            align-items: start;
         }
 
-        .isi-artikel h2 {
-            font-size: 24px;
-            color: #252547;
-            margin: 35px 0 15px;
-        }
-
-        .isi-artikel p {
-            margin-bottom: 18px;
-            text-align: justify;
-        }
-
-        .bagikan {
-            margin-top: 50px;
-            padding-top: 25px;
-            border-top: 1px solid #eee;
-        }
-
-        .bagikan h3 {
-            font-size: 17px;
-            margin-bottom: 15px;
-            color: #444;
-        }
-
-        .tautan-bagi {
+        /* --- DAFTAR ARTIKEL --- */
+        .daftar-artikel {
             display: flex;
-            gap: 10px;
-            flex-wrap: wrap;
+            flex-direction: column;
+            gap: 25px;
         }
 
-        .tautan-bagi a {
-            padding: 8px 16px;
-            border-radius: 6px;
-            color: #fff;
+        .kartu-artikel {
+            display: flex;
+            align-items: stretch;
+            background-color: #fff;
+            border-radius: 16px;
+            border: 1px solid #f1c0c0;
+            overflow: hidden;
             text-decoration: none;
-            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+
+        .kartu-artikel:hover {
+            border-color: #e53935;
+            transform: translateY(-2px);
+        }
+
+        .kartu-gambar {
+            width: 320px;
+            flex-shrink: 0;
+        }
+
+        .kartu-gambar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .kartu-teks {
+            padding: 30px;
             display: flex;
             align-items: center;
-            gap: 7px;
         }
 
-        .fb { background-color: #1877F2; }
-        .tw { background-color: #1DA1F2; }
-        .wa { background-color: #25D366; }
+        /* JUDUL AWAL WARNA HITAM */
+        .kartu-teks h2 {
+            font-size: 22px;
+            color: #1a1a2e; /* HITAM */
+            line-height: 1.4;
+            transition: color 0.3s ease;
+        }
 
-        .info-bawah {
-            margin-top: 50px;
-            padding: 30px;
+        /* SAAT DI SENTUH/DIARAHKAN KURSOR → MERAH */
+        .kartu-artikel:hover .kartu-teks h2 {
+            color: #e53935; /* MERAH */
+        }
+
+        /* --- KOTAK PENCARIAN KANAN --- */
+        .kotak-cari {
             background-color: #f8f9fa;
             border-radius: 12px;
+            padding: 25px;
+            height: fit-content;
         }
 
-        .info-bawah h3 {
-            font-size: 20px;
-            margin-bottom: 12px;
+        .kotak-cari h3 {
+            font-size: 18px;
+            margin-bottom: 15px;
+            color: #333;
         }
 
-        .info-bawah h4 {
-            margin-top: 15px;
-            font-size: 17px;
+        .kotak-cari input {
+            width: 100%;
+            padding: 12px 14px;
+            border: 1px solid #e8e8f0;
+            border-radius: 8px;
+            font-size: 15px;
+            background-color: #fff;
         }
 
-        .info-bawah p {
-            margin-bottom: 8px;
-            color: #555;
+        .kotak-cari input::placeholder {
+            color: #aaa;
         }
 
-        .info-bawah a {
-            color: #e53935;
-            text-decoration: none;
+        /* --- RESPONSIVE --- */
+        @media (max-width: 900px) {
+            .bungkus {
+                grid-template-columns: 1fr;
+            }
         }
 
-        .sosmed-bawah {
-            display: flex;
-            gap: 10px;
-            margin-top: 12px;
-        }
-
-        .sosmed-bawah a {
-            width: 38px;
-            height: 38px;
-            background-color: #e9ecef;
-            border-radius: 6px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #555;
-            text-decoration: none;
-            transition: all 0.3s;
-        }
-
-        .sosmed-bawah a:hover {
-            background-color: #e53935;
-            color: #fff;
-        }
-
-        .footer-bawah {
-            margin-top: 20px;
-            padding-top: 20px;
-            border-top: 1px solid #eee;
-            color: #777;
-            font-size: 14px;
+        @media (max-width: 700px) {
+            .kartu-artikel {
+                flex-direction: column;
+            }
+            .kartu-gambar {
+                width: 100%;
+                height: 200px;
+            }
         }
     </style>
 </head>
 <body>
 
 <div class="container">
+    <!-- Breadcrumb -->
     <div class="breadcrumb">
-        <a href="index.html">Rumah</a> &gt; <a href="informasi.html">Informasi</a> &gt; Sosok Pendiri GASMI KH. Abdullah Maksum Jauhari
+        <a href="index.html">Rumah</a> &gt; Informasi
     </div>
 
-    <h1 class="judul-artikel" id="judulKlik">Sosok Pendiri GASMI KH. Abdullah Maksum Jauhari</h1>
+    <!-- Judul Halaman -->
+    <h1>Informasi</h1>
 
-    <div class="isi-artikel">
-        <p>Muhammad Abdullah Maksum atau KH. Maksum Jauhari, yang biasa disebut Gus Maksum. Sang Pendekar Gondrong dari pondok pesantren Lirboyo, adalah salah satu kiai Nahdlatul Ulama yang memiliki peranan besar dalam perkembangan Islam di Jawa Timur. Beliau merupakan kiai yang nyentrik dan mempunyai kharisma khusus, terutama dalam bidang Kanuragan.</p>
+    <div class="bungkus">
+        <!-- Daftar Artikel -->
+        <div class="daftar-artikel">
+            <a href="sosok-pendiri.html" class="kartu-artikel">
+                <div class="kartu-gambar">
+                    <img src="artikel2.jpg" alt="Sosok Pendiri GASMI KH. Abdullah Maksum Jauhari">
+                </div>
+                <div class="kartu-teks">
+                    <h2>Sosok Pendiri GASMI KH. Abdullah Maksum Jauhari</h2>
+                </div>
+            </a>
 
-        <p>Beliau lahir di Kanigoro, Kras, Kediri, pada tanggal 6 Agustus 1944 M., beliau merupakan cucu pendiri Pondok Pesantren Lirboyo, KH. Abdul Karim. Tidak heran jika beliau menjadi begitu tersohor, bukan karena kelincahan gerak silatnya saja, melainkan juga karena sikap arif dan kharisma beliau sebagai sosok kiai turut menjadikan sosok beliau begitu disegani oleh khalayak umum.</p>
-
-        <p>Kakeknya, KH. Abdul Karim merupakan salah satu santri Hadratussyaikh KH. Hasyim Asy'ari, pendiri Pondok Pesantren Tebuireng Jombang sekaligus pendiri Jam'iyyah Nahdhotul Ulama'. Di bawah didikan Mbah Hasyim dengan tradisi keilmuan khas Tebuireng Jombang, kematangan pribadi Kiai Abdul Karim banyak terbentuk dan terasah ketika nyantri di Tebuireng. Beliau juga teman satu generasi dengan ulama kharismatik dari Cirebon, KH. Abbas Buntet, yang dikenal sebagai ulama sakti mandraguna.</p>
-
-        <p>Gus Maksum lahir saat Indonesia menghadapi revolusi pertama untuk merebut kemerdekaan. Sejak lahir, beliau telah merasakan pahit getirnya bangsa. Hal ini membentuk karakter Gus Maksum yang gigih, pemberani, dan sangat benci terhadap kemungkaran, terutama yang menyangkut kedaulatan NKRI.</p>
-
-        <p>KH. Maksum Jauhari adalah murid dari ayahnya sendiri, KH. Abdullah Jauhari. Selain belajar kepada ayahnya, beliau menempuh pendidikan di SD Kanigoro pada tahun 1957, lalu melanjutkan ke Madrasah Tsanawiyah Lirboyo namun tidak sampai tamat.</p>
-
-        <p>Gus Maksum dinilai terlalu jenius dan cerdas. Bagi beliau, pendidikan bukan hanya dari bangku sekolah, melainkan dari pengalaman kehidupan. Beliau lebih senang mengembara ke berbagai daerah untuk berguru ilmu silat, tenaga dalam, pengobatan, dan kejadukan.</p>
-
-        <p>KH. Maksum Jauhari merupakan pimpinan Pondok Pesantren Lirboyo. Di kalangan warga Nahdliyin, beliau dikenal bukan hanya sebagai kiai, melainkan juga sebagai pendekar. Selain pandai mengaji kitab kuning, beliau juga ahli dalam seni bela diri atau silat. Rutinitas beliau sejak kecil tidak hanya mengaji, melainkan juga gemar mengembara ke berbagai daerah di Pulau Jawa untuk berguru ilmu silat.</p>
-
-        <p>Penampilan beliau nyentrik: berambut gondrong, berjenggot dan berkumis panjang, bersarung setinggi lutut, memakai bakiak, berpakaian seadanya, dan tidak makan nasi (ngrowot). Di kalangan dunia persilatan, beliau dikenal sangat mahir dan menguasai berbagai aliran silat dengan sempurna.</p>
-
-        <h2>Pengajaran Pencak Silat GASMI</h2>
-
-        <p>Pencak silat GASMI sangat identik dengan sosok KH. Maksum Jauhari. Pola pengajaran dikelompokkan menjadi tiga tahap:</p>
-
-        <p><strong>Pertama, Pengajaran Teknik.</strong> Seorang pesilat dikenalkan dengan berbagai jurus, gerak, menangkis, memukul, menendang, dan sebagainya.</p>
-
-        <p><strong>Kedua, Pengajaran Fisik.</strong> Dilatih kemampuan dan keuletan tubuh untuk menyeimbangkan kemampuan teknik.</p>
-
-        <p><strong>Ketiga, Pengajaran Mental Spiritual.</strong> Dilatih dengan amalan spiritual guna memperkuat batin. Sehingga pesilat GASMI harus kuat secara fisik, teknik, dan batin.</p>
-
-        <p>Intuisi yang peka dan kepedulian sosial yang tinggi akan dimiliki pesilat yang telah menguasai aspek spiritual. Pendekar sejati bukan hanya mampu menaklukkan musuh, melainkan juga mampu melawan hawa nafsunya sendiri.</p>
-
-        <p>GASMI melatih fisik sekaligus ketahanan mental dan keyakinan diri. Refleks dicapai melalui wirid dan dzikir yang dilakukan secara istiqomah.</p>
-
-        <p>Pencak silat GASMI adalah olahraga dan seni bela diri murni, bukan kekuatan karomah. Kuncinya adalah latihan dan doa — berlatih keras dan dibarengi doa kepada Allah SWT.</p>
-
-        <p>Tiga paket gerakan: Tendang, Pukul, dan Banting. Ketiganya dapat dikombinasikan untuk mengalahkan lawan.</p>
-
-        <p>Pada awal berdirinya, para santri dituntut mampu membela diri dari gangguan orang jahat. Sehingga GASMI sangat identik dengan santri Lirboyo. Namun pada akhirnya, GASMI bukan hanya untuk menjaga diri, melainkan mengandung banyak nilai luhur.</p>
-
-        <div class="bagikan">
-            <h3>Bagikan:</h3>
-            <div class="tautan-bagi">
-                <a href="https://www.facebook.com/sharer/sharer.php?u=https://gasmi.id/info/sosok-pendiri-gasmi-kh-abdullah-maksum-jauhari" target="_blank" class="fb"><i class="fab fa-facebook-f"></i> Facebook</a>
-                <a href="https://twitter.com/intent/tweet?url=https://gasmi.id/info/sosok-pendiri-gasmi-kh-abdullah-maksum-jauhari&text=Sosok%20Pendiri%20GASMI%20KH.%20Abdullah%20Maksum%20Jauhari" target="_blank" class="tw"><i class="fab fa-twitter"></i> Twitter</a>
-                <a href="https://wa.me/?text=Sosok%20Pendiri%20GASMI%20KH.%20Abdullah%20Maksum%20Jauhari%0A%0Ahttps://gasmi.id/info/sosok-pendiri-gasmi-kh-abdullah-maksum-jauhari" target="_blank" class="wa"><i class="fab fa-whatsapp"></i> WhatsApp</a>
-            </div>
+            <a href="silsilah-keluarga.html" class="kartu-artikel">
+                <div class="kartu-gambar">
+                    <img src="artikel3.jpg" alt="Silsilah Keluarga KH. Maksum Jauhari (Gus Maksum)">
+                </div>
+                <div class="kartu-teks">
+                    <h2>Silsilah Keluarga KH. Maksum Jauhari (Gus Maksum)</h2>
+                </div>
+            </a>
         </div>
 
-        <div class="info-bawah">
-            <h3>Gasmi</h3>
-            <p>Jl. KH. Abdul Karim, Lirboyo, No. 45, Kec. Mojoroto, Kota Kediri.</p>
-
-            <h4>Kontak</h4>
-            <p><a href="mailto:gasmihosting@gmail.com">gasmihosting@gmail.com</a></p>
-            <p><a href="tel:6285878079700">6285878079700</a></p>
-
-            <p>Atau terhubung dengan kami di:</p>
-            <div class="sosmed-bawah">
-                <a href="https://facebook.com/" target="_blank"><i class="fab fa-facebook-f"></i></a>
-                <a href="https://www.instagram.com/gasmi.id" target="_blank"><i class="fab fa-instagram"></i></a>
-                <a href="https://youtube.com/" target="_blank"><i class="fab fa-youtube"></i></a>
-                <a href="https://twitter.com/" target="_blank"><i class="fab fa-twitter"></i></a>
-            </div>
-
-            <div class="footer-bawah">
-                2026 © <a href="https://gasmi.id/">gasmi.id</a> |
-                <a href="https://gasmi.id/login">Masuk</a> |
-                <a href="#">Kembali ke atas</a>
-            </div>
+        <!-- Kotak Pencarian -->
+        <div class="kotak-cari">
+            <h3>Cari Info</h3>
+            <input type="text" placeholder="Cari">
         </div>
     </div>
 </div>
-
-<script>
-    const judul = document.getElementById('judulKlik');
-    judul.addEventListener('click', function() {
-        judul.classList.toggle('sentuh');
-    });
-</script>
 
 </body>
 </html>
