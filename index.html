@@ -14,7 +14,6 @@
             box-sizing: border-box;
         }
 
-
         html, body {
             width: 100%;
             margin: 0;
@@ -24,11 +23,9 @@
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
 
-
         body {
             background-color: #ffffff;
         }
-
 
         /* --- LOADING SCREEN --- */
         #loading-screen {
@@ -42,7 +39,6 @@
             flex-direction: column;
         }
 
-
         .loading-logo {
             font-size: 38px;
             font-weight: 600;
@@ -50,7 +46,6 @@
             margin-bottom: 20px;
             letter-spacing: 1px;
         }
-
 
         .loading-spinner {
             width: 45px;
@@ -61,19 +56,16 @@
             animation: putar 0.8s linear infinite;
         }
 
-
         #loading-screen p {
             margin-top: 15px;
             color: #555;
             font-size: 15px;
         }
 
-
         @keyframes putar {
             from { transform: rotate(0deg); }
             to { transform: rotate(360deg); }
         }
-
 
         /* --- NAVBAR --- */
         .navbar {
@@ -90,19 +82,16 @@
             gap: 15px;
         }
 
-
         .logo {
             font-size: 27px;
             font-weight: 500;
             letter-spacing: 0.5px;
         }
 
-
         .logo a {
             text-decoration: none;
             color: #000000;
         }
-
 
         .nav-links a {
             text-decoration: none;
@@ -112,11 +101,9 @@
             font-weight: 500;
         }
 
-
         .nav-links a:hover {
             color: #e53935;
         }
-
 
         .btn-kontak {
             background-color: #e53935;
@@ -129,7 +116,6 @@
             display: inline-block !important;
         }
 
-
         /* --- SLIDER --- */
         .hero-slider {
             width: 100%;
@@ -141,13 +127,11 @@
             background-color: #ddd;
         }
 
-
         .isi-slider {
             width: 100%;
             height: 100%;
             position: relative;
         }
-
 
         .slide {
             position: absolute;
@@ -159,18 +143,15 @@
             transition: opacity 0.8s ease-in-out;
         }
 
-
         .slide.aktif {
             opacity: 1;
         }
-
 
         .slide img {
             width: 100%;
             height: 100%;
             object-fit: cover;
         }
-
 
         /* --- PANAH --- */
         .panah {
@@ -192,11 +173,9 @@
             transition: all 0.2s ease;
         }
 
-
         .panah:hover { background-color: #fff; }
         .panah-kiri { left: 15px; }
         .panah-kanan { right: 15px; }
-
 
         /* --- TOMBOL SLIDER --- */
         .tombol-bawah {
@@ -209,7 +188,6 @@
             z-index: 20;
         }
 
-
         .lingkaran {
             width: 14px;
             height: 14px;
@@ -219,12 +197,10 @@
             border: none;
         }
 
-
         .lingkaran.aktif {
             background-color: #ffffff;
             transform: scale(1.2);
         }
-
 
         /* --- ARTIKEL --- */
         .artikel-container {
@@ -236,7 +212,6 @@
             margin: 40px 0;
         }
 
-
         .card {
             background-color: #fff;
             border-radius: 16px;
@@ -244,12 +219,10 @@
             box-shadow: 0 4px 12px rgba(0,0,0,0.05);
         }
 
-
         .card-gambar {
             width: 100%;
             height: 250px;
         }
-
 
         .card-gambar img {
             width: 100%;
@@ -257,18 +230,15 @@
             object-fit: cover;
         }
 
-
         .card-isi {
             padding: 20px;
         }
-
 
         .card-tanggal {
             font-size: 13px;
             color: #888;
             margin-bottom: 10px;
         }
-
 
         .card-judul a {
             font-size: 19px;
@@ -278,7 +248,6 @@
             line-height: 1.5;
             display: block;
         }
-
 
         /* --- SOSMED DI BAWAH ARTIKEL --- */
         .sosmed-bawah-artikel {
@@ -306,6 +275,61 @@
         .sosmed-bawah-artikel a:nth-child(3):hover { background-color: #FF0000; border-color: #FF0000; color: #fff; transform: translateY(-3px); }
         .sosmed-bawah-artikel a:nth-child(4):hover { background-color: #1DA1F2; border-color: #1DA1F2; color: #fff; transform: translateY(-3px); }
 
+        /* --- INFO KONTAK BARU --- */
+        .info-kontak {
+            padding: 40px 5%;
+            background-color: #f8f9fa;
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 30px;
+        }
+
+        .info-kiri h3 {
+            font-size: 24px;
+            margin-bottom: 12px;
+            color: #222;
+        }
+
+        .info-kiri p {
+            color: #555;
+            line-height: 1.6;
+        }
+
+        .info-kanan h3 {
+            font-size: 20px;
+            margin-bottom: 12px;
+            color: #222;
+        }
+
+        .info-kanan p {
+            color: #555;
+            margin-bottom: 8px;
+        }
+
+        .info-sosmed {
+            display: flex;
+            gap: 10px;
+            margin-top: 12px;
+        }
+
+        .info-sosmed a {
+            width: 40px;
+            height: 40px;
+            background-color: #e9ecef;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #555;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .info-sosmed a:hover:nth-child(1) { background-color: #1877F2; color: #fff; }
+        .info-sosmed a:hover:nth-child(2) { background-color: #E4405F; color: #fff; }
+        .info-sosmed a:hover:nth-child(3) { background-color: #FF0000; color: #fff; }
+        .info-sosmed a:hover:nth-child(4) { background-color: #1DA1F2; color: #fff; }
 
         /* --- FOOTER BAWAH --- */
         .footer-bawah {
@@ -320,7 +344,6 @@
             gap: 10px;
         }
 
-
         .footer-bawah a {
             color: #ddd;
             text-decoration: none;
@@ -331,24 +354,21 @@
             color: #fff;
         }
 
-
         /* --- RESPONSIVE --- */
         @media (max-width: 992px) {
             .artikel-container { grid-template-columns: repeat(2, 1fr); }
         }
 
-
         @media (max-width: 768px) {
             .navbar { flex-direction: column; gap: 15px; }
             .artikel-container { grid-template-columns: 1fr; }
             .hero-slider { height: 400px; }
+            .info-kontak { flex-direction: column; }
         }
     </style>
 </head>
 
-
 <body>
-
 
 <!-- =========================
      LOADING SCREEN
@@ -359,8 +379,6 @@
     <p>Memuat halaman...</p>
 </div>
 
-
-
 <!-- =========================
      NAVBAR
 ========================= -->
@@ -368,7 +386,6 @@
     <div class="logo">
         <a href="index.html" onclick="mulaiLoading(event)">Gasmi</a>
     </div>
-
 
     <nav class="nav-links">
         <a href="sejarah.html" onclick="mulaiLoading(event)">Sejarah</a>
@@ -379,11 +396,8 @@
         <a href="shop.html" onclick="mulaiLoading(event)">Shop</a>
     </nav>
 
-
     <a href="hubungi-kami.html" class="btn-kontak" onclick="mulaiLoading(event)">Hubungi Kami</a>
 </header>
-
-
 
 <!-- =========================
      SLIDER
@@ -402,8 +416,6 @@
         <button class="lingkaran" data-ke="2"></button>
     </div>
 </section>
-
-
 
 <!-- =========================
      ARTIKEL
@@ -432,8 +444,6 @@
     </article>
 </section>
 
-
-
 <!-- =========================
      SOSMED DI BAWAH ARTIKEL
 ========================= -->
@@ -444,7 +454,27 @@
     <a href="https://twitter.com/" target="_blank"><i class="fab fa-twitter"></i></a>
 </div>
 
-
+<!-- =========================
+     INFO KONTAK BARU
+========================= -->
+<section class="info-kontak">
+    <div class="info-kiri">
+        <h3>Gasmi</h3>
+        <p>Jl. KH. Abdul Karim, Lirboyo, No. 45, Kec. Mojoroto, Kota Kediri.</p>
+    </div>
+    <div class="info-kanan">
+        <h3>Kontak</h3>
+        <p>gasmihosting@gmail.com</p>
+        <p>6285878079700</p>
+        <p>Atau terhubung dengan kami di:</p>
+        <div class="info-sosmed">
+            <a href="https://facebook.com/" target="_blank"><i class="fab fa-facebook-f"></i></a>
+            <a href="https://www.instagram.com/gasmi.id" target="_blank"><i class="fab fa-instagram"></i></a>
+            <a href="https://youtube.com/" target="_blank"><i class="fab fa-youtube"></i></a>
+            <a href="https://twitter.com/" target="_blank"><i class="fab fa-twitter"></i></a>
+        </div>
+    </div>
+</section>
 
 <!-- =========================
      FOOTER BAWAH
@@ -456,8 +486,6 @@
         <a href="hubungi-kami.html" onclick="mulaiLoading(event)">Kontak</a>
     </div>
 </div>
-
-
 
 <!-- =========================
      JAVASCRIPT
@@ -473,13 +501,11 @@
         }, 1500);
     }
 
-
     const semuaSlide = document.querySelectorAll('.slide');
     const semuaTombol = document.querySelectorAll('.lingkaran');
     const panahKiri = document.querySelector('.panah-kiri');
     const panahKanan = document.querySelector('.panah-kanan');
     let slideSekarang = 0;
-
 
     function tampilkanSlide(indeks) {
         if (indeks < 0) indeks = semuaSlide.length - 1;
@@ -489,12 +515,10 @@
         slideSekarang = indeks;
     }
 
-
     semuaTombol.forEach((tombol, indeks) => tombol.addEventListener('click', () => tampilkanSlide(indeks)));
     panahKiri.addEventListener('click', () => tampilkanSlide(slideSekarang - 1));
     panahKanan.addEventListener('click', () => tampilkanSlide(slideSekarang + 1));
 </script>
-
 
 </body>
 </html>
