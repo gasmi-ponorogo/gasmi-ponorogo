@@ -22,10 +22,57 @@
             line-height: 1.8;
         }
 
+        /* --- MENU NAVIGASI ATAS --- */
+        .menu-atas {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 20px 5%;
+            border-bottom: 1px solid #eee;
+        }
+
+        .menu-logo {
+            font-size: 28px;
+            font-weight: bold;
+            color: #252547;
+            text-decoration: none;
+        }
+
+        .menu-tautan {
+            display: flex;
+            gap: 35px;
+            align-items: center;
+        }
+
+        .menu-tautan a {
+            font-size: 17px;
+            color: #444;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .menu-tautan a:hover {
+            color: #e53935;
+        }
+
+        .tombol-hubungi {
+            background-color: #e53935;
+            color: #fff !important;
+            padding: 10px 22px;
+            border-radius: 6px;
+            font-weight: 500;
+        }
+
+        .tombol-hubungi:hover {
+            background-color: #c62828;
+            color: #fff !important;
+        }
+
+        /* --- KOTAK UTAMA --- */
         .container {
-            max-width: 1100px;
+            max-width: 1200px;
             margin: 0 auto;
-            padding: 30px 5%;
+            padding: 40px 5%;
         }
 
         /* --- BREADCRUMB --- */
@@ -115,7 +162,7 @@
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 40px;
-            padding: 40px 5%;
+            padding: 50px 5%;
             background-color: #f8f9fa;
             margin: 0 -5.55%;
         }
@@ -169,30 +216,39 @@
             border-color: #e53935;
         }
 
-        /* --- FOOTER --- */
-        .footer-bawah {
+        /* --- FOOTER PALING BAWAH --- */
+        .footer-paling-bawah {
             background-color: #252547;
             color: #fff;
             padding: 20px 5%;
             margin: 0 -5.55%;
-            margin-top: 2px;
             display: flex;
             justify-content: space-between;
             align-items: center;
             font-size: 15px;
         }
 
-        .footer-bawah a {
+        .footer-paling-bawah a {
             color: #fff;
             text-decoration: none;
             margin-left: 20px;
         }
 
-        .footer-bawah a:hover {
+        .footer-paling-bawah a:hover {
             color: #e53935;
         }
 
         /* --- RESPONSIVE --- */
+        @media (max-width: 900px) {
+            .menu-atas {
+                flex-wrap: wrap;
+                gap: 15px;
+            }
+            .menu-tautan {
+                gap: 18px;
+            }
+        }
+
         @media (max-width: 768px) {
             .info-bawah {
                 grid-template-columns: 1fr;
@@ -208,6 +264,20 @@
 </head>
 <body>
 
+    <!-- MENU NAVIGASI ATAS -->
+    <div class="menu-atas">
+        <a href="index.html" class="menu-logo">Gasmi</a>
+        <nav class="menu-tautan">
+            <a href="sejarah.html">Sejarah</a>
+            <a href="cari-murid.html">Cari Murid</a>
+            <a href="cari-pelatih.html">Cari Pelatih</a>
+            <a href="kantor-cabang.html">Kantor Cabang</a>
+            <a href="informasi.html">Informasi</a>
+            <a href="shop.html">Shop</a>
+            <a href="#" class="tombol-hubungi">Hubungi Kami</a>
+        </nav>
+    </div>
+
 <div class="container">
     <!-- Breadcrumb -->
     <div class="breadcrumb">
@@ -219,7 +289,7 @@
 
     <!-- Gambar Utama -->
     <div class="gambar-utama">
-       <img src="artikel3.jpg?v=2" alt="Silsilah Keluarga KH. Maksum Jauhari (Gus Maksum)">
+        <img src="artikel3.jpg" alt="Silsilah Keluarga KH. Maksum Jauhari (Gus Maksum)">
     </div>
 
     <!-- Isi Artikel -->
@@ -258,7 +328,7 @@
     </div>
 </div>
 
-    <!-- Info Bawah -->
+    <!-- INFO BAWAH -->
     <div class="info-bawah">
         <div class="info-kiri">
             <h3>Gasmi</h3>
@@ -278,8 +348,8 @@
         </div>
     </div>
 
-    <!-- Footer -->
-    <div class="footer-bawah">
+    <!-- FOOTER PALING BAWAH -->
+    <div class="footer-paling-bawah">
         <span>2026 © Gasmi</span>
         <div>
             <a href="https://gasmi.id/login">Masuk</a>
