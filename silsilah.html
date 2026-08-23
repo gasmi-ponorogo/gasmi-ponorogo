@@ -3,368 +3,222 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Silsilah Keluarga KH. Maksum Jauhari (Gus Maksum) | Gasmi</title>
-
-    <!-- Font Awesome -->
+    <title>Silsilah Keluarga KH. Maksum Jauhari (Gus Maksum) | GASMI</title>
+    
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
-
+    
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
         }
 
-        body {
-            color: #334155;
-            line-height: 1.8;
+        html, body {
+            width: 100%;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background-color: #ffffff;
+            color: #333;
+            line-height: 1.8;
         }
 
-        a {
-            text-decoration: none;
-            color: inherit;
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px 5%;
         }
 
-        /* === HEADER & MENU === */
-        header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 16px 32px;
-            border-bottom: 1px solid #f1f5f9;
-        }
-
-        .logo {
-            font-size: 28px;
-            font-weight: 700;
-            color: #1e293b;
-        }
-
-        .nav-menu {
-            display: flex;
-            gap: 36px;
-            align-items: center;
-        }
-
-        .nav-menu a {
-            font-size: 16px;
-            color: #475569;
-            padding: 8px 4px;
-            transition: color 0.2s;
-        }
-
-        .nav-menu a:hover {
-            color: #1e293b;
-        }
-
-        .nav-menu a.active {
-            color: #dc2626;
-            font-weight: 600;
-            border-bottom: 2px solid #dc2626;
-        }
-
-        .btn-hubungi {
-            background-color: #dc2626;
-            color: #ffffff;
-            padding: 10px 24px;
-            border-radius: 8px;
-            font-weight: 600;
-            transition: background-color 0.2s;
-        }
-
-        .btn-hubungi:hover {
-            background-color: #b91c1c;
-        }
-
-        /* === BREADCRUMB === */
+        /* --- BREADCRUMB --- */
         .breadcrumb {
-            padding: 24px 32px 8px;
             font-size: 15px;
-            color: #64748b;
+            color: #777;
+            margin-bottom: 30px;
         }
 
         .breadcrumb a {
-            color: #64748b;
-            transition: color 0.2s;
+            color: #e53935;
+            text-decoration: none;
         }
 
-        .breadcrumb a:hover {
-            color: #dc2626;
+        /* --- JUDUL --- */
+        h1 {
+            font-size: 32px;
+            color: #252547;
+            margin-bottom: 35px;
+            line-height: 1.4;
         }
 
-        .breadcrumb span {
-            margin: 0 10px;
-        }
-
-        /* === KONTEN UTAMA === */
-        .content-wrapper {
-            padding: 0 32px 48px;
-            max-width: 900px;
-            margin: 0 auto;
-        }
-
-        /* === JUDUL ARTIKEL === */
-        .article-title {
-            padding: 8px 0 24px;
-            font-size: 38px;
-            font-weight: 700;
-            color: #374151;
-            line-height: 1.3;
-        }
-
-        /* === GAMBAR ARTIKEL === */
-        .article-image {
-            width: 100%;
-            margin-bottom: 32px;
-        }
-
-        .article-image img {
-            width: 100%;
-            height: auto;
-            object-fit: cover;
-        }
-
-        /* === ISI NARASI === */
-        .article-body {
-            font-size: 16px;
-            color: #4b5563;
-        }
-
-        .article-body p {
-            margin-bottom: 20px;
+        /* --- ISI ARTIKEL --- */
+        .isi-artikel p {
+            margin-bottom: 18px;
             text-align: justify;
         }
 
-        /* === BAGIKAN === */
-        .share-section {
-            padding: 32px 0;
-            border-top: 1px solid #e5e7eb;
-            display: flex;
-            align-items: center;
-            justify-content: flex-end;
-            gap: 12px;
+        /* --- BAGIAN BERBAGI --- */
+        .bagikan {
+            margin-top: 50px;
+            padding-top: 25px;
+            border-top: 1px solid #eee;
         }
 
-        .share-title {
-            font-size: 16px;
-            font-weight: 600;
-            color: #475569;
+        .bagikan h3 {
+            font-size: 17px;
+            margin-bottom: 15px;
+            color: #444;
         }
 
-        .share-icons {
+        .tautan-bagi {
             display: flex;
             gap: 10px;
+            flex-wrap: wrap;
         }
 
-        .share-icon {
+        .tautan-bagi a {
+            padding: 8px 16px;
+            border-radius: 6px;
+            color: #fff;
+            text-decoration: none;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 7px;
+        }
+
+        .fb { background-color: #1877F2; }
+        .tw { background-color: #1DA1F2; }
+        .wa { background-color: #25D366; }
+
+        /* --- INFO KONTAK BAWAH --- */
+        .info-bawah {
+            margin-top: 50px;
+            padding: 30px;
+            background-color: #f8f9fa;
+            border-radius: 12px;
+        }
+
+        .info-bawah h3 {
+            font-size: 20px;
+            margin-bottom: 12px;
+        }
+
+        .info-bawah h4 {
+            margin-top: 15px;
+            font-size: 17px;
+        }
+
+        .info-bawah p {
+            margin-bottom: 8px;
+            color: #555;
+        }
+
+        .info-bawah a {
+            color: #e53935;
+            text-decoration: none;
+        }
+
+        .sosmed-bawah {
+            display: flex;
+            gap: 10px;
+            margin-top: 12px;
+        }
+
+        .sosmed-bawah a {
+            width: 38px;
+            height: 38px;
+            background-color: #e9ecef;
+            border-radius: 6px;
             display: flex;
             align-items: center;
             justify-content: center;
-            width: 40px;
-            height: 40px;
-            border-radius: 8px;
-            border: 1px solid #e5e7eb;
-            color: #374151;
-            font-size: 18px;
-            transition: all 0.2s;
+            color: #555;
+            text-decoration: none;
+            transition: all 0.3s;
         }
 
-        .share-icon:hover {
-            background-color: #f3f4f6;
+        .sosmed-bawah a:hover {
+            background-color: #e53935;
+            color: #fff;
         }
 
-        /* === FOOTER === */
-        .footer-top {
-            display: flex;
-            justify-content: space-between;
-            padding: 40px 32px;
-            background-color: #f8fafc;
-            border-top: 1px solid #f1f5f9;
+        .footer-bawah {
             margin-top: 20px;
-        }
-
-        .footer-left h2 {
-            font-size: 24px;
-            margin-bottom: 12px;
-            color: #1e293b;
-        }
-
-        .footer-left p {
-            color: #475569;
-            font-size: 16px;
-        }
-
-        .footer-right h3 {
-            font-size: 22px;
-            margin-bottom: 14px;
-            color: #1e293b;
-        }
-
-        .footer-right p {
-            margin-bottom: 6px;
-            color: #475569;
-        }
-
-        .footer-right .info-text {
-            margin-top: 16px;
-            margin-bottom: 12px;
-            font-size: 16px;
-        }
-
-        .social-icons {
-            display: flex;
-            gap: 12px;
-        }
-
-        .social-icon {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 42px;
-            height: 42px;
-            background-color: #ffffff;
-            color: #64748b;
-            border: 1px solid #e2e8f0;
-            border-radius: 10px;
-            font-size: 18px;
-            transition: all 0.3s ease;
-        }
-
-        .social-icon:hover {
-            background-color: #2563eb;
-            color: #ffffff;
-            border-color: #2563eb;
-        }
-
-        .social-icon.facebook:hover { background-color: #1877f2; border-color: #1877f2; }
-        .social-icon.instagram:hover { background-color: #e1306c; border-color: #e1306c; }
-        .social-icon.youtube:hover { background-color: #ff0000; border-color: #ff0000; }
-        .social-icon.twitter:hover { background-color: #1da1f2; border-color: #1da1f2; }
-
-        .footer-bottom {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 16px 32px;
-            background-color: #1e293b;
-            color: #cbd5e1;
-            font-size: 15px;
-        }
-
-        .footer-links a {
-            color: #e2e8f0;
-            margin-left: 24px;
-        }
-
-        .footer-links a:hover {
-            text-decoration: underline;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+            color: #777;
+            font-size: 14px;
         }
     </style>
 </head>
 <body>
 
-    <!-- === HEADER & MENU === -->
-   <header>
-    <a href="index.html" class="logo">Gasmi</a>
-    <nav class="nav-menu">
-        <a href="sejarah.html">Sejarah</a>
-        <a href="cari-murid.html">Cari Murid</a>
-        <a href="cari-pelatih.html">Cari Pelatih</a>
-        <a href="kantor-cabang.html">Kantor Cabang</a>
-        <a href="informasi.html" class="active">Informasi</a>
-        <a href="shop.html">Shop</a>
-    </nav>
-    <a href="hubungi-kami.html" class="btn-hubungi">Hubungi Kami</a>
-</header>
-
-    <!-- === BREADCRUMB === -->
+<div class="container">
+    <!-- Breadcrumb -->
     <div class="breadcrumb">
-        <a href="#">Rumah</a>
-        <span>&gt;</span>
-        <a href="informasi.html">Informasi</a>
-        <span>&gt;</span>
-        <span>Silsilah Keluarga KH. Maksum Jauhari (Gus Maksum)</span>
+        <a href="index.html">Rumah</a> &gt; <a href="informasi.html">Informasi</a> &gt; Silsilah Keluarga KH. Maksum Jauhari (Gus Maksum)
     </div>
 
-    <!-- === KONTEN === -->
-    <div class="content-wrapper">
-        <h1 class="article-title">Silsilah Keluarga KH. Maksum Jauhari (Gus Maksum)</h1>
+    <!-- Judul Halaman -->
+    <h1>Silsilah Keluarga KH. Maksum Jauhari (Gus Maksum)</h1>
 
-        <div class="article-image">
-            <img src="images/artikel3.jpg" alt="Silsilah Keluarga KH. Maksum Jauhari (Gus Maksum)">
-        </div>
+    <!-- Isi Artikel -->
+    <div class="isi-artikel">
+        <p>Pondok pesantren Lirboyo merupakan salah satu pondok pesantren yang berdiri sebelum kemerdekaan NKRI, berdiri pada tahun 1910 M, didirikan oleh KH. Abdul Karim, Ulama yang menjadi murid kinasih dari KH. Kholil Bangkalan Madura. KH. Abdul Karim menikahi salah satu putri dari Kyai asal Banjarmelati, salah satu desa di kawasan Kediri, yang terkenal dengan sebutan Kyai Sholeh Banjarmelati. KH. Abdul Karim mempersunting salah satu putri beliau yang bernama Nyai Domroh.</p>
 
-        <div class="article-body">
-            <p>Pondok pesantren Lirboyo merupakan salah satu pondok pesantren yang berdiri sebelum kemerdekaan NKRI, berdiri pada tahun 1910 M, didirikan oleh KH. Abdul Karim, Ulama yang menjadi murid kinasih dari KH. Kholil Bangkalan Madura, KH. Abdul Karim menikahi salah satu putri dari Kyai asal Banjarmelati, salah satu desa di kawasan Kediri, yang terkenal dengan sebutan Kyai Sholeh Banjarmelati, KH. Abdul Karim mempersunting salah satu putri beliau yang bernama Nyai Domroh.</p>
+        <p>Dari pernikahan KH. Abdul Karim dan Nyai Domroh dikaruniai 8 anak, yaitu: Nyai Hannah yang dipersunting Kyai Abdullah Turus, Kyai Nawawi yang wafat di Makkah, Nyai Salamah yang dinikahkan dengan KH. Mansur Anwar Pacul Gowang, Kyai Abdullah, Nyai Aisyah yang dipersunting KH. Jauhari Fadil, Nyai Maryam yang dinikahkan dengan KH. Marzuqi Dahlan, Nyai Zainab yang dipersunting KH. Mahrus Aly, dan Nyai Qomariyah yang dinikahkan dengan KH. Zaini Munawwir Krapyak.</p>
 
-            <p>Dari pernikahan KH. Abdul Karim dan Nyai Domroh dikaruniai 8 anak, yaitu, Nyai Hannah yang dipersunting Kyai Abdullah Turus, Kyai Nawawi yang wafat di Makkah, Nyai Salamah yang dinikahkan dengan KH. Mansur Anwar Pacul gowang, Kyai Abdullah, Nyai Aisyah yang dipersunting KH. Jauhari Fadil, Nyai Maryam yang dinikahkan dengan KH. Marzuqi Dahlan, Nyai Zainab yang dipersunting KH. Mahrus Aly, dan Nyai Qomariyah yang dinikahkan dengan KH. Zaini Munawwir Krapyak.</p>
+        <p>Salah satu putri KH. Abdul Karim yaitu putri ke-5 yang bernama Nyai Aisyah dinikahkan dengan Kiai Jauhari Fadil Batokan. Setelah menikah beliau tinggal di Lirboyo dan membina rumah tangga di sana. Pada tahun pertama pernikahannya, Kiai Jauhari langsung diminta oleh Kiai Abdul Karim untuk membantu dan mengajar para santri yang waktu itu berjumlah 500 orang.</p>
 
-            <p>Salah satu putri KH. Abdul Karim yaitu putri ke-5 yang bernama Nyai Aisyah dinikahkan dengan Kiai Jauhari Fadil Batokan. Setelah menikah beliau tinggal di Lirboyo dan membina rumah tangga di sana. Pada tahun pertama pernikahannya, Kiai Jauhari langsung diminta oleh Kiai Abdul Karim untuk membantu dan mengajar para santri yang waktu itu berjumlah 500 orang.</p>
+        <p>Di antara para menantu KH. Abdul Karim, Kiai Jauhari merupakan menantu pertama yang membantu mertuanya mengajar dan memperjuangkan keberlangsungan pondok pesantren Lirboyo. Selama membantu mertuanya itu, Kiai Jauhari sering mendengar bahwa enam tahun sebelumnya pondok pesantren Lirboyo sudah menggunakan sistem klasikal (sekolah), namun selama dua tahun terakhir kala itu sempat mengalami kevakuman.</p>
 
-            <p>Di antara para menantu KH. Abdul Karim, Kiai Jauhari merupakan menantu pertama yang membantu mertuanya mengajar dan memperjuangkan keberlangsungan pondok pesantren Lirboyo. Selama membantu mertuanya itu, Kiai Jauhari sering mendengar bahwa enam tahun sebelumnya pondok pesantren Lirboyo sudah menggunakan sistem klasikal (sekolah), namun selama dua tahun terakhir kala itu sempat mengalami kevakuman.</p>
+        <p>Sebagai seorang yang peduli pada dunia pendidikan, kesempatan membantu mertuanya itu dijadikan momentum untuk mengalirkan ide pendirian kembali madrasah yang telah mati tersebut. Ide itu ternyata mendapat respon positif dari Kiai Abdul Karim. Dengan bantuan para kiai yang sudah banyak tahu tentang sistem pendidikan klasik, yaitu Kiai Kholil (salah satu Kiai di Pondok Pesantren Tebuireng asal Melikan, Kediri) dan Kiai Faqih Asy'ari (pengasuh Pondok Pesantren Sumber Sari, Pare), Kiai Jauhari merancang kembali sistem belajar mengajar yang sangat diidam-idamkan itu.</p>
 
-            <p>Sebagai seorang yang peduli pada dunia pendidikan, kesempatan membantu mertuanya itu dijadikan momentum untuk mengalirkan ide pendirian kembali madrasah yang telah mati tersebut. Ide itu ternyata mendapat respon positif dari Kiai Abdul Karim, dengan bantuan para kiai yang sudah banyak tahu tentang sistem pendidikan klasik, yaitu Kiai Kholil (salah satu Kiai di pondok pesantren Tebuireng asal Melikan, Kediri) dan Kiai Faqih Asy'ari (pengasuh Pondok Pesantren Sumber Sari, Pare), Kiai Jauhari merancang kembali sistem belajar mengajar yang sangat diidam-idamkan itu.</p>
+        <p>Pada tahun 1942 bersamaan dengan penjajahan Jepang, Madrasah Hidayatul Mubtadi'in (MHM) mengalami kemunduran hingga para santri tersisa hanya 150, dan yang bisa menyelesaikannya hanya sedikit. Pada masa ini MHM terdiri dari kelas Sifir (persiapan) dan Ibtidaiyah (dasar).</p>
 
-            <p>Pada tahun 1942 bersamaan dengan penjajahan Jepang, Madrasah Hidayatul Mubtadiin (MHM) mengalami kemunduran hingga para santri tersisa hanya 150, dan yang bisa menyelesaikannya hanya sedikit. Pada masa ini MHM terdiri dari kelas Sifir (persiapan) dan Ibtidaiyah (dasar).</p>
+        <p>Selain membangun pendidikan, Pondok Pesantren Lirboyo juga merupakan penopang suksesnya proses kemerdekaan NKRI. Ketika Ketua Rais Akbar NU, yaitu Hadhratussyaikh KH. Hasyim Asy'ari mengeluarkan fatwa jihad pada tahun 1945, Lirboyo meliburkan pesantren dan mengirimkan para santri untuk berjihad memenuhi panggilan Resolusi Jihad yang dikumandangkan Hadhratussyaikh.</p>
 
-            <p>Selain membangun pendidikan, Pondok pesantren Lirboyo juga merupakan sebagai penopang suksesnya proses kemerdekaan NKRI, dikala Ketua Rais Akbar NU, yaitu Hadratussyaikh KH. Hasyim Asy'ari mengeluarkan fatwa jihad pada tahun 1945, Lirboyo meliburkan pesantren dan mengirimkan para santri untuk berjihad memenuhi panggilan Resolusi Jihad yang dikumandangkan Hadrotussyaikh.</p>
+        <p>Tahun 1947 didirikanlah Madrasah Mualimin atas gagasan H. Zamroji, kepala MHM sejak tahun 1942. Pada masa ini, sistem madrasah diganti dari yang awalnya Sifir dan Ibtidaiyah menjadi Ibtidaiyah dan Tsanawiyah.</p>
 
-            <p>Tahun 1947 didirikanlah Madrasah Mualimin atas gagasan H. Zamroji, kepala MHM sejak tahun 1942. Pada masa ini, sistem madrasah diganti dari yang awalnya Sifir dan Ibtidaiyah menjadi Ibtidaiyah dan Tsanawiyah.</p>
+        <p>Tidak berselang lama, kepemimpinan KH. Abdul Karim sebagai pendiri sekaligus pengasuh Pondok Pesantren Lirboyo berakhir, tepatnya pada tahun 1954 M (21 Ramadhan 1374 H) beliau wafat dan dimakamkan di barat Masjid Lirboyo. Pondok Pesantren Lirboyo kemudian diasuh oleh menantunya KH. Marzuqi Dahlan dan KH. Mahrus Aly.</p>
 
-            <p>Tidak berselang lama, kepemimpinan KH. Abdul Karim sebagai pendiri sekaligus pengasuh Pondok Pesantren Lirboyo berakhir, tepatnya pada tahun 1954 M (21 Ramadhan 1374 H) beliau wafat dan dimakamkan di barat Masjid Lirboyo, Pondok Pesantren Lirboyo kemudian diasuh oleh menantunya KH. Marzuqi Dahlan dan KH. Mahrus Ali.</p>
+        <p>Pada masa keduanya, pesantren mengalami banyak cobaan karena berketepatan dengan peristiwa G30S/PKI, akan tetapi Lirboyo juga mengalami kemajuan dengan banyaknya santri yang berdatangan. Bahkan, pada tahun 1966 lahirlah sebuah perguruan tinggi milik Lirboyo yang bernama IAIT (Institut Agama Islam Tribakti).</p>
 
-            <p>Pada masa keduanya, pesantren mengalami banyak cobaan, karena berketepatan dengan peristiwa G30SPKI, akan tetapi Lirboyo juga mengalami kemajuan dengan banyaknya santri yang berdatangan. Bahkan, pada tahun 1966 lahirlah sebuah perguruan tinggi milik Lirboyo yang bernama IAIT (Institut Agama Islam Tribakti).</p>
+        <p>Dari pasangan Kiai Jauhari dan Nyai Aisyah ini pula lahirlah seorang bayi laki-laki diberi nama Abdullah Maksum, yang tidak lain adalah pendiri salah satu perguruan silat yang sangat berpengaruh di Kediri yaitu GASMI.</p>
 
-            <p>Dari pasangan Kiai Jauhari dan Nyai Aisyah ini pula lahirlah seorang bayi laki-laki diberi nama Abdullah Maksum, yang tidak lain adalah pendiri salah satu perguruan silat yang sangat berpengaruh di Kediri yaitu GASMI.</p>
-        </div>
-
-        <!-- === BAGIKAN === -->
-        <div class="share-section">
-            <span class="share-title">Bagikan:</span>
-            <div class="share-icons">
-                <a href="https://www.facebook.com/sharer/sharer.php?u=https://gasmi.id/info/silsilah-keluarga-kh-maksum-jauhari-gus-maksum" target="_blank" class="share-icon" title="Bagikan ke Facebook">
-                    <i class="fab fa-facebook-f"></i>
-                </a>
-                <a href="https://twitter.com/intent/tweet?url=https://gasmi.id/info/silsilah-keluarga-kh-maksum-jauhari-gus-maksum&text=Silsilah%20Keluarga%20KH.%20Maksum%20Jauhari%20(Gus%20Maksum)" target="_blank" class="share-icon" title="Bagikan ke Twitter">
-                    <i class="fab fa-twitter"></i>
-                </a>
-                <a href="https://wa.me/?text=Silsilah%20Keluarga%20KH.%20Maksum%20Jauhari%20(Gus%20Maksum)%0A%0Ahttps://gasmi.id/info/silsilah-keluarga-kh-maksum-jauhari-gus-maksum" target="_blank" class="share-icon" title="Bagikan ke WhatsApp">
-                    <i class="fab fa-whatsapp"></i>
-                </a>
+        <!-- BAGIAN BERBAGI -->
+        <div class="bagikan">
+            <h3>Bagikan:</h3>
+            <div class="tautan-bagi">
+                <a href="https://www.facebook.com/sharer/sharer.php?u=https://gasmi.id/info/silsilah-keluarga-kh-maksum-jauhari-gus-maksum" target="_blank" class="fb"><i class="fab fa-facebook-f"></i> Facebook</a>
+                <a href="https://twitter.com/intent/tweet?url=https://gasmi.id/info/silsilah-keluarga-kh-maksum-jauhari-gus-maksum&text=Silsilah%20Keluarga%20KH.%20Maksum%20Jauhari%20(Gus%20Maksum)" target="_blank" class="tw"><i class="fab fa-twitter"></i> Twitter</a>
+                <a href="https://wa.me/?text=Silsilah%20Keluarga%20KH.%20Maksum%20Jauhari%20(Gus%20Maksum)%0A%0Ahttps://gasmi.id/info/silsilah-keluarga-kh-maksum-jauhari-gus-maksum" target="_blank" class="wa"><i class="fab fa-whatsapp"></i> WhatsApp</a>
             </div>
         </div>
-    </div>
 
-    <!-- === FOOTER === -->
-    <section class="footer-top">
-        <div class="footer-left">
-            <h2>Gasmi</h2>
+        <!-- INFO KONTAK BAWAH -->
+        <div class="info-bawah">
+            <h3>Gasmi</h3>
             <p>Jl. KH. Abdul Karim, Lirboyo, No. 45, Kec. Mojoroto, Kota Kediri.</p>
-        </div>
-        <div class="footer-right">
-            <h3>Kontak</h3>
-            <p>gasmihosting@gmail.com</p>
-            <p>6285878079700</p>
-            <p class="info-text">Atau terhubung dengan kami di:</p>
 
-            <div class="social-icons">
-                <a href="https://facebook.com/" target="_blank" class="social-icon facebook"><i class="fab fa-facebook-f"></i></a>
-                <a href="https://www.instagram.com/gasmi.id" target="_blank" class="social-icon instagram"><i class="fab fa-instagram"></i></a>
-                <a href="https://youtube.com/" target="_blank" class="social-icon youtube"><i class="fab fa-youtube"></i></a>
-                <a href="https://twitter.com/" target="_blank" class="social-icon twitter"><i class="fab fa-twitter"></i></a>
+            <h4>Kontak</h4>
+            <p><a href="mailto:gasmihosting@gmail.com">gasmihosting@gmail.com</a></p>
+            <p><a href="tel:6285878079700">6285878079700</a></p>
+
+            <p>Atau terhubung dengan kami di:</p>
+            <div class="sosmed-bawah">
+                <a href="https://facebook.com/" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                <a href="https://www.instagram.com/gasmi.id" target="_blank"><i class="fab fa-instagram"></i></a>
+                <a href="https://youtube.com/" target="_blank"><i class="fab fa-youtube"></i></a>
+                <a href="https://twitter.com/" target="_blank"><i class="fab fa-twitter"></i></a>
+            </div>
+
+            <div class="footer-bawah">
+                2026 © <a href="https://gasmi.id/">gasmi.id</a> |
+                <a href="https://gasmi.id/login">Masuk</a> |
+                <a href="#top">Kembali ke atas</a>
             </div>
         </div>
-    </section>
-
-    <footer class="footer-bottom">
-        <p>2026 © Gasmi</p>
-        <div class="footer-links">
-            <a href="#">Masuk</a>
-            <a href="#">Kontak</a>
-        </div>
-    </footer>
+    </div>
+</div>
 
 </body>
 </html>
