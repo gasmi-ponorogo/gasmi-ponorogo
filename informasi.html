@@ -40,14 +40,14 @@
             text-decoration: none;
         }
 
-        /* --- JUDUL YANG BISA DIKLIK --- */
+        /* --- JUDUL --- */
         .judul-artikel {
             font-size: 32px;
             color: #252547;
             cursor: pointer;
             transition: color 0.3s ease;
             line-height: 1.4;
-            margin-bottom: 30px;
+            margin-bottom: 40px;
             text-align: center;
         }
 
@@ -55,34 +55,8 @@
             color: #e53935;
         }
 
-        /* --- LAYAR PEMUATAN --- */
-        #loading-artikel {
-            position: fixed;
-            inset: 0;
-            background-color: rgba(255,255,255,0.95);
-            z-index: 999;
-            display: none;
-            align-items: center;
-            justify-content: center;
-            flex-direction: column;
-        }
-
-        .spinner {
-            width: 45px;
-            height: 45px;
-            border: 5px solid #eee;
-            border-top-color: #e53935;
-            border-radius: 50%;
-            animation: putar 0.8s linear infinite;
-        }
-
-        @keyframes putar {
-            to { transform: rotate(360deg); }
-        }
-
         /* --- ISI ARTIKEL --- */
         .isi-artikel {
-            display: none;
             animation: muncul 0.6s ease-out;
         }
 
@@ -140,8 +114,156 @@
         .info-bawah {
             margin-top: 50px;
             padding: 30px;
-            background
+            background-color: #f8f9fa;
+            border-radius: 12px;
+        }
 
-Copy
-Listen
-Quote
+        .info-bawah h3 {
+            font-size: 20px;
+            margin-bottom: 12px;
+        }
+
+        .info-bawah h4 {
+            margin-top: 15px;
+            font-size: 17px;
+        }
+
+        .info-bawah p {
+            margin-bottom: 8px;
+            color: #555;
+        }
+
+        .info-bawah a {
+            color: #e53935;
+            text-decoration: none;
+        }
+
+        .sosmed-bawah {
+            display: flex;
+            gap: 10px;
+            margin-top: 12px;
+        }
+
+        .sosmed-bawah a {
+            width: 38px;
+            height: 38px;
+            background-color: #e9ecef;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #555;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+
+        .sosmed-bawah a:hover {
+            background-color: #e53935;
+            color: #fff;
+        }
+
+        .footer-bawah {
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+            color: #777;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <!-- Breadcrumb -->
+    <div class="breadcrumb">
+        <a href="index.html">Rumah</a> &gt; <a href="informasi.html">Informasi</a> &gt; Sosok Pendiri GASMI KH. Abdullah Maksum Jauhari
+    </div>
+
+    <!-- JUDUL -->
+    <h1 class="judul-artikel" id="judulKlik">Sosok Pendiri GASMI KH. Abdullah Maksum Jauhari</h1>
+
+    <!-- ISI ARTIKEL -->
+    <div class="isi-artikel" id="isiArtikel">
+
+        <p>Muhammad Abdullah Maksum atau KH. Maksum Jauhari, yang biasa disebut Gus Maksum. Sang Pendekar Gondrong dari pondok pesantren Lirboyo, adalah salah satu kiai Nahdlatul Ulama yang memiliki peranan besar dalam perkembangan Islam di Jawa Timur. Beliau merupakan kiai yang nyentrik dan mempunyai kharisma khusus, terutama dalam bidang Kanuragan.</p>
+
+        <p>Beliau lahir di Kanigoro, Kras, Kediri, pada tanggal 6 Agustus 1944 M., beliau merupakan cucu pendiri Pondok Pesantren Lirboyo, KH. Abdul karim. Tidak heran jika beliau menjadi begitu tersohor, bukan karena kelincahan gerak silatnya saja, melainkan juga karna sikap arif dan kharisma beliau sebagai sosok kiai turut menjadikan sosok beliau begitu disegani oleh khalayak umum.</p>
+
+        <p>Kakeknya,KH. Abdul Karim merupakan salah satu santri Hadratussyaikh KH. Hasyim Asy'ari (pendiri pondok pesantren Tebuireng Jombang, sekaligus pendiri Jam'iyyah Nahdhotul Ulama'), di bawah didikan Mbah Hasyim dengan tradisi keilmuan Khas Tebuireng Jombang, kematangan pribadi kiai Abdul Karim banyak terbentuk dan terasah, ketika nyantri di Tebuireng, KH. Abdul Karim  merupakan teman satu generasi dengan ulama kharismatik yang berasal dari Cirebon, beliau bernama KH. Abbas Buntet, yang terkenal sebagai Ulama' sakti mandraguna. Yang mana salah satu karomah beliau adalah bisa merubah kacang hijau menjadi tentara perang.</p>
+
+        <p>Gus Maksum lahir di saat indonesia menghadapai revolusi pertama dalam rangka merebut kemerdekaan Republik Indonesia dari penjajah. Sejak lahir, beliau telah merasakan pahit getirnya bangsa. Perkenalan beliau dengan kehidupan adalah dengan bunyi ledakan senapan dan dentuman bom, hal ini membentuk karakter Gus Maksum yang cenderung memiliki kepribadian yang gigih, pemberani, dan sangat benci terhadap semua tindak kemungkaran, lebih-lebih yang menyangkut kedaulatan NKRI.</p>
+
+        <p>KH. Maksum Jauhari atau yang sering disapa Gus Maksum adalah murid dari ayahnya sendiri yaitu KH. Abdullah Jauhari. Selain belajar kepada ayahnya, Gus Maksum juga menimba ilmu di Sekolah Dasar layaknya seorang pemuda seusianya. Gus Maksum menempuh pendidikan di SD Kanigoro pada tahun 1957. Setelah lulus dari SD Kanigoro kemudian ia melanjutkan ke Madrasah Tsanawiyah Lirboyo, namun tidak sampai tamat.</p>
+
+        <p>Gus Maksum dinilai terlalu jenius dan cerdas, sehingga guru yang mengajar justru malah sering diajari. Bagi Gus Maksum, pendidikan bukan hanya didapatkan melalui bangku sekolah, ia tidak terpaku pada ilmu-ilmu yang ada di perpustakaan sekolah, dan cerita-cerita bijak dari guru. Karena bagi Gus Maksum, perpustakaan yang sesungguhnya adalah persoalan di muka bumi ini, sehingga ia lebih senang mengembara ke berbagai daerah untuk berguru ilmu silat, tenaga dalam, pengobatan dan kejadukan.</p>
+
+        <p>KH. Maksum Jauhari merupakan pimpinan pondok pesantren Lirboyo. Dikalangan warga Nahdliyin, beliau dikenal bukan hanya sebagai kiai, melainkan juga dikenal sebagai pendekar, selain pandai mengaji kitab kuning, beliau juga ahli dalam seni beladiri atau silat, rutinitas Gus Maksum sejak kecil tidak hanya dihabiskan dengan mengaji, melainkan beliau juga gemar mengembara ke berbagai daerah di Pulau Jawa untuk berguru ilmu silat. Dari hasil pengembaraannya itulah beliau di masa dewasanya tampil menjadi pendekar legendaris di kalangan Nahdhatul Ulama'.</p>
+
+        <p>Penampilan KH, Maksum Jauhari ini terbilang nyentrik, berambut gondrong, jenggot dan kumis panjang, bersarung setinggi lutut, memakai bakiak, berpakaian seadanya dan tidak makan nasi (<em>Ngrowot</em>). di kalangan dunia persilatan, ia dikenal sangat mahir dan menguasai berbagai aliran silat dengan sempurna.</p>
+
+        <h2>Pengajaran Pencak Silat GASMI</h2>
+
+        <p>Pencak silat GASMI sangat identik dengan sosok KH. Maksum Jauhari, pola pengajaran pencak silat GASMI dikelompokkan menjadi tiga tahap, yaitu :</p>
+
+        <p><strong>Pertama</strong>, pengajaran teknik. Seorang pesilat dikenalkan dengan beberapa jurus dan beragam teori gerak, menangkis, memukul, menendang, dan lain sebagainya.</p>
+
+        <p><strong>Kedua</strong>, pengajaran Fisik, seorang pesilat dilatih kemampuan dan keuletan badannya untuk menyeimbangkan kemampuan tekniknya.</p>
+
+        <p><strong>Ketiga</strong> adalah pengajaran mental spritual. Seorang pesilat dilatih dengan menjalankan amalan spiritual guna memperkuat batinnya. Dengan demikian, selain kuat dalam fisik dan teknik, seorang pesilat GASMI harus kuat dan tangguh secara batin.</p>
+
+        <p>Intuisi yang peka dan kepedulian yang tinggi terhadap sosial dan lingkungan sekitar, akan dimiliki oleh seorang pesilat apabila telah menguasai aspek spiritual dalam silat, sehingga seseorang yang mendapatkan gelar pendekar sejati adalah seorang yang bukan hanya mampu menaklukkan musuh saja, melainkan juga mampu melawan hawa nafsunya sendiri.</p>
+
+        <p>Dalam pencak silat GASMI selain melatih fisik, juga melatih ketahanan mental dan keyakinan diri. Seorang pesilat GASMI harus melatih fisik dan psikologis sekaligus. selain itu, seorang pesilat harus mengamalkan kemampuan jasmani, seperti melatih refleks dalam dirinya, gerak refleks mampu dicapai setelah melalui pengamalan wirid dan dzikir yang dilakukan secara <em>istiqomah</em>.</p>
+
+        <p>Meski demikian, Pencak silat GASMI tetap merupakan pencak silat murni olahraga (seni tinju), bukan sebuah pencak silat karomah yang membuat seseorang tiba-tiba menjadi kuat. Sehingga kunci dari ajaran GASMI yaitu latihan dan doa. Berlatih dengan keras dan dibarengi dengan doa kepada sang Maha Kuat Allah SWT.</p>
+
+        <p>Pencak silat GASMI memiliki tiga paket gerakan yaitu: pertama Tendang, kedua Pukul, ketiga Banting. Ketiga gerakan tersebut dapat dikombinasikan sehingga musuh dapat dikalahkan.</p>
+
+        <p>Pada awal berdirinya GASMI para santri dituntut untuk bisa membela diri atau menjaga diri dari gangguan orang jahat. Sehingga pencak silat GASMI kala itu sangat identik dengan santri Lirboyo. GASMI sebagai pencak silat dari kalangan pesantren juga memiliki beberapa amalan yang diajarkan oleh kiai pada santrinya, tapi pada akhirnya, nanti GASMI bukan hanya menjadi media untuk penjagaan diri saja, melainkan banyak aspek yang terkandung dalam GASMI.</p>
+
+        <!-- BAGIAN BERBAGI -->
+        <div class="bagikan">
+            <h3>Bagikan:</h3>
+            <div class="tautan-bagi">
+                <a href="https://www.facebook.com/sharer/sharer.php?u=https://gasmi.id/info/sosok-pendiri-gasmi-kh-abdullah-maksum-jauhari" target="_blank" class="fb"><i class="fab fa-facebook-f"></i> Facebook</a>
+                <a href="https://twitter.com/intent/tweet?url=https://gasmi.id/info/sosok-pendiri-gasmi-kh-abdullah-maksum-jauhari&text=Sosok%20Pendiri%20GASMI%20KH.%20Abdullah%20Maksum%20Jauhari" target="_blank" class="tw"><i class="fab fa-twitter"></i> Twitter</a>
+                <a href="https://wa.me/?text=Sosok%20Pendiri%20GASMI%20KH.%20Abdullah%20Maksum%20Jauhari%0A%0Ahttps://gasmi.id/info/sosok-pendiri-gasmi-kh-abdullah-maksum-jauhari" target="_blank" class="wa"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+            </div>
+        </div>
+
+        <!-- INFO KONTAK BAWAH -->
+        <div class="info-bawah">
+            <h3>Gasmi</h3>
+            <p>Jl. KH. Abdul Karim, Lirboyo, No. 45, Kec. Mojoroto, Kota Kediri.</p>
+
+            <h4>Kontak</h4>
+            <p><a href="mailto:gasmihosting@gmail.com">gasmihosting@gmail.com</a></p>
+            <p><a href="tel:6285878079700">6285878079700</a></p>
+
+            <p>Atau terhubung dengan kami di:</p>
+            <div class="sosmed-bawah">
+                <a href="https://facebook.com/" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                <a href="https://www.instagram.com/gasmi.id" target="_blank"><i class="fab fa-instagram"></i></a>
+                <a href="https://youtube.com/" target="_blank"><i class="fab fa-youtube"></i></a>
+                <a href="https://twitter.com/" target="_blank"><i class="fab fa-twitter"></i></a>
+            </div>
+
+            <div class="footer-bawah">
+                2026 © <a href="https://gasmi.id/">gasmi.id</a> |
+                <a href="https://gasmi.id/login">Masuk</a> |
+                <a href="#top">Kembali ke atas</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- JAVASCRIPT -->
+<script>
+    const judul = document.getElementById('judulKlik');
+    judul.addEventListener('click', function() {
+        judul.classList.toggle('sentuh');
+    });
+</script>
+
+</body>
+</html>
