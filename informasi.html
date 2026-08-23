@@ -8,12 +8,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
     
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         html, body {
             width: 100%;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -21,47 +16,12 @@
             color: #333;
             line-height: 1.6;
         }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 30px 5%;
-        }
-
-        /* --- BREADCRUMB --- */
-        .breadcrumb {
-            font-size: 15px;
-            color: #777;
-            margin-bottom: 25px;
-        }
-
-        .breadcrumb a {
-            color: #e53935;
-            text-decoration: none;
-        }
-
-        /* --- JUDUL HALAMAN --- */
-        h1 {
-            font-size: 40px;
-            color: #252547;
-            margin-bottom: 35px;
-        }
-
-        /* --- TATA LETAK UTAMA --- */
-        .bungkus {
-            display: grid;
-            grid-template-columns: 1fr 300px;
-            gap: 40px;
-            align-items: start;
-        }
-
-        /* --- DAFTAR ARTIKEL --- */
-        .daftar-artikel {
-            display: flex;
-            flex-direction: column;
-            gap: 25px;
-        }
-
+        .container { max-width: 1200px; margin: 0 auto; padding: 30px 5%; }
+        .breadcrumb { font-size: 15px; color: #777; margin-bottom: 25px; }
+        .breadcrumb a { color: #e53935; text-decoration: none; }
+        h1 { font-size: 40px; color: #252547; margin-bottom: 35px; }
+        .bungkus { display: grid; grid-template-columns: 1fr 300px; gap: 40px; align-items: start; }
+        .daftar-artikel { display: flex; flex-direction: column; gap: 25px; }
         .kartu-artikel {
             display: flex;
             align-items: stretch;
@@ -72,100 +32,33 @@
             text-decoration: none;
             transition: all 0.3s ease;
         }
-
-        .kartu-artikel:hover {
-            border-color: #e53935;
-            transform: translateY(-2px);
-        }
-
-        .kartu-gambar {
-            width: 320px;
-            flex-shrink: 0;
-        }
-
-        .kartu-gambar img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .kartu-teks {
-            padding: 30px;
-            display: flex;
-            align-items: center;
-        }
-
-        /* JUDUL AWAL WARNA HITAM */
-        .kartu-teks h2 {
-            font-size: 22px;
-            color: #1a1a2e;
-            line-height: 1.4;
-            transition: color 0.3s ease;
-        }
-
-        /* SAAT DI SENTUH → MERAH */
-        .kartu-artikel:hover .kartu-teks h2 {
-            color: #e53935;
-        }
-
-        /* --- KOTAK PENCARIAN KANAN --- */
-        .kotak-cari {
-            background-color: #f8f9fa;
-            border-radius: 12px;
-            padding: 25px;
-            height: fit-content;
-        }
-
-        .kotak-cari h3 {
-            font-size: 18px;
-            margin-bottom: 15px;
-            color: #333;
-        }
-
-        .kotak-cari input {
-            width: 100%;
-            padding: 12px 14px;
-            border: 1px solid #e8e8f0;
-            border-radius: 8px;
-            font-size: 15px;
-            background-color: #fff;
-        }
-
-        .kotak-cari input::placeholder {
-            color: #aaa;
-        }
-
-        /* --- RESPONSIVE --- */
-        @media (max-width: 900px) {
-            .bungkus {
-                grid-template-columns: 1fr;
-            }
-        }
-
+        .kartu-artikel:hover { border-color: #e53935; transform: translateY(-2px); }
+        .kartu-gambar { width: 320px; flex-shrink: 0; }
+        .kartu-gambar img { width: 100%; height: 100%; object-fit: cover; }
+        .kartu-teks { padding: 30px; display: flex; align-items: center; }
+        .kartu-teks h2 { font-size: 22px; color: #1a1a2e; line-height: 1.4; transition: color 0.3s ease; }
+        .kartu-artikel:hover .kartu-teks h2 { color: #e53935; }
+        .kotak-cari { background-color: #f8f9fa; border-radius: 12px; padding: 25px; height: fit-content; }
+        .kotak-cari h3 { font-size: 18px; margin-bottom: 15px; color: #333; }
+        .kotak-cari input { width: 100%; padding: 12px 14px; border: 1px solid #e8e8f0; border-radius: 8px; font-size: 15px; background-color: #fff; }
+        .kotak-cari input::placeholder { color: #aaa; }
+        @media (max-width: 900px) { .bungkus { grid-template-columns: 1fr; } }
         @media (max-width: 700px) {
-            .kartu-artikel {
-                flex-direction: column;
-            }
-            .kartu-gambar {
-                width: 100%;
-                height: 200px;
-            }
+            .kartu-artikel { flex-direction: column; }
+            .kartu-gambar { width: 100%; height: 200px; }
         }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <!-- Breadcrumb -->
     <div class="breadcrumb">
         <a href="index.html">Rumah</a> &gt; Informasi
     </div>
 
-    <!-- Judul Halaman -->
     <h1>Informasi</h1>
 
     <div class="bungkus">
-        <!-- Daftar Artikel -->
         <div class="daftar-artikel">
             <a href="sosok-pendiri.html" class="kartu-artikel">
                 <div class="kartu-gambar">
@@ -186,7 +79,6 @@
             </a>
         </div>
 
-        <!-- Kotak Pencarian -->
         <div class="kotak-cari">
             <h3>Cari Info</h3>
             <input type="text" placeholder="Cari">
