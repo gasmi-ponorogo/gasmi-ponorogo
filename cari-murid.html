@@ -15,6 +15,7 @@
         a { text-decoration: none; color: inherit; }
 
 
+
         /* ===================================== */
         /* === TAMBAHAN: LAYAR LOADING === */
         /* ===================================== */
@@ -32,10 +33,12 @@
             transition: opacity 0.3s ease;
         }
 
+
         #layar-loading.tampil {
             opacity: 1;
             pointer-events: all;
         }
+
 
         .loading-logo {
             font-size: 38px;
@@ -44,6 +47,7 @@
             margin-bottom: 20px;
             letter-spacing: 1px;
         }
+
 
         .loading-putar {
             width: 45px;
@@ -54,17 +58,20 @@
             animation: berputar 0.8s linear infinite;
         }
 
+
         #layar-loading p {
             margin-top: 15px;
             color: #555;
             font-size: 15px;
         }
 
+
         @keyframes berputar {
             from { transform: rotate(0deg); }
             to { transform: rotate(360deg); }
         }
         /* === AKHIR TAMBAHAN LOADING === */
+
 
 
         /* NAVIGASI */
@@ -79,6 +86,7 @@
         nav a.active { color: #dc2626; font-weight: 500; border-bottom: 2px solid #dc2626; }
         .btn-hubungi { background-color: #dc2626; color: #fff; padding: 12px 28px; border-radius: 10px; font-weight: 500; font-size: 17px; }
         .btn-hubungi:hover { background-color: #b91c1c; }
+
 
 
         /* KONTEN */
@@ -101,6 +109,7 @@
             cursor: pointer; font-weight: 500;
         }
         .btn-cari:hover { background-color: #b91c1c; }
+
 
 
         /* FOOTER PENUH LAYAR */
@@ -179,6 +188,7 @@
         .bottom-links a:hover { color: #fff; }
 
 
+
         /* RESPONSIVE */
         @media (max-width: 900px) {
             header { flex-direction: column; text-align: center; }
@@ -187,6 +197,7 @@
     </style>
 </head>
 <body>
+
 
 
 <!-- ===================================== -->
@@ -198,6 +209,7 @@
     <p>Memuat halaman...</p>
 </div>
 <!-- === AKHIR TAMBAHAN LOADING === -->
+
 
 
     <header>
@@ -214,18 +226,22 @@
     </header>
 
 
+
     <main>
         <h1 class="page-title">Pencarian Sertifikat Gasmi</h1>
 
+
         <div class="form-group">
             <label class="form-label">Silahkan Masukkan Nomor Induk</label>
-            <input type="text" class="form-input" placeholder="Nomor Induk">
+            <input type="text" class="form-input" id="nomorInduk" placeholder="Nomor Induk">
         </div>
+
 
         <div class="form-group">
             <label class="form-label">Silahkan Masukkan Nama Orangtua</label>
-            <input type="text" class="form-input" placeholder="Nama Orangtua">
+            <input type="text" class="form-input" id="namaOrtu" placeholder="Nama Orangtua">
         </div>
+
 
         <!-- KOTAK reCAPTCHA -->
         <div class="recaptcha-box">
@@ -263,8 +279,10 @@
             </div>
         </div>
 
-        <button class="btn-cari">Cari</button>
+
+        <button class="btn-cari" onclick="cariDataMurid()">Cari</button>
     </main>
+
 
 
     <div class="main-footer">
@@ -293,6 +311,7 @@
     </div>
 
 
+
     <div class="bottom-footer">
         <div class="bottom-container">
             <div>2026 © Gasmi</div>
@@ -302,6 +321,7 @@
             </div>
         </div>
     </div>
+
 
 
 <!-- ===================================== -->
@@ -314,6 +334,7 @@
         const loading = document.getElementById('layar-loading');
         loading.classList.add('tampil'); // Tampilkan layar loading
 
+
         // Tunggu 1,5 detik lalu pindah halaman
         setTimeout(function() {
             window.location.href = tautan;
@@ -321,6 +342,107 @@
     }
 </script>
 <!-- === AKHIR TAMBAHAN LOADING === -->
+
+
+<!-- ===================================== -->
+<!-- === FUNGSI PENCARIAN DATA MURID === -->
+<!-- ===================================== -->
+<script>
+    // === DAFTAR DATA MURID ===
+    const daftarMurid = [
+        {
+            nomorInduk: "01356-30-05",
+            nama: "AGUNG DIVIANTO",
+            namaOrtu: "Soirin / Tuminem",
+            jenisKelamin: "Laki-laki",
+            pendidikan: "SDN 2 NGRAYUN"
+        },
+        {
+            nomorInduk: "GASMI001",
+            nama: "PRIYANTO",
+            namaOrtu: "Nama Ortu Priyanto",
+            jenisKelamin: "Laki-laki",
+            pendidikan: "SDN 2 NGRAYUN"
+        }
+        {/* Tambahkan data murid lainnya dengan format yang sama */}
+    ];
+
+    // === FUNGSI TOMBOL CARI ===
+    function cariDataMurid() {
+        let nomorInduk = document.getElementById('nomorInduk').value.trim();
+        let namaOrtu = document.getElementById('namaOrtu').value.trim();
+        let kotakHasil = document.createElement('div');
+        kotakHasil.style.marginTop = '25px';
+        kotakHasil.style.padding = '30px 25px';
+        kotakHasil.style.backgroundColor = '#fff';
+        kotakHasil.style.borderRadius = '12px';
+        kotakHasil.style.border = '1px solid #eee';
+        kotakHasil.style.position = 'relative';
+        kotakHasil.style.overflow = 'hidden';
+        kotakHasil.id = 'hasil-pencarian';
+
+        // Hapus hasil lama jika ada
+        let hasilLama = document.getElementById('hasil-pencarian');
+        if (hasilLama) hasilLama.remove();
+
+        // Cari data yang cocok
+        let hasil = daftarMurid.find(murid => 
+            murid.nomorInduk === nomorInduk && 
+            murid.namaOrtu.toLowerCase() === namaOrtu.toLowerCase()
+        );
+
+        // Tanggal & Waktu Sekarang
+        let sekarang = new Date();
+        let hari = sekarang.getDate();
+        let bulan = ['Januari','Februari','Maret','April','Mei','Juni','Juli','Agustus','September','Oktober','November','Desember'][sekarang.getMonth()];
+        let tahun = sekarang.getFullYear();
+        let jam = sekarang.getHours().toString().padStart(2,'0');
+        let menit = sekarang.getMinutes().toString().padStart(2,'0');
+        let waktu = `${hari} ${bulan} ${tahun}<br>${jam}:${menit}:00`;
+
+        if (hasil) {
+            kotakHasil.innerHTML = `
+                <!-- Logo Gasmi Samar di Latar Belakang -->
+                <div style="position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); font-size:80px; font-weight:bold; color:rgba(220,38,38,0.06); pointer-events:none; z-index:0;">
+                    GASMI
+                </div>
+
+                <h4 style="color:#666; font-size:14px; margin-bottom:20px; font-weight:normal; position:relative; z-index:1;">Hasil Pencarian: ${nomorInduk}</h4>
+
+                <div style="position:relative; z-index:1;">
+                    <h3 style="font-size:22px; font-weight:bold; color:#222; margin-bottom:20px; padding-bottom:10px; border-bottom:1px solid #eee;">${hasil.nama}</h3>
+
+                    <div style="display:grid; grid-template-columns:140px 1fr; gap:10px; font-size:15px; line-height:1.6;">
+                        <span style="color:#777;">Jenis Kelamin</span>
+                        <span style="color:#333;">${hasil.jenisKelamin}</span>
+
+                        <span style="color:#777;">Pendidikan</span>
+                        <span style="color:#333;">${hasil.pendidikan}</span>
+
+                        <span style="color:#777;">Status Sertifikat</span>
+                        <span style="color:#16a34a; font-weight:bold; font-size:16px;">ASLI</span>
+                    </div>
+
+                    <div style="margin-top:25px; padding-top:15px; border-top:1px dashed #ddd; font-size:14px; color:#666;">
+                        Tanggal Pencarian : ${waktu}
+                    </div>
+                </div>
+            `;
+        } else {
+            kotakHasil.innerHTML = `
+                <h4 style="color:#666; font-size:14px; margin-bottom:15px; font-weight:normal;">Hasil Pencarian: ${nomorInduk}</h4>
+                <div style="display:grid; grid-template-columns:140px 1fr; gap:8px; font-size:15px;">
+                    <span style="color:#777;">Tidak ada Induk</span>
+                    <span style="color:#dc2626;">${nomorInduk}</span>
+                </div>
+            `;
+        }
+
+        // Tampilkan hasil di halaman
+        document.querySelector('.btn-cari').after(kotakHasil);
+    }
+</script>
+<!-- === AKHIR FUNGSI PENCARIAN === -->
 
 
 </body>
