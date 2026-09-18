@@ -107,21 +107,19 @@ if (!idQuery) {
         return idBersih === cariBersih || String(s.id).trim() === dicari;
       });
       
-      if (siswa) {
+       if (siswa) {
         wadahKonten.innerHTML =
           '<div class="kartu-data">' +
             '<h2>' + siswa.nama + '</h2>' +
             '<hr>' +
             '<p><strong>ID Anggota:</strong> ' + siswa.id + '</p>' +
             '<p><strong>No. Induk:</strong> ' + (siswa.no_induk || '-') + '</p>' +
-            '<p><strong>TTL:</strong> ' + (siswa.ttl || '-') + '</p>' +
+            '<p><strong>Tempat, Tgl Lahir:</strong> ' + (siswa.ttl || '-') + '</p>' +
             '<p><strong>Jenis Kelamin:</strong> ' + (siswa.jk || '-') + '</p>' +
             '<p><strong>Pendidikan:</strong> ' + (siswa.pendidikan || '-') + '</p>' +
             '<p><strong>Nama Orang Tua:</strong> ' + (siswa.ortu || '-') + '</p>' +
             '<p><strong>Alamat:</strong> ' + (siswa.alamat || '-') + '</p>' +
           '</div>';
-      } else {
-        wadahKonten.innerHTML = '<p class="pesan-error">Data Anggota ID ' + idQuery + ' Tidak Ditemukan!</p>';
       }
     })
     .catch(function(err) {
