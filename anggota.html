@@ -13,7 +13,7 @@
     }
     body {
       background-color: #f5f9f5;
-      padding: 2rem;
+      padding: 2rem 1rem;
       line-height: 1.6;
     }
     .header-kartu {
@@ -30,7 +30,7 @@
       font-size: 1rem;
     }
     .kartu-data {
-      max-width: 500px;
+      max-width: 520px;
       margin: 0 auto;
       background: #fff;
       padding: 2rem;
@@ -42,6 +42,7 @@
       text-align: center;
       color: #0f4d2c;
       margin-bottom: 1rem;
+      font-size: 1.4rem;
     }
     .kartu-data hr {
       border: none;
@@ -50,10 +51,11 @@
     }
     .kartu-data p {
       margin: 0.7rem 0;
+      font-size: 0.95rem;
     }
     .kartu-data strong {
       display: inline-block;
-      min-width: 160px;
+      min-width: 150px;
       color: #0f4d2c;
     }
     .loading, .pesan-error {
@@ -71,7 +73,7 @@
 
   <div class="header-kartu">
     <h2>PENCAK SILAT GASMI</h2>
-    <p>Ranting Ponorogo — Dokumen Data Anggota Resmi</p>
+    <p>Ranting Ponorogo — Data Anggota Resmi</p>
   </div>
 
   <div id="konten-siswa">
@@ -92,35 +94,38 @@ if (!idQuery) {
 } else {
   fetch(API_URL)
     .then(res => {
-      if (!res.ok) throw new Error(`Respons gagal: ${res.status}`);
+      if (!res.ok) throw new Error('Respons gagal: ' + res.status);
       return res.json();
     })
     .then(data => {
-      if (!Array.isArray(data)) throw new Error("Format data tidak sesuai");
+      if (!Array.isArray(data)) throw new Error('Format data tidak sesuai');
       
       const dicari = idQuery.trim();
-      const siswa = data.find(s => s.id === dicari);
+      const siswa = data.find(function(s) {
+        var idBersih = String(s.id || '').replace(/\D/g, '');
+        var cariBersih = dicari.replace(/\D/g, '');
+        return idBersih === cariBersih || String(s.id).trim() === dicari;
+      });
       
       if (siswa) {
-        wadahKonten.innerHTML = `
-          <div class="kartu-data">
-            <h2>${siswa.nama}</h2>
-            <hr>
-            <p><strong>ID Anggota:</strong> ${siswa.id}</p>
-            <p><strong>No. Induk:</strong> ${siswa.no_induk || '-'}</p>
-            <p><strong>Tempat, Tanggal Lahir:</strong> ${siswa.ttl || '-'}</p>
-            <p><strong>Jenis Kelamin:</strong> ${siswa.jk || '-'}</p>
-            <p><strong>Pendidikan:</strong> ${siswa.pendidikan || '-'}</p>
-            <p><strong>Nama Orang Tua:</strong> ${siswa.ortu || '-'}</p>
-            <p><strong>Alamat:</strong> ${siswa.alamat || '-'}</p>
-          </div>
-        `;
+        wadahKonten.innerHTML =
+          '<div class="kartu-data">' +
+            '<h2>' + siswa.nama + '</h2>' +
+            '<hr>' +
+            '<p><strong>ID Anggota:</strong> ' + siswa.id + '</p>' +
+            '<p><strong>No. Induk:</strong> ' + (siswa.no_induk || '-') + '</p>' +
+            '<p><strong>TTL:</strong> ' + (siswa.ttl || '-') + '</p>' +
+            '<p><strong>Jenis Kelamin:</strong> ' + (siswa.jk || '-') + '</p>' +
+            '<p><strong>Pendidikan:</strong> ' + (siswa.pendidikan || '-') + '</p>' +
+            '<p><strong>Nama Orang Tua:</strong> ' + (siswa.ortu || '-') + '</p>' +
+            '<p><strong>Alamat:</strong> ' + (siswa.alamat || '-') + '</p>' +
+          '</div>';
       } else {
-        wadahKonten.innerHTML = `<p class="pesan-error">Data Anggota ID ${idQuery} Tidak Ditemukan!</p>`;
+        wadahKonten.innerHTML = '<p class="pesan-error">Data Anggota ID ' + idQuery + ' Tidak Ditemukan!</p>';
       }
     })
-    .catch(err => {
-      wadahKonten.innerHTML = `<p class="pesan-error">Gagal memuat: ${err.message}</p>`;
+    .catch(function(err) {
+      wadahKonten.innerHTML = '<p class="pesan-error">Gagal memuat: ' + err.message + '</p>';
     });
 }
 </script>
