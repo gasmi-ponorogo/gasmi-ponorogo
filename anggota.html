@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Anggota GASMI Ponorogo</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f7f6;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .kartu-siswa {
+            background: #ffffff;
+            border: 2px solid #1b4332;
+            border-radius: 15px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.15);
+            width: 100%;
+            max-width: 450px;
+            padding: 25px;
+            box-sizing: border-box;
+            text-align: center;
+            background-image: linear-gradient(135deg, #ffffff 85%, #d8f3dc 100%);
+        }
+        .header-kartu {
+            border-bottom: 2px dashed #1b4332;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+        .header-kartu h2 {
+            margin: 0;
+            color: #1b4332;
+            font-size: 22px;
+            letter-spacing: 1px;
+        }
+        .header-kartu p {
+            margin: 5px 0 0 0;
+            font-size: 12px;
+            color: #555;
+        }
+        .font-corsiva {
+            font-family: "Monotype Corsiva", "Apple Chancery", cursive;
+        }
+        .no-induk {
+            font-size: 14px;
+            color: #777;
+            margin-bottom: 5px;
+        }
+        .nama-siswa {
+            font-size: 32px;
+            font-weight: bold;
+            color: #1b4332;
+            margin: 10px 0;
+            line-height: 1.2;
+        }
+        .detail-info {
+            text-align: left;
+            margin-top: 20px;
+            background: rgba(255,255,255,0.6);
+            padding: 15px;
+            border-radius: 8px;
+            border: 1px solid #e0e0e0;
+        }
+        .detail-row {
+            margin-bottom: 10px;
+            font-size: 14px;
+            color: #333;
+        }
+        .detail-row strong {
+            color: #1b4332;
+            display: inline-block;
+            width: 110px;
+        }
+        .pesan-error {
+            color: #d90429;
+            font-weight: bold;
+            font-size: 16px;
+        }
+        .loading {
+            color: #1b4332;
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+    <div class="kartu-siswa">
+        <div class="header-kartu">
+            <h2>PENCAK SILAT GASMI</h2>
+            <p>Ranting Ponorogo — Dokumen Data Anggota Resmi</p>
+        </div>
+        
+        <div id="konten-siswa">
+            <p class="loading">Memuat data...</p>
+        </div>
+    </div>
+
+    <script>
+        // === GANTI URL INI nanti dengan URL Web App Google Apps Script ===
+        const API_URL = 'https://script.google.com/macros/s/AKfycbxxxxxx/exec';
+        // =================================================================
+
+        const urlParams = new URLSearchParams(window.location.search);
+        const idQuery = urlParams.get('id');
+        const wadahKonten = document.getElementById('konten-siswa');
+
+        if (!idQuery) {
+            wadahKonten.innerHTML = `<p class="pesan-error">QR Code Tidak Valid! Parameter ID dibutuhkan.</p>`;
+        } else {
+            fetch(API_URL)
+                .then(res => {
+                    if (!res.ok) throw new Error(`Respons gagal: ${res.status}`);
+                    return res.json();
+                })
+                .then(data => {
+                    if (!Array.isArray(data)) throw new Error("Format data tidak sesuai");
+                    
+                    const siswaDitemukan = data.find(item => 
+                        item && String(item.id).trim() === idQuery.trim()
+                    );
+
+                    if (siswaDitemukan) {
+                        wadahKonten.innerHTML = `
+                            <div class="no-induk">${siswaDitemukan.no_induk || ''}</div>
+                            <div class="nama-siswa font-corsiva">${String(siswaDitemukan.nama || '').toUpperCase()}</div>
+                            
+                            <div class="detail-info">
+                                <div class="detail-row"><strong>TTL</strong>: <span class="font-corsiva">${siswaDitemukan.ttl || '-'}</span></div>
+                                <div class="detail-row"><strong>Jenis Kelamin</strong>: ${siswaDitemukan.jk || '-'}</div>
+                                <div class="detail-row"><strong>Pendidikan</strong>: ${siswaDitemukan.pendidikan || '-'}</div>
+                                <div class="detail-row"><strong>Orang Tua</strong>: ${siswaDitemukan.ortu || '-'}</div>
+                                <div class="detail-row"><strong>Alamat</strong>: <span class="font-corsiva">${siswaDitemukan.alamat || '-'}</span></div>
+                            </div>
+                        `;
+                    } else {
+                        wadahKonten.innerHTML = `<p class="pesan-error">Data Anggota ID ${idQuery} Tidak Ditemukan!</p>`;
+                    }
+                })
+                .catch(err => {
+                    console.error("Kesalahan:", err);
+                    wadahKonten.innerHTML = `<p class="pesan-error">Gagal memuat: ${err.message}</p>`;
+                });
+        }
+    </script>
+</body>
+</html>
