@@ -1,1 +1,110 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sertifikat Gasmi</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+    body { background: #f8f7fc; color: #333; line-height: 1.6; padding: 20px; max-width: 500px; margin: 0 auto; }
+    .header { text-align: center; margin-bottom: 30px; }
+    .logo { font-size: 28px; font-weight: bold; color: #222; margin-bottom: 5px; }
+    .konten { background: #fff; border-radius: 16px; padding: 30px; box-shadow: 0 2px 12px rgba(0,0,0,0.08); }
+    .judul { font-size: 22px; font-weight: bold; margin-bottom: 25px; color: #222; text-align: center; }
+    .baris { display: flex; padding: 12px 0; border-bottom: 1px solid #eee; }
+    .label { width: 40%; font-weight: 600; color: #555; }
+    .nilai { width: 60%; color: #222; font-weight: 500; }
+    .status { color: #28a745; font-weight: bold; font-size: 18px; }
+    .tidak-ada { color: #d33; }
+    .tanggal { margin-top: 20px; text-align: center; color: #888; font-size: 14px; }
+    .footer { text-align: center; margin-top: 40px; color: #888; font-size: 13px; }
+  </style>
+</head>
+<body>
 
+  <div class="header">
+    <div class="logo">Gasmi</div>
+  </div>
+
+  <div class="konten">
+    <h2 class="judul" id="judulHasil">Hasil Pencarian</h2>
+
+    <div id="wadahHasil">
+      <!-- Hasil akan muncul di sini -->
+    </div>
+
+    <div class="tanggal" id="tglCari"></div>
+  </div>
+
+  <div class="footer">
+    &copy; 2026 Gasmi — Pencak Silat
+  </div>
+
+<script>
+// === URL API dari Google Apps Script ===
+const URL_API = "https://script.google.com/macros/s/AKfycbzxxxxxx/exec";
+
+// Ambil parameter dari URL
+const params = new URLSearchParams(window.location.search);
+const noInduk = params.get('no_induk') || '01356-30-05';
+
+// Tampilkan judul
+document.getElementById('judulHasil').textContent = `Hasil Pencarian: ${noInduk}`;
+
+// Tanggal sekarang
+const tglSekarang = new Date().toLocaleDateString('id-ID', {
+  day: 'numeric', month: 'long', year: 'numeric'
+}) + ' ' + new Date().toLocaleTimeString('id-ID', {hour:'2-digit', minute:'2-digit'});
+document.getElementById('tglCari').textContent = `Tanggal Pencarian: ${tglSekarang}`;
+
+// Cari data
+fetch(URL_API)
+  .then(res => res.json())
+  .then(data => {
+    const anggota = data.find(a => 
+      String(a.no_induk || '').includes(noInduk) || 
+      String(a.id || '').trim() === noInduk.trim()
+    );
+
+    const wadah = document.getElementById('wadahHasil');
+    
+    if (!anggota) {
+      wadah.innerHTML = `
+        <div class="baris">
+          <div class="label">Tidak ada Induk</div>
+          <div class="nilai tidak-ada">${noInduk}</div>
+        </div>
+      `;
+      return;
+    }
+
+    wadah.innerHTML = `
+      <div class="baris">
+        <div class="label">Tidak ada Induk</div>
+        <div class="nilai">${anggota.no_induk || noInduk}</div>
+      </div>
+      <div class="baris">
+        <div class="label">Nama</div>
+        <div class="nilai">${anggota.nama || '-'}</div>
+      </div>
+      <div class="baris">
+        <div class="label">Jenis Kelamin</div>
+        <div class="nilai">${anggota.jk || '-'}</div>
+      </div>
+      <div class="baris">
+        <div class="label">Pendidikan</div>
+        <div class="nilai">${anggota.pendidikan || '-'}</div>
+      </div>
+      <div class="baris">
+        <div class="label">Status Sertifikat</div>
+        <div class="nilai status">ASLI</div>
+      </div>
+    `;
+  })
+  .catch(err => {
+    document.getElementById('wadahHasil').innerHTML = `<p style="color:red">Gagal memuat data: ${err.message}</p>`;
+  });
+</script>
+
+</body>
+</html>
