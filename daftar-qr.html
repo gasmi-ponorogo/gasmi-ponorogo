@@ -69,10 +69,9 @@
 
 <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.3/build/qrcode.min.js"></script>
 <script>
-// Tunggu sampai pustaka QR benar-benar siap
-function mulaiBuatQR() {
+function tungguDanBuat() {
   if (typeof QRCode === 'undefined') {
-    setTimeout(mulaiBuatQR, 100); // Cek ulang tiap 0,1 detik
+    setTimeout(tungguDanBuat, 150);
     return;
   }
 
@@ -86,24 +85,23 @@ function mulaiBuatQR() {
     const kartu = document.createElement('div');
     kartu.className = 'kartu';
     kartu.innerHTML = `
-      <img id="qrcode-${n}" alt="QR ${noInduk}">
+      <img id="qrc-${n}" alt="QR ${noInduk}">
       <div class="no-induk">${noInduk}</div>
     `;
     wadah.appendChild(kartu);
 
-    const img = document.getElementById(`qrcode-${n}`);
+    const img = document.getElementById(`qrc-${n}`);
     QRCode.toDataURL(url, { 
       width: 130, 
       margin: 2,
       color: { dark: '#0f4d2c', light: '#ffffff' }
-    }, function (err, src) {
-      if (!err) img.src = src;
+    }, function (err, dataUrl) {
+      if (!err) img.src = dataUrl;
     });
   }
 }
 
-// Jalankan setelah pustaka siap
-mulaiBuatQR();
+tungguDanBuat();
 </script>
 
 </body>
