@@ -51,7 +51,7 @@
       box-shadow: 0 3px 10px rgba(0,80,40,0.12); 
       border: 2px solid #2e8b57;
     }
-    .kartu canvas { margin: 10px 0; width: 130px; height: 130px; }
+    .kartu img { margin: 10px 0; width: 130px; height: 130px; }
     .no-induk { 
       font-weight: bold; 
       color: #0f4d2c; 
@@ -68,60 +68,61 @@
 <body>
 
 <h1>QR Code — Anggota GASMI Ranting Ponorogo</h1>
-<div class="status" id="status">🔄 Sedang memuat...</div>
+<div class="status" id="status">🔄 Memuat pustaka...</div>
 <button class="tombol-cetak" onclick="window.print()">🖨️ Cetak Semua QR Code</button>
 <div class="grid" id="wadahQR"></div>
 
-<script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.3/build/qrcode.min.js"></script>
+<!-- GANTI SUMBER PUSTAKA → lebih cepat & stabil -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 <script>
-// Alamat halaman sertifikat — SUDAH DISESUAIKAN
 const dasarURL = "https://gasmi-ponorogo.github.io/gasmi-ponorogo/sertifikat.html?no_induk=";
 const wadah = document.getElementById('wadahQR');
 const status = document.getElementById('status');
 
 function mulai() {
   if (typeof QRCode === 'undefined') {
-    status.textContent = "⏳ Menunggu pustaka QR dimuat...";
-    setTimeout(mulai, 200);
+    status.textContent = "⏳ Menunggu... (memuat ulang otomatis)";
+    setTimeout(mulai, 250);
     return;
   }
+  
   status.textContent = "✅ Mulai membuat QR...";
 
   let nomor = 3352;
   const nomorAkhir = 3582;
 
-  function buatSatuQR() {
+  function buatSatu() {
     if (nomor > nomorAkhir) {
-      status.textContent = "✅ Selesai! Semua QR sudah dibuat.";
+      status.textContent = "✅ Selesai! Semua QR sudah muncul.";
       return;
     }
 
     const noInduk = "0" + nomor;
-    const urlTujuan = dasarURL + noInduk;
+    const url = dasarURL + noInduk;
 
-    // Buat tempat kartu
     const kartu = document.createElement('div');
     kartu.className = 'kartu';
     kartu.innerHTML = `
-      <canvas id="kanvas-${nomor}"></canvas>
+      <div id="qrc-${nomor}"></div>
       <div class="no-induk">${noInduk}</div>
     `;
     wadah.appendChild(kartu);
 
-    // Gambar QR
-    QRCode.toCanvas(document.getElementById(`kanvas-${nomor}`), urlTujuan, {
+    new QRCode(document.getElementById(`qrc-${nomor}`), {
+      text: url,
       width: 130,
-      margin: 2,
-      color: { dark: '#0f4d2c', light: '#ffffff' }
-    }, function(err) {
-      if (err) console.error('Gagal:', noInduk, err);
-      status.textContent = `📄 Sedang diproses: ${noInduk} (${nomor - 3351} dari ${nomorAkhir - 3351})`;
-      nomor++;
-      setTimeout(buatSatuQR, 15);
+      height: 130,
+      colorDark: "#0f4d2c",
+      colorLight: "#ffffff",
+      correctLevel: 1
     });
+
+    status.textContent = `📄 ${noInduk} — ${nomor - 3351}/${nomorAkhir - 3351}`;
+    nomor++;
+    setTimeout(buatSatu, 10);
   }
 
-  buatSatuQR();
+  buatSatu();
 }
 
 mulai();
