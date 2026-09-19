@@ -4,7 +4,6 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Daftar QR Code GASMI</title>
-  <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.3/build/qrcode.min.js"></script>
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body { 
@@ -68,17 +67,18 @@
 
 <div class="grid" id="wadahQR"></div>
 
+<script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.3/build/qrcode.min.js"></script>
 <script>
-document.addEventListener('DOMContentLoaded', function() {
+// Tunggu sampai pustaka QR benar-benar siap
+function mulaiBuatQR() {
   if (typeof QRCode === 'undefined') {
-    alert('Pustaka QR belum dimuat — muat ulang halaman!');
+    setTimeout(mulaiBuatQR, 100); // Cek ulang tiap 0,1 detik
     return;
   }
 
   const dasarURL = "https://gasmi-ponorogo.github.io/gasmi-ponorogo/sertifikat.html?no_induk=";
   const wadah = document.getElementById('wadahQR');
 
-  // Dari 03352 sampai 03582
   for (let n = 3352; n <= 3582; n++) {
     const noInduk = "0" + n;
     const url = dasarURL + noInduk;
@@ -97,11 +97,13 @@ document.addEventListener('DOMContentLoaded', function() {
       margin: 2,
       color: { dark: '#0f4d2c', light: '#ffffff' }
     }, function (err, src) {
-      if (err) console.error('QR Error:', noInduk, err);
-      else img.src = src;
+      if (!err) img.src = src;
     });
   }
-});
+}
+
+// Jalankan setelah pustaka siap
+mulaiBuatQR();
 </script>
 
 </body>
