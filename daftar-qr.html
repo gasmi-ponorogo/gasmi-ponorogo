@@ -69,32 +69,39 @@
 <div class="grid" id="wadahQR"></div>
 
 <script>
-const dasarURL = "https://gasmi-ponorogo.github.io/gasmi-ponorogo/sertifikat.html?no_induk=";
-const wadah = document.getElementById('wadahQR');
+// Tunggu sampai halaman & pustaka siap dulu
+document.addEventListener('DOMContentLoaded', function() {
+  if (typeof QRCode === 'undefined') {
+    console.error('Pustaka QR belum dimuat!');
+    return;
+  }
 
-// === DARI 03352 SAMPAI 03582 ===
-for (let n = 3352; n <= 3582; n++) {
-  const noInduk = "0" + n;  // Hasil: 03352, 03353, ...
-  const url = dasarURL + noInduk;
+  const dasarURL = "https://gasmi-ponorogo.github.io/gasmi-ponorogo/sertifikat.html?no_induk=";
+  const wadah = document.getElementById('wadahQR');
 
-  const kartu = document.createElement('div');
-  kartu.className = 'kartu';
-  kartu.innerHTML = `
-    <canvas></canvas>
-    <div class="no-induk">${noInduk}</div>
-  `;
-  wadah.appendChild(kartu);
+  // Dari 03352 sampai 03582
+  for (let n = 3352; n <= 3582; n++) {
+    const noInduk = "0" + n;
+    const url = dasarURL + noInduk;
 
-  // Buat QR Code
-  const kanvas = kartu.querySelector('canvas');
-  QRCode.toCanvas(kanvas, url, { 
-    width: 130, 
-    margin: 2,
-    color: { dark: '#0f4d2c', light: '#ffffff' }
-  }, function (err) {
-    if (err) console.error('Error QR:', err);
-  });
-}
+    const kartu = document.createElement('div');
+    kartu.className = 'kartu';
+    kartu.innerHTML = `
+      <canvas></canvas>
+      <div class="no-induk">${noInduk}</div>
+    `;
+    wadah.appendChild(kartu);
+
+    const kanvas = kartu.querySelector('canvas');
+    QRCode.toCanvas(kanvas, url, { 
+      width: 130, 
+      margin: 2,
+      color: { dark: '#0f4d2c', light: '#ffffff' }
+    }, function (err) {
+      if (err) console.error('QR Error:', noInduk, err);
+    });
+  }
+});
 </script>
 
 </body>
