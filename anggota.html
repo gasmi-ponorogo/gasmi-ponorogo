@@ -108,9 +108,9 @@ if (!idQuery) {
       });
       
        if (siswa) {
-       wadahKonten.innerHTML =
+      wadahKonten.innerHTML =
   '<div class="kartu-data">' +
-    '<h2>' + siswa.no_induk + '</h2>' +  // ← INI YANG SALAH!
+    '<h2>' + siswa.nama + '</h2>' +  // ✅ JUDUL = NAMA
     '<hr>' +
     '<p><strong>ID Anggota:</strong> ' + siswa.id + '</p>' +
     '<p><strong>No. Induk:</strong> ' + (siswa.no_induk || '-') + '</p>' +
