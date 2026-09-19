@@ -3,131 +3,172 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Sertifikat GASMI</title>
+  <title>Hasil Pencarian GASMI</title>
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
       background: #f8f7fc;
       color: #333;
-      padding: 30px 20px;
-      max-width: 500px;
+      padding: 20px 15px;
+      max-width: 520px;
       margin: 0 auto;
     }
-    .judul-atas {
-      text-align: center;
-      font-size: 36px;
-      font-weight: bold;
-      color: #111;
-      margin-bottom: 30px;
+    .tombol-cari {
+      text-align: left;
+      margin-bottom: 25px;
+    }
+    .btn-merah {
+      background: #e53935;
+      color: #fff;
+      border: none;
+      padding: 10px 30px;
+      border-radius: 10px;
+      font-size: 18px;
+      font-weight: 600;
     }
     .kartu {
-      background: #ffffff;
+      background: #fff;
       border-radius: 20px;
       padding: 35px 25px;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 2px 15px rgba(0,0,0,0.05);
+    }
+    /* Latar belakang logo samar */
+    .kartu::before {
+      content: "";
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 70%;
+      height: 70%;
+      background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"><circle cx="100" cy="100" r="90" fill="none" stroke="%23ddd" stroke-width="2"/><path d="M100 30 L120 80 L170 90 L130 130 L140 180 L100 150 L60 180 L70 130 L30 90 L80 80 Z" fill="none" stroke="%23ddd" stroke-width="2"/></svg>');
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: contain;
+      opacity: 0.15;
+      pointer-events: none;
     }
     .judul-hasil {
       text-align: center;
-      font-size: 30px;
+      font-size: 24px;
       font-weight: bold;
-      color: #111;
+      color: #333;
       margin-bottom: 30px;
     }
     .baris {
       display: flex;
-      padding: 14px 0;
+      padding: 12px 0;
       border-bottom: 1px solid #eee;
-      align-items: center;
+      align-items: flex-start;
+      position: relative;
+      z-index: 1;
     }
     .kiri {
-      width: 45%;
+      width: 42%;
       font-size: 18px;
-      color: #666;
-      line-height: 1.5;
+      color: #555;
+      line-height: 1.4;
     }
     .kanan {
-      width: 55%;
+      width: 58%;
       font-size: 18px;
       color: #222;
-      line-height: 1.5;
+      font-weight: 500;
+      line-height: 1.4;
     }
     .status-hijau {
-      color: #28a745;
+      color: #28b960;
       font-weight: bold;
       font-size: 22px;
     }
     .tgl-bawah {
       margin-top: 25px;
       text-align: center;
-      color: #999;
+      color: #888;
       font-size: 16px;
-    }
-    .footer {
-      text-align: center;
-      margin-top: 30px;
-      color: #555;
-      font-size: 17px;
-      font-weight: 500;
+      line-height: 1.6;
     }
   </style>
 </head>
 <body>
 
-  <div class="judul-atas">GASMI</div>
+  <div class="tombol-cari">
+    <button class="btn-merah">Cari</button>
+  </div>
 
   <div class="kartu">
     <div class="judul-hasil">Hasil Pencarian: <span id="no-pencarian"></span></div>
 
     <div class="baris">
-      <div class="kiri">Nomor Induk</div>
+      <div class="kiri">Tidak ada<br>Induk</div>
       <div class="kanan" id="no-induk"></div>
     </div>
 
     <div class="baris">
-      <div class="kiri">Nama Lengkap</div>
+      <div class="kiri">Nama</div>
       <div class="kanan" id="nama"></div>
     </div>
 
     <div class="baris">
-      <div class="kiri">Tempat, Tanggal Lahir</div>
-      <div class="kanan" id="ttl"></div>
+      <div class="kiri">Jenis Kelamin</div>
+      <div class="kanan" id="jenis-kelamin"></div>
     </div>
 
     <div class="baris">
-      <div class="kiri">Pendidikan / Jenis Kelamin</div>
+      <div class="kiri">Pendidikan</div>
       <div class="kanan" id="pendidikan"></div>
     </div>
 
     <div class="baris">
-      <div class="kiri">Status Sertifikat</div>
+      <div class="kiri">Status<br>Sertifikat</div>
       <div class="kanan status-hijau">ASLI</div>
     </div>
 
     <div class="tgl-bawah" id="tgl-cetak"></div>
   </div>
 
-  <div class="footer">GASMI — Cabang Ponorogo</div>
-
 <script>
+// Ambil nomor induk dari URL
 const urlParams = new URLSearchParams(window.location.search);
-const noInduk = urlParams.get('no_induk') || '00000';
+const noInduk = urlParams.get('no_induk') || '01356-30-05';
 
+// Tampilkan nomor
 document.getElementById('no-pencarian').textContent = noInduk;
 document.getElementById('no-induk').textContent = noInduk;
 
-// Isi data — nanti diganti data asli
-document.getElementById('nama').textContent = noInduk;
-document.getElementById('ttl').textContent = 'Trenggalek, 23 Agustus 2005';
-document.getElementById('pendidikan').textContent = 'Perempuan';
+// === DATA ANGGOTA ===
+// Nanti bagian ini bisa diganti dengan daftar lengkap
+const dataAnggota = {
+  '01356-30-05': {
+    nama: 'AGUNG\nPRIYANTO',
+    jenisKelamin: 'Laki-laki',
+    pendidikan: 'SDN 2\nNGRAYUN'
+  }
+  // Tambahkan nomor lain di sini sesuai format:
+  // 'nomor': { nama: '...', jenisKelamin: '...', pendidikan: '...' }
+};
 
+// Ambil data atau tampilkan kosong
+const data = dataAnggota[noInduk] || {
+  nama: '-',
+  jenisKelamin: '-',
+  pendidikan: '-'
+};
+
+document.getElementById('nama').innerHTML = data.nama.replace(/\n/g, '<br>');
+document.getElementById('jenis-kelamin').textContent = data.jenisKelamin;
+document.getElementById('pendidikan').innerHTML = data.pendidikan.replace(/\n/g, '<br>');
+
+// Tanggal & Waktu Sekarang
 const hariIni = new Date();
-document.getElementById('tgl-cetak').textContent =
-  'Tanggal Pencarian: ' + hariIni.toLocaleDateString('id-ID', {
-    day: 'numeric',
-    month: 'long',
-    year: 'numeric'
-  });
+document.getElementById('tgl-cetak').innerHTML =
+  'Tanggal Pencarian : ' +
+  hariIni.toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' }) +
+  '<br>' +
+  hariIni.toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
 </script>
 
 </body>
