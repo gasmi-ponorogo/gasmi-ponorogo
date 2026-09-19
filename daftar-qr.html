@@ -67,11 +67,11 @@
 
 <div class="grid" id="wadahQR"></div>
 
-<script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.3/build/qrcode.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 <script>
-function tungguDanBuat() {
+function mulaiBuatQR() {
   if (typeof QRCode === 'undefined') {
-    setTimeout(tungguDanBuat, 150);
+    setTimeout(mulaiBuatQR, 150);
     return;
   }
 
@@ -85,23 +85,23 @@ function tungguDanBuat() {
     const kartu = document.createElement('div');
     kartu.className = 'kartu';
     kartu.innerHTML = `
-      <img id="qrc-${n}" alt="QR ${noInduk}">
+      <div id="qrc-${n}"></div>
       <div class="no-induk">${noInduk}</div>
     `;
     wadah.appendChild(kartu);
 
-    const img = document.getElementById(`qrc-${n}`);
-    QRCode.toDataURL(url, { 
-      width: 130, 
-      margin: 2,
-      color: { dark: '#0f4d2c', light: '#ffffff' }
-    }, function (err, dataUrl) {
-      if (!err) img.src = dataUrl;
+    new QRCode(document.getElementById(`qrc-${n}`), {
+      text: url,
+      width: 130,
+      height: 130,
+      colorDark: "#0f4d2c",
+      colorLight: "#ffffff",
+      correctLevel: QRCode.CorrectLevel.M
     });
   }
 }
 
-tungguDanBuat();
+mulaiBuatQR();
 </script>
 
 </body>
