@@ -45,7 +45,7 @@
       box-shadow: 0 3px 10px rgba(0,80,40,0.12); 
       border: 2px solid #2e8b57;
     }
-    .kartu img { margin: 10px 0; width: 130px; height: 130px; }
+    .kartu img, .kartu canvas { margin: 10px 0; width: 130px; height: 130px; }
     .no-induk { 
       font-weight: bold; 
       color: #0f4d2c; 
@@ -67,41 +67,51 @@
 
 <div class="grid" id="wadahQR"></div>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.3/build/qrcode.min.js"></script>
 <script>
-function mulaiBuatQR() {
+// Tunggu sampai pustaka siap sepenuhnya
+function mulai() {
   if (typeof QRCode === 'undefined') {
-    setTimeout(mulaiBuatQR, 150);
+    setTimeout(mulai, 200);
     return;
   }
 
   const dasarURL = "https://gasmi-ponorogo.github.io/gasmi-ponorogo/sertifikat.html?no_induk=";
   const wadah = document.getElementById('wadahQR');
 
-  for (let n = 3352; n <= 3582; n++) {
+  // Buat bertahap agar tidak lambat
+  let nMulai = 3352;
+  let nSelesai = 3582;
+
+  function buatSatu(n) {
+    if (n > nSelesai) return;
+
     const noInduk = "0" + n;
     const url = dasarURL + noInduk;
 
     const kartu = document.createElement('div');
     kartu.className = 'kartu';
     kartu.innerHTML = `
-      <div id="qrc-${n}"></div>
+      <canvas id="kanvas-${n}"></canvas>
       <div class="no-induk">${noInduk}</div>
     `;
     wadah.appendChild(kartu);
 
-    new QRCode(document.getElementById(`qrc-${n}`), {
-      text: url,
+    const kanvas = document.getElementById(`kanvas-${n}`);
+    QRCode.toCanvas(kanvas, url, {
       width: 130,
-      height: 130,
-      colorDark: "#0f4d2c",
-      colorLight: "#ffffff",
-      correctLevel: QRCode.CorrectLevel.M
+      margin: 2,
+      color: { dark: '#0f4d2c', light: '#ffffff' }
+    }, function(err) {
+      if (err) console.error(noInduk, err);
+      buatSatu(n + 1); // Lanjut ke nomor berikutnya
     });
   }
+
+  buatSatu(nMulai);
 }
 
-mulaiBuatQR();
+mulai();
 </script>
 
 </body>
