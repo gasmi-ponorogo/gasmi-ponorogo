@@ -7,150 +7,127 @@
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
-      font-family: 'Segoe UI', Arial, sans-serif;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
       background: #f8f7fc;
       color: #333;
-      line-height: 1.6;
       padding: 30px 20px;
       max-width: 500px;
       margin: 0 auto;
     }
-    .header {
+    .judul-atas {
       text-align: center;
+      font-size: 36px;
+      font-weight: bold;
+      color: #111;
       margin-bottom: 30px;
     }
-    .logo {
-      font-size: 28px;
-      font-weight: bold;
-      color: #222;
-      margin-bottom: 5px;
-    }
-    .konten {
-      background: #fff;
-      border-radius: 16px;
-      padding: 30px;
-      box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+    .kartu {
+      background: #ffffff;
+      border-radius: 20px;
+      padding: 35px 25px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.05);
     }
     .judul-hasil {
       text-align: center;
-      font-size: 24px;
+      font-size: 30px;
       font-weight: bold;
-      color: #222;
-      margin-bottom: 25px;
+      color: #111;
+      margin-bottom: 30px;
     }
     .baris {
       display: flex;
-      padding: 12px 0;
+      padding: 14px 0;
       border-bottom: 1px solid #eee;
+      align-items: center;
     }
-    .label {
-      width: 40%;
-      font-weight: 600;
-      color: #555;
+    .kiri {
+      width: 45%;
+      font-size: 18px;
+      color: #666;
+      line-height: 1.5;
     }
-    .nilai {
-      width: 60%;
+    .kanan {
+      width: 55%;
+      font-size: 18px;
       color: #222;
-      font-weight: 500;
+      line-height: 1.5;
     }
-    .status-asli {
+    .status-hijau {
       color: #28a745;
       font-weight: bold;
-      font-size: 18px;
+      font-size: 22px;
     }
-    .tanggal-cetak {
-      margin-top: 20px;
+    .tgl-bawah {
+      margin-top: 25px;
       text-align: center;
-      color: #888;
-      font-size: 14px;
+      color: #999;
+      font-size: 16px;
     }
     .footer {
       text-align: center;
-      margin-top: 40px;
-      color: #888;
-      font-size: 13px;
-    }
-    @media print {
-      body { background: #fff; }
-      .konten { box-shadow: none; }
+      margin-top: 30px;
+      color: #555;
+      font-size: 17px;
+      font-weight: 500;
     }
   </style>
 </head>
 <body>
 
-  <div class="header">
-    <div class="logo">GASMI</div>
+  <div class="judul-atas">GASMI</div>
+
+  <div class="kartu">
+    <div class="judul-hasil">Hasil Pencarian: <span id="no-pencarian"></span></div>
+
+    <div class="baris">
+      <div class="kiri">Nomor Induk</div>
+      <div class="kanan" id="no-induk"></div>
+    </div>
+
+    <div class="baris">
+      <div class="kiri">Nama Lengkap</div>
+      <div class="kanan" id="nama"></div>
+    </div>
+
+    <div class="baris">
+      <div class="kiri">Tempat, Tanggal Lahir</div>
+      <div class="kanan" id="ttl"></div>
+    </div>
+
+    <div class="baris">
+      <div class="kiri">Pendidikan / Jenis Kelamin</div>
+      <div class="kanan" id="pendidikan"></div>
+    </div>
+
+    <div class="baris">
+      <div class="kiri">Status Sertifikat</div>
+      <div class="kanan status-hijau">ASLI</div>
+    </div>
+
+    <div class="tgl-bawah" id="tgl-cetak"></div>
   </div>
 
-  <div class="konten">
-    <div class="judul-hasil">Hasil Pencarian: <span id="judul-no"></span></div>
-
-    <div class="baris">
-      <span class="label">Nomor Induk</span>
-      <span class="nilai" id="no_induk"></span>
-    </div>
-
-    <div class="baris">
-      <span class="label">Nama Lengkap</span>
-      <span class="nilai" id="nama"></span>
-    </div>
-
-    <div class="baris">
-      <span class="label">Tempat, Tanggal Lahir</span>
-      <span class="nilai" id="ttl"></span>
-    </div>
-
-    <div class="baris">
-      <span class="label">Pendidikan / Jenis Kelamin</span>
-      <span class="nilai" id="pendidikan"></span>
-    </div>
-
-    <div class="baris">
-      <span class="label">Status Sertifikat</span>
-      <span class="nilai status-asli">ASLI</span>
-    </div>
-
-    <div class="tanggal-cetak" id="tgl-cetak"></div>
-  </div>
-
-  <div class="footer">
-    GASMI — Cabang Ponorogo
-  </div>
+  <div class="footer">GASMI — Cabang Ponorogo</div>
 
 <script>
-// Ambil nomor induk dari URL
 const urlParams = new URLSearchParams(window.location.search);
-const noInduk = urlParams.get('no_induk') || 'Tidak Diketahui';
+const noInduk = urlParams.get('no_induk') || '00000';
 
-// Tampilkan di judul
-document.getElementById('judul-no').textContent = noInduk;
+document.getElementById('no-pencarian').textContent = noInduk;
+document.getElementById('no-induk').textContent = noInduk;
 
-// Tampilkan Nomor Induk
-document.getElementById('no_induk').textContent = noInduk;
-
-// === PEMISAHAN DATA ===
-// Format yang terbaca: "03352 - 19 - 09 / PIM / GASMI / IX / 2026"
-// Kita pisahkan bagian-bagiannya
-const bagian = noInduk.split(' / ');
-const bagianPertama = bagian[0]?.split(' - ') || [];
-
-// Isi Nama Lengkap
+// Isi data — nanti diganti data asli
 document.getElementById('nama').textContent = noInduk;
-
-// Isi Tempat, Tanggal Lahir — sesuaikan dengan data asli
 document.getElementById('ttl').textContent = 'Trenggalek, 23 Agustus 2005';
-
-// Isi Pendidikan / Jenis Kelamin
 document.getElementById('pendidikan').textContent = 'Perempuan';
 
-// Tanggal pencarian hari ini
 const hariIni = new Date();
-const formatTanggal = hariIni.toLocaleDateString('id-ID', {
-  day: 'numeric',
-  month: 'long',
-  year: 'numeric'
-});
-document.getElementById('tgl-cetak').textContent = 'Tanggal Pencarian: ' + formatTanggal;
+document.getElementById('tgl-cetak').textContent =
+  'Tanggal Pencarian: ' + hariIni.toLocaleDateString('id-ID', {
+    day: 'numeric',
+    month: 'long',
+    year: 'numeric'
+  });
 </script>
 
 </body>
