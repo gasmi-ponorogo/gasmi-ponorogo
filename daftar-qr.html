@@ -6,40 +6,94 @@
   <title>Daftar QR Code GASMI</title>
   <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.3/build/qrcode.min.js"></script>
   <style>
-    body { font-family: Arial, sans-serif; padding: 20px; background: #f5f9f5; }
-    h1 { text-align: center; color: #0f4d2c; }
-    .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 20px; }
-    .kartu { background: #fff; padding: 15px; border-radius: 10px; text-align: center; box-shadow: 0 2px 8px rgba(0,80,40,0.1); border: 2px solid #2e8b57; }
-    .nama { font-weight: bold; color: #0f4d2c; margin-top: 5px; font-size: 14px; }
-    .no { font-size: 12px; color: #666; margin-top: 3px; }
-    button { display: block; margin: 20px auto; padding: 10px 25px; background: #2e8b57; color: #fff; border: none; border-radius: 6px; font-size: 16px; cursor: pointer; }
-    @media print { button { display: none; } .kartu { page-break-inside: avoid; } }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { 
+      font-family: 'Segoe UI', Arial, sans-serif; 
+      padding: 30px 20px; 
+      background: #f5f9f5; 
+    }
+    h1 { 
+      text-align: center; 
+      color: #0f4d2c; 
+      margin-bottom: 25px;
+      font-size: 26px;
+    }
+    .tombol-cetak {
+      display: block;
+      margin: 0 auto 30px;
+      padding: 12px 35px;
+      background: #2e8b57;
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      cursor: pointer;
+      font-weight: 600;
+    }
+    .tombol-cetak:hover { background: #247048; }
+    .grid { 
+      display: grid; 
+      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); 
+      gap: 20px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .kartu { 
+      background: #fff; 
+      padding: 20px 15px; 
+      border-radius: 12px; 
+      text-align: center; 
+      box-shadow: 0 3px 10px rgba(0,80,40,0.12); 
+      border: 2px solid #2e8b57;
+    }
+    .kartu canvas { margin: 10px 0; }
+    .no-induk { 
+      font-weight: bold; 
+      color: #0f4d2c; 
+      font-size: 15px;
+      margin-top: 5px;
+    }
+    @media print {
+      .tombol-cetak { display: none; }
+      body { background: #fff; padding: 10px; }
+      .kartu { box-shadow: none; page-break-inside: avoid; }
+    }
   </style>
 </head>
 <body>
 
 <h1>QR Code — Anggota GASMI Ranting Ponorogo</h1>
-<button onclick="window.print()">🖨️ Cetak Semua</button>
-<div class="grid" id="wadah"></div>
+
+<button class="tombol-cetak" onclick="window.print()">🖨️ Cetak Semua QR Code</button>
+
+<div class="grid" id="wadahQR"></div>
 
 <script>
 const dasarURL = "https://gasmi-ponorogo.github.io/gasmi-ponorogo/sertifikat.html?no_induk=";
+const wadah = document.getElementById('wadahQR');
 
-// === DAFTAR NOMOR ===
-const nomorList = [];
-for (let i = 352; i <= 582; i++) {
-  nomorList.push("0" + i);
+// Dari 03352 sampai 03582
+for (let n = 3352; n <= 3582; n++) {
+  const noInduk = "0" + n;
+  const url = dasarURL + noInduk;
+
+  const kartu = document.createElement('div');
+  kartu.className = 'kartu';
+  kartu.innerHTML = `
+    <canvas></canvas>
+    <div class="no-induk">${noInduk}</div>
+  `;
+  wadah.appendChild(kartu);
+
+  const kanvas = kartu.querySelector('canvas');
+  QRCode.toCanvas(kanvas, url, { 
+    width: 130, 
+    margin: 2,
+    color: { dark: '#0f4d2c', light: '#ffffff' }
+  }, function (err) {
+    if (err) console.error('QR Error:', err);
+  });
 }
-
-const wadah = document.getElementById('wadah');
-nomorList.forEach(no => {
-  const url = dasarURL + no;
-  const div = document.createElement('div');
-  div.className = 'kartu';
-  div.innerHTML = `<canvas data-url="${url}"></canvas><div class="no">${no}</div>`;
-  wadah.appendChild(div);
-  QRCode.toCanvas(div.querySelector('canvas'), url, { width: 140, margin: 2 }, e => e && console.error(e));
-});
 </script>
 
 </body>
