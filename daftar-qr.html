@@ -46,7 +46,7 @@
       box-shadow: 0 3px 10px rgba(0,80,40,0.12); 
       border: 2px solid #2e8b57;
     }
-    .kartu canvas { margin: 10px 0; }
+    .kartu img { margin: 10px 0; width: 130px; height: 130px; }
     .no-induk { 
       font-weight: bold; 
       color: #0f4d2c; 
@@ -69,10 +69,9 @@
 <div class="grid" id="wadahQR"></div>
 
 <script>
-// Tunggu sampai halaman & pustaka siap dulu
 document.addEventListener('DOMContentLoaded', function() {
   if (typeof QRCode === 'undefined') {
-    console.error('Pustaka QR belum dimuat!');
+    alert('Pustaka QR belum dimuat — muat ulang halaman!');
     return;
   }
 
@@ -87,18 +86,19 @@ document.addEventListener('DOMContentLoaded', function() {
     const kartu = document.createElement('div');
     kartu.className = 'kartu';
     kartu.innerHTML = `
-      <canvas></canvas>
+      <img id="qrcode-${n}" alt="QR ${noInduk}">
       <div class="no-induk">${noInduk}</div>
     `;
     wadah.appendChild(kartu);
 
-    const kanvas = kartu.querySelector('canvas');
-    QRCode.toCanvas(kanvas, url, { 
+    const img = document.getElementById(`qrcode-${n}`);
+    QRCode.toDataURL(url, { 
       width: 130, 
       margin: 2,
       color: { dark: '#0f4d2c', light: '#ffffff' }
-    }, function (err) {
+    }, function (err, src) {
       if (err) console.error('QR Error:', noInduk, err);
+      else img.src = src;
     });
   }
 });
