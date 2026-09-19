@@ -1,1 +1,46 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Daftar QR Code GASMI</title>
+  <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.3/build/qrcode.min.js"></script>
+  <style>
+    body { font-family: Arial, sans-serif; padding: 20px; background: #f5f9f5; }
+    h1 { text-align: center; color: #0f4d2c; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 20px; }
+    .kartu { background: #fff; padding: 15px; border-radius: 10px; text-align: center; box-shadow: 0 2px 8px rgba(0,80,40,0.1); border: 2px solid #2e8b57; }
+    .nama { font-weight: bold; color: #0f4d2c; margin-top: 5px; font-size: 14px; }
+    .no { font-size: 12px; color: #666; margin-top: 3px; }
+    button { display: block; margin: 20px auto; padding: 10px 25px; background: #2e8b57; color: #fff; border: none; border-radius: 6px; font-size: 16px; cursor: pointer; }
+    @media print { button { display: none; } .kartu { page-break-inside: avoid; } }
+  </style>
+</head>
+<body>
 
+<h1>QR Code — Anggota GASMI Ranting Ponorogo</h1>
+<button onclick="window.print()">🖨️ Cetak Semua</button>
+<div class="grid" id="wadah"></div>
+
+<script>
+const dasarURL = "https://gasmi-ponorogo.github.io/gasmi-ponorogo/sertifikat.html?no_induk=";
+
+// === DAFTAR NOMOR ===
+const nomorList = [];
+for (let i = 352; i <= 582; i++) {
+  nomorList.push("0" + i);
+}
+
+const wadah = document.getElementById('wadah');
+nomorList.forEach(no => {
+  const url = dasarURL + no;
+  const div = document.createElement('div');
+  div.className = 'kartu';
+  div.innerHTML = `<canvas data-url="${url}"></canvas><div class="no">${no}</div>`;
+  wadah.appendChild(div);
+  QRCode.toCanvas(div.querySelector('canvas'), url, { width: 140, margin: 2 }, e => e && console.error(e));
+});
+</script>
+
+</body>
+</html>
