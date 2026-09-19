@@ -1,917 +1,392 @@
-/ DAFTAR DATA ANGGOTA — Gasmi Ponorogo
-// Diperbarui: 19 September 2026
-// ==============================================
-const dataAnggota = {
-  '03352': {
-    nama: 'DEWI NOVITAYENI',
-    tempatLahir: 'Trenggalek',
-    tanggalLahir: '23 Agustus 2005',
-    jenisKelamin: 'Perempuan',
-    pendidikan: 'SMK FATHUL MUNA',
-    namaOrtu: 'Mesnan / Dati',
-    alamat: 'Botoputih, Bendungan, Trenggalek'
-  },
-  '03353': {
-    nama: 'AFNAN GHOZI MAYRIA ASEGAF',
-    tempatLahir: 'Ponorogo',
-    tanggalLahir: '20 Mei 2008',
-    jenisKelamin: 'Laki-laki',
-    pendidikan: 'MTS. AL-JAWARIYAH',
-    namaOrtu: 'Agus Riyadi / Siti Maysaroh',
-    alamat: 'Grogol, Sawoo, Ponorogo'
-  },
-  '03354': {
-    nama: 'FARA SURYARENATA',
-    tempatLahir: 'Ponorogo',
-    tanggalLahir: '07 Juni 2011',
-    jenisKelamin: 'Perempuan',
-    pendidikan: 'MTSN 1 JETIS',
-    namaOrtu: 'Suryadi / Sri Turini',
-    alamat: 'Campurejo, Sambit, Ponorogo'
-  },
-  '03355': {
-    nama: 'DENIS YOGA PRATAMA',
-    tempatLahir: 'Oku',
-    tanggalLahir: '06 September 2012',
-    jenisKelamin: 'Laki-laki',
-    pendidikan: 'SMP FATHUL MUNA',
-    namaOrtu: 'Jarman / Surati',
-    alamat: 'Kurungan Nyawa II, Buay Madang, Oku Timur'
-  },
-  '03356': {
-    nama: 'ANISA DWI YANA PUTRI',
-    tempatLahir: 'Ponorogo',
-    tanggalLahir: '18 Februari 2012',
-    jenisKelamin: 'Perempuan',
-    pendidikan: 'MTSN 1 JETIS',
-    namaOrtu: 'Edi Sunaryanto / Srika Dwi Yana Anjani',
-    alamat: 'Campurejo, Sambit, Ponorogo'
-  },
-  '03357': {
-    nama: 'SEPTIAN TRIANI YOGA ADHITAMA',
-    tempatLahir: 'Ponorogo',
-    tanggalLahir: '06 September 2006',
-    jenisKelamin: 'Laki-laki',
-    pendidikan: 'MA MA\'ARIF KRATON MOJO KEDIRI',
-    namaOrtu: 'Parni / Jemitri',
-    alamat: 'Grogol, Sawoo, Ponorogo'
-  },
-  '03358': {
-    nama: 'FAIREL ATHARIZZ CALIEF LEE',
-    tempatLahir: 'Ponorogo',
-    tanggalLahir: '08 Januari 2014',
-    jenisKelamin: 'Laki-laki',
-    pendidikan: 'SDN 1 KEMUNING',
-    namaOrtu: 'Nur Ali / Priyanti',
-    alamat: 'Wringinanom, Sambit, Ponorogo'
-  },
-  '03359': {
-    nama: 'RIYAN NUR HANDIKA PRASETYO',
-    tempatLahir: 'Blora',
-    tanggalLahir: '11 Juli 2007',
-    jenisKelamin: 'Laki-laki',
-    pendidikan: 'SMK PGRI 2 PONOROGO',
-    namaOrtu: 'Bonangin / Sriwahyuni',
-    alamat: 'Sedarat, Balong, Ponorogo'
-  },
-  '03360': {
-    nama: 'AFIZA SITI ARIYANTI',
-    tempatLahir: 'Pekalongan',
-    tanggalLahir: '09 Juni 2013',
-    jenisKelamin: 'Perempuan',
-    pendidikan: 'SMP FATHUL MUNA',
-    namaOrtu: 'Agus Giyanto / Aris Karisna',
-    alamat: 'Prantaan, Bogorejo, Blora'
-  },
-  '03361': {
-    nama: 'ZAHWA NADIA IZZATI',
-    tempatLahir: 'Ponorogo',
-    tanggalLahir: '30 Oktober 2007',
-    jenisKelamin: 'Perempuan',
-    pendidikan: 'SMK MUHAMMADIYAH DORO',
-    namaOrtu: 'Maroto / Fitriyah',
-    alamat: 'Pandak, Balong, Ponorogo'
-  },
-  '03362': {
-    nama: 'SITI NURROSIDAH',
-    tempatLahir: 'Ponorogo',
-    tanggalLahir: '22 Agustus 2009',
-    jenisKelamin: 'Perempuan',
-    pendidikan: 'SMAN 1 SLAHUNG',
-    namaOrtu: 'Sarnianto / Sri Suparmi',
-    alamat: 'Baosan Kidul, Ngrayun, Ponorogo'
-  },
-  '03363': {
-    nama: 'MUHAMMAD SYAHRUL MUNIB',
-    tempatLahir: 'Cilacap',
-    tanggalLahir: '10 Juni 2012',
-    jenisKelamin: 'Laki-laki',
-    pendidikan: 'SMP FATHUL MUNA',
-    namaOrtu: 'Suyono / Katri',
-    alamat: 'Wagir Kidul, Pulung, Ponorogo'
-  },
-  '03364': {
-    nama: 'AHMAD HAETI',
-    tempatLahir: 'Ponorogo',
-    tanggalLahir: '19 Agustus 2010',
-    jenisKelamin: 'Laki-laki',
-    pendidikan: 'SMK FATHUL MUNA',
-    namaOrtu: 'Turijan / Siti Halimatus Sadiyah',
-    alamat: 'Labangka, Babulu, Penajam Paser Utara'
-  },
-  '03365': {
-    nama: 'IKHDA WARDATUL ANNISA\'',
-    tempatLahir: 'Ponorogo',
-    tanggalLahir: '17 Juli 2008',
-    jenisKelamin: 'Perempuan',
-    pendidikan: 'MA AL-ISLAM',
-    namaOrtu: 'Sumari / Puriyah',
-    alamat: 'Kutu Wetan, Jetis, Ponorogo'
-  },
-  '03366': {
-    nama: 'MIRDAYANI AGUSTINA',
-    tempatLahir: 'Ponorogo',
-    tanggalLahir: '22 Agustus 2008',
-    jenisKelamin: 'Perempuan',
-    pendidikan: 'MTS. MA\'ARIF AL-ISHLAH',
-    namaOrtu: 'Suryono / Tutik Kholistiana',
-    alamat: 'Bungu, Bungkal, Ponorogo'
-  },
-  '03367': {
-    nama: 'LUTFI NUFITA ASFA\'I',
-    tempatLahir: 'Ponorogo',
-    tanggalLahir: '22 November 2007',
-    jenisKelamin: 'Perempuan',
-    pendidikan: 'MTS MA\'ARIF AL ISLAH',
-    namaOrtu: 'Imam Safi\'i / Sriyatin',
-    alamat: 'Munggu, Bungkal, Ponorogo'
-  },
-  '03368': {
-    nama: 'RIZKI KURNIAWAN',
-    tempatLahir: 'Ponorogo',
-    tanggalLahir: '10 Agustus 2006',
-    jenisKelamin: 'Laki-laki',
-    pendidikan: 'MTS MA\'ARIF AL ISLAH',
-    namaOrtu: 'Kateno / Mesti',
-    alamat: 'Wringinanom, Sambit, Ponorogo'
-  },
-  '03369': {
-    nama: 'VANES RYAN SAPUTRA',
-    tempatLahir: 'Ponorogo',
-    tanggalLahir: '24 Januari 2007',
-    jenisKelamin: 'Laki-laki',
-    pendidikan: 'SMKN 1 JENANGAN',
-    namaOrtu: 'Yani / Turini',
-    alamat: 'Ketro, Sawoo, Ponorogo'
-  },
-  '03370': {
-    nama: 'KEVIN ANDREAN PUTRA',
-    tempatLahir: 'Madiun',
-    tanggalLahir: '24 Maret 2009',
-    jenisKelamin: 'Laki-laki',
-    pendidikan: 'SMPN 2 SAMBIT',
-    namaOrtu: 'Sutoyo / Yuliani',
-    alamat: 'Ketro, Sawoo, Ponorogo'
-  },
-  '03371': {
-    nama: 'LARAS INDAH ANUNGRAHITA SURGAWI',
-    tempatLahir: 'Ponorogo',
-    tanggalLahir: '17 Mei 2009',
-    jenisKelamin: 'Perempuan',
-    pendidikan: 'MTS AL-ISLAM JORESAN',
-    namaOrtu: 'Edhi Prastyo / Sri Kusuma Rahayu',
-    alamat: 'Nglewan, Sambit, Ponorogo'
-  },
-  '03372': {
-    nama: 'FATHUROHIM AULIA',
-    tempatLahir: 'Ponorogo',
-    tanggalLahir: '20 Juli 2008',
-    jenisKelamin: 'Laki-laki',
-    pendidikan: 'SMP FATHUL MUNA',
-    namaOrtu: 'Imam Sukirno',
-    alamat: 'Baosan Kidul, Ngrayun, Ponorogo'
-  },
-  '03373': {
-    nama: 'NADHIFA RAHMA DEWANTI',
-    tempatLahir: 'Ponorogo',
-    tanggalLahir: '23 Juli 2007',
-    jenisKelamin: 'Perempuan',
-    pendidikan: 'SMKN 1 SLAHUNG',
-    namaOrtu: 'Sumari / Misinem',
-    alamat: 'Singkil, Balong, Ponorogo'
-  },
-  '03374': {
-    nama: 'MUH. RIFAI AINURSALAM',
-    tempatLahir: 'Ponorogo',
-    tanggalLahir: '04 Mei 2012',
-    jenisKelamin: 'Laki-laki',
-    pendidikan: 'SDN 8 BAOSAN LOR',
-    namaOrtu: 'Nurwahid / Seniati',
-    alamat: 'Baosan Kidul, Ngrayun, Ponorogo'
-  },
-  '03375': {
-    nama: 'AYUNDA CHINTIYA FIRDA SARI NING TIYAS',
-    tempatLahir: 'Ponorogo',
-    tanggalLahir: '20 November 2011',
-    jenisKelamin: 'Perempuan',
-    pendidikan: 'SDN 4 BAOSAN LOR',
-    namaOrtu: 'Riyanto / Subinti',
-    alamat: 'Baosan Lor, Ngrayun, Ponorogo'
-  },
-  '03376': {
-    nama: 'ZASKIA ALTHOFUNISA',
-    tempatLahir: 'Ponorogo',
-    tanggalLahir: '23 Mei 2012',
-    jenisKelamin: 'Perempuan',
-    pendidikan: 'MI MA\'ARIF AL-FAQIH',
-    namaOrtu: 'Trimawan / Erna Rahmawati',
-    alamat: 'Wringinanom, Sambit, Ponorogo'
-  },
-  '03377': {
-    nama: 'FAJAR APRIAN ALI MUSYAFA',
-    tempatLahir: 'Pacitan',
-    tanggalLahir: '06 Juni 2013',
-    jenisKelamin: 'Laki-laki',
-    pendidikan: 'SDIT AL-MAWADDAH COPER',
-    namaOrtu: 'Supriono / Siti Nurul Solikah',
-    alamat: 'Wringinanom, Sambit, Ponorogo'
-  },
-  '03378': {
-    nama: 'DIAN WAHYU PUTRI',
-    tempatLahir: 'Pacitan',
-    tanggalLahir: '06 November 2008',
-    jenisKelamin: 'Perempuan',
-    pendidikan: 'SMPN 5 TAGALOMBO',
-    namaOrtu: 'Miswan / Suprihatun',
-    alamat: 'Ploso, Tegalombo, Pacitan'
-  },
-  '03379': {
-    nama: 'AMELIA RAHMAWATI',
-    tempatLahir: 'Pacitan',
-    tanggalLahir: '05 Agustus 2009',
-    jenisKelamin: 'Perempuan',
-    pendidikan: 'SMPN 5 TAGALOMBO',
-    namaOrtu: 'Sukatno / Tutik Susanti',
-    alamat: 'Ploso, Tegalombo, Pacitan'
-  },
-  '03380': {
-    nama: 'MIFTAHUL MUDTAQIN',
-    tempatLahir: 'Pacitan',
-    tanggalLahir: '23 Juni 2009',
-    jenisKelamin: 'Laki-laki',
-    pendidikan: 'MTS AL FATTAH TAHUNAN',
-    namaOrtu: 'Mahmud Jiono / Paryati',
-    alamat: 'Ploso, Tegalombo, Pacitan'
-  },
-  '03381': {
-    nama: 'ANDIKA PUTRA FERDIANSA',
-    tempatLahir: 'Pacitan',
-    tanggalLahir: '06 Juli 2007',
-    jenisKelamin: 'Laki-laki',
-    pendidikan: 'MA AL FATTAH TAHUNAN',
-    namaOrtu: 'Sugianto / Murtini',
-    alamat: 'Ploso, Tegalombo, Pacitan'
-  },
-  '03382': {
-    nama: 'SELVIRA JULIA INDRIANA SARI',
-    tempatLahir: 'Pacitan',
-    tanggalLahir: '31 Juli 2009',
-    jenisKelamin: 'Perempuan',
-    pendidikan: 'SMPN 5 TAGALOMBO',
-    namaOrtu: 'Jarno / Misti',
-    alamat: 'Ploso, Tegalombo, Pacitan'
-  },
-  '03383': {
-    nama: 'NATHAN ADI PRATAMA',
-    tempatLahir: 'Pacitan',
-    tanggalLahir: '12 Agustus 2010',
-    jenisKelamin: 'Laki-laki',
-    pendidikan: 'SMKN 1 BANDAR PACITAN',
-    namaOrtu: 'Nur Handoko / Wiwid Widiani',
-    alamat: 'Kledung, Bandar, Pacitan'
-  },
-  '03384': {
-    nama: 'RIZKI ALFIAN NUGROHO',
-    tempatLahir: 'Pacitan',
-    tanggalLahir: '18 November 2009',
-    jenisKelamin: 'Laki-laki',
-    pendidikan: 'SMPN 1 BANDAR PACITAN',
-    namaOrtu: 'Suparno / Suwarti',
-    alamat: 'Kledung, Bandar, Pacitan'
-  },
-  '03385': {
-    nama: 'DELTA AYU SAFIRA',
-    tempatLahir: 'Pacitan',
-    tanggalLahir: '30 Desember 2010',
-    jenisKelamin: 'Perempuan',
-    pendidikan: 'MTS. AL-FATTAH TAHUNAN',
-    namaOrtu: 'Meseri / Wiwin Winarti',
-    alamat: 'Ploso, Tegalombo, Pacitan'
-  },
-  '03386': {
-    nama: 'ARSYAVIN MORGAN DIESTA HAIYKAL',
-    tempatLahir: 'Ponorogo',
-    tanggalLahir: '13 Desember 2012',
-    jenisKelamin: 'Laki-laki',
-    pendidikan: 'SDN 2 TAHUNAN BARU TEGALOMBO',
-    namaOrtu: 'Didik Budi Santoso / Ika Yuliana',
-    alamat: 'Ngilo-Ilo, Slahung, Ponorogo'
-  },
-  '03387': {
-    nama: 'FAHRIS IMRON KHOIRI',
-    tempatLahir: 'Ponorogo',
-    tanggalLahir: '12 Mei 2012',
-    jenisKelamin: 'Laki-laki',
-    pendidikan: 'SDN 2 TAHUNAN BARU TEGALOMBO',
-    namaOrtu: 'Wagiyanto / Sri Purwati',
-    alamat: 'Ngilo-Ilo, Slahung, Ponorogo'
-  },
-  '03388': {
-    nama: 'AHMAD NUR HASAN',
-    tempatLahir: 'Ponorogo',
-    tanggalLahir: '11 Maret 2012',
-    jenisKelamin: 'Laki-laki',
-    pendidikan: 'SDN 2 TAHUNAN BARU TEGALOMBO',
-    namaOrtu: 'Jari Nur Said / Sri Lestari',
-    alamat: 'Ngilo-Ilo, Slahung, Ponorogo'
-  },
-  '03389': {
-    nama: 'JAHAROH IZZAH FADZILAH',
-    tempatLahir: 'Ponorogo',
-    tanggalLahir: '09 Desember 2011',
-    jenisKelamin: 'Perempuan',
-    pendidikan: 'MTS. AL-HIKMAH NGRAYUN',
-    namaOrtu: 'Lamiyo / Tulastri',
-    alamat: 'Baosan Kidul, Ngrayun, Ponorogo'
-  },
-  '03390': {
-    nama: 'ADITYA RAHMAT WIDYANTO',
-    tempatLahir: 'Ponorogo',
-    tanggalLahir: '26 Juni 2009',
-    jenisKelamin: 'Laki-laki',
-    pendidikan: 'MA. AL-HIKMAH NGRAYUN',
-    namaOrtu: 'Tato / Widya Supartin',
-    alamat: 'Baosan Lor, Ngrayun, Ponorogo'
-  },
-  '03391': {
-    nama: 'MIFTAHUL HIDAYAH ISMAIL',
-    tempatLahir: 'Ponorogo',
-    tanggalLahir: '21 Mei 2012',
-    jenisKelamin: 'Laki-laki',
-    pendidikan: 'MTS. AL-HIKMAH NGRAYUN',
-    namaOrtu: 'Imam Mutakin / Siti Rukayah',
-    alamat: 'Mrayan, Ngrayun, Ponorogo'
-  },
-  '03392': {
-    nama: 'BRAMA ECHA PRASETYA',
-    tempatLahir: 'Pacitan',
-    tanggalLahir: '19 Desember 2012',
-    jenisKelamin: 'Laki-laki',
-    pendidikan: 'SMPN 2 GEMAHARJO',
-    namaOrtu: 'Arif Setyo Darmanto / Duwi Ekasari',
-    alamat: 'Tahunan Baru, Tegalombo, Pacitan'
-  },
-  '03393': {
-    nama: 'AHMAD JENDRA ALHAFIDL',
-    tempatLahir: 'Pacitan',
-    tanggalLahir: '13 Oktober 2012',
-    jenisKelamin: 'Laki-laki',
-    pendidikan: 'SMPN 2 GEMAHARJO',
-    namaOrtu: 'Budiono / Dewi Agustina',
-    alamat: 'Tahunan Baru, Tegalombo, Pacitan'
-  },
-  '03394': {
-    nama: 'EVI YUNITA ANGGRAINI',
-    tempatLahir: 'Pacitan',
-    tanggalLahir: '08 Juni 2011',
-    jenisKelamin: 'Perempuan',
-    pendidikan: 'MA. AL-FATTAH TAHUNAN',
-    namaOrtu: 'Darmanto / Maryam',
-    alamat: 'Tahunan Baru, Tegalombo, Pacitan'
-  },
-  '03395': {
-    nama: 'NADIYA SEPTIA MAHARANI',
-    tempatLahir: 'Pacitan',
-    tanggalLahir: '24 September 2010',
-    jenisKelamin: 'Perempuan',
-    pendidikan: 'MA. AL-FATTAH TAHUNAN',
-    namaOrtu: 'Hendrik Kurniawan / Surati',
-    alamat: 'Tahunan Baru, Tegalombo, Pacitan'
-  },
-  '03396': {
-    nama: 'FATHYA ALVINATUL RISKI',
-    tempatLahir: 'Pacitan',
-    tanggalLahir: '30 Desember 2006',
-    jenisKelamin: 'Perempuan',
-    pendidikan: 'SMK. AL-FATTAH TAHUNAN',
-    namaOrtu: 'Marjito / Partini',
-    alamat: 'Tahunan Baru, Tegalombo, Pacitan'
-  },
-  '03397': {
-    nama: 'ADITIYA PRADANA PUTRA',
-    tempatLahir: 'Pacitan',
-    tanggalLahir: '03 Mei 2007',
-    jenisKelamin: 'Laki-laki',
-    pendidikan: 'SDN 1 GEMAHARJO',
-    namaOrtu: 'Sukadi / Suhartini',
-    alamat: 'Tahunan Baru, Tegalombo, Pacitan'
-  },
-  '03398': {
-    nama: 'ZION ALFA SATIAGRAHA',
-    tempatLahir: 'Pacitan',
-    tanggalLahir: '29 Juni 2010',
-    jenisKelamin: 'Laki-laki',
-    pendidikan: 'MTS. MUHAMMADIYAH BANDAR',
-    namaOrtu: 'Kaseri / Mesiyem',
-    alamat: 'Kledung, Bandar, Pacitan'
-  },
-  '03399': {
-    nama: 'ABDUL AZIS KHOIRY',
-    tempatLahir: 'Pacitan',
-    tanggalLahir: '05 Februari 2010',
-    jenisKelamin: 'Laki-laki',
-    pendidikan: 'SMKN BANDAR',
-    namaOrtu: 'Tumirin / Sri Utami',
-    alamat: 'Kledung, Bandar, Pacitan'
-  },
-  '03400': {
-    nama: 'KURNIA NASIROH',
-    tempatLahir: 'Pacitan',
-    tanggalLahir: '20 Februari 2013',
-    jenisKelamin: 'Perempuan',
-    pendidikan: 'SMPN 1 BANDAR',
-    namaOrtu: 'Suparno / Suwarti',
-    alamat: 'Kledung, Bandar, Pacitan'
-  },
-  '03401': {
-    nama: 'FARIS AL GOZHI',
-    tempatLahir: 'Pacitan',
-    tanggalLahir: '06 Juli 2008',
-    jenisKelamin: 'Laki-laki',
-    pendidikan: 'SMPN 1 BANDAR',
-    namaOrtu: 'Eko Ferianto / Karsini',
-    alamat: 'Mangunharjo, Arjosari, Pacitan'
-  },
-  '03402': {
-    nama: 'YOGI FIRNANDA',
-    tempatLahir: 'Pacitan',
-    tanggalLahir: '26 Agustus 2012',
-    jenisKelamin: 'Laki-laki',
-    pendidikan: 'SMPN 5 TEGALOMBO',
-    namaOrtu: 'Mulyono / Rani Febrianti',
-    alamat: 'Ploso, Tegalombo, Pacitan'
-  },
-  '03403': {
-    nama: 'AGUS FRIANTO',
-    tempatLahir: 'Pacitan',
-    tanggalLahir: '02 Agustus 2013',
-    jenisKelamin: 'Laki-laki',
-    pendidikan: 'SDN 2 PLOSO',
-    namaOrtu: 'Mispan / Lasmini',
-    alamat: 'Ploso, Tegalombo, Pacitan'
-  },
-  '03404': {
-    nama: 'MELFIN RIFA\'I',
-    tempatLahir: 'Pacitan',
-    tanggalLahir: '02 November 2011',
-    jenisKelamin: 'Laki-laki',
-    pendidikan: 'SMPN 5 TEGALOMBO',
-    namaOrtu: 'Wasit / Tumini',
-    alamat: 'Ploso, Tegalombo, Pacitan'
-  },
-  '03405': {
-    nama: 'RISKI ALFIAN',
-    tempatLahir: 'Pacitan',
-    tanggalLahir: '15 Februari 2010',
-    jenisKelamin: 'Laki-laki',
-    pendidikan: 'SMPN 5 TEGALOMBO',
-    namaOrtu: 'Giyanto / Etik Ernawati',
-    alamat: 'Ploso, Tegalombo, Pacitan'
-  },
-  '03406': {
-    nama: 'ANGGIA RESTU INVANI',
-    tempatLahir: 'Pacitan',
-    tanggalLahir: '03 September 2010',
-    jenisKelamin: 'Perempuan',
-    pendidikan: 'SMKN BANDAR',
-    namaOrtu: 'Adi Aulia Ardiansah / Surati',
-    alamat: 'Kledung, Bandar, Pacitan'
-  },
-  '03407': {
-    nama: 'EDI TRIATMOKO',
-    tempatLahir: 'Pacitan',
-    tanggalLahir: '24 Mei 2012',
-    jenisKelamin: 'Laki-laki',
-    pendidikan: 'SMPN 5 TEGALOMBO',
-    namaOrtu: 'Soiman / Sujiati',
-    alamat: 'Ploso, Tegalombo, Pacitan'
-  },
-  '03408': {
-    nama: 'ANANG SETIYAWAN',
-    tempatLahir: 'Pacitan',
-    tanggalLahir: '22 Juli 2010',
-    jenisKelamin: 'Laki-laki',
-    pendidikan: 'SMKN BANDAR',
-    namaOrtu: 'Teguh Wiyono / Trismiatin',
-    alamat: 'Mangunharjo, Arjosari, Pacitan'
-  },
-  '03409': {
-    nama: 'WILDAN ALRUZAIN',
-    tempatLahir: 'Pacitan',
-    tanggalLahir: '16 April 2012',
-    jenisKelamin: 'Laki-laki',
-    pendidikan: 'SMPN 2 TEGALOMBO',
-    namaOrtu: 'Paniran / Warsiyem',
-    alamat: 'Gemaharjo, Tegalombo, Pacitan'
-  },
-  '03410': {
-    nama: 'ANANDA RIO RISKI SAPUTRA',
-    tempatLahir: 'Pacitan',
-    tanggalLahir: '26 Mei 2000',
-    jenisKelamin: 'Laki-laki',
-    pendidikan: 'SMAN 1 TEGALOMBO',
-    namaOrtu: 'Mujiran / Sri Handayani',
-    alamat: 'Margahayu, Loa Kulu'
-  },
-  '03411': {
-    nama: 'FANI AFNAN NURHAFIZAH',
-    tempatLahir: 'Banjarnegara',
-    tanggalLahir: '23 April 2010',
-    jenisKelamin: 'Perempuan',
-    pendidikan: 'MA DARUL ISTIQOMAH',
-    namaOrtu: 'Mohamad Khoirul Anifin / Siti Mukharomah',
-    alamat: 'Winong, Bawang, Banjarnegara'
-  },
-  '03412': {
-    nama: 'MOHAMMAD MAFTUH FADLI',
-    tempatLahir: 'Ponorogo',
-    tanggalLahir: '10 Februari 2010',
-    jenisKelamin: 'Laki-laki',
-    pendidikan: 'MA DARUL ISTIQOMAH',
-    namaOrtu: 'Kani / Sumiati',
-    alamat: 'Semanding, Kauman, Ponorogo'
-  },
-  '03413': {
-    nama: 'MUROBBI EKA ADITYA',
-    tempatLahir: 'Ponorogo',
-    tanggalLahir: '05 Maret 2010',
-    jenisKelamin: 'Laki-laki',
-    pendidikan: 'MA DARUL ISTIQOMAH',
-    namaOrtu: 'Poniran / Yati',
-    alamat: 'Semanding, Kauman, Ponorogo'
-  },
-  '03414': {
-    nama: 'SYNTIA \'ULYA KHUSNITA',
-    tempatLahir: 'Ponorogo',
-    tanggalLahir: '24 Juli 2009',
-    jenisKelamin: 'Perempuan',
-    pendidikan: 'MA DARUL ISTIQOMAH',
-    namaOrtu: 'Parni / Parti',
-    alamat: 'Dadapan, Balong, Ponorogo'
-  },
-  '03415': {
-    nama: 'MUHAMMAD AMHAR MUMTAZ',
-    tempatLahir: 'Ponorogo',
-    tanggalLahir: '20 Juni 2010',
-    jenisKelamin: 'Laki-laki',
-    pendidikan: 'MTS. DARUL ISTIQOMAH',
-    namaOrtu: 'Kusno, S.Pd.I / Ema Wardati, S.Pd.I',
-    alamat: 'Ngumpul, Jambon, Ponorogo'
-  },
-  '03416': {
-    nama: 'IJAT FAHEM BADIUL ALAM',
-    tempatLahir: 'Ponorogo',
-    tanggalLahir: '08 November 2011',
-    jenisKelamin: 'Laki-laki',
-    pendidikan: 'MTS. DARUL ISTIQOMAH',
-    namaOrtu: 'Sunarno / Dwi Erni Widiastuti',
-    alamat: 'Ngumpul, Jambon, Ponorogo'
-  },
-  '03417': {
-    nama: 'MUHAMMAD ZAKARIYA NURROHMAN',
-    tempatLahir: 'Ponorogo',
-    tanggalLahir: '13 Oktober 2011',
-    jenisKelamin: 'Laki-laki',
-    pendidikan: 'MTS. DARUL ISTIQOMAH',
-    namaOrtu: 'Prianto / Sunarti',
-    alamat: 'Pandak, Balong, Ponorogo'
-  },
-  '03418': {
-    nama: 'MUHAMAD ALDY NURSALAM',
-    tempatLahir: 'Nganjuk',
-    tanggalLahir: '12 Desember 2011',
-    jenisKelamin: 'Laki-laki',
-    pendidikan: 'MTS. DARUL ISTIQOMAH',
-    namaOrtu: 'Ali Jafar Shodiq / Parmiatun',
-    alamat: 'Ngumpul, Jambon, Ponorogo'
-  },
-  '03419': {
-    nama: 'NABIL ZAKI IBRAHIM',
-    tempatLahir: 'Tangerang',
-    tanggalLahir: '19 November 2008',
-    jenisKelamin: 'Laki-laki',
-    pendidikan: 'MTS. AL-ISLAM JORESAN',
-    namaOrtu: 'Casmudi / Hesti Setiarini',
-    alamat: 'Tambakrejo, Pemalang, Jawa Tengah'
-  },
-  '03420': {
-    nama: 'ULUL ALBAB',
-    tempatLahir: 'Sukamulya',
-    tanggalLahir: '16 September 2008',
-    jenisKelamin: 'Laki-laki',
-    pendidikan: 'MTS. AL-ISLAM JORESAN',
-    namaOrtu: 'Supriyanto / Sri Haryati',
-    alamat: 'Rawamangun, Pulogadung, Jakarta Timur'
-  },
-  '03421': {
-    nama: 'AHMAD WILDAN ROMDLONI',
-    tempatLahir: 'Ponorogo',
-    tanggalLahir: '22 Agustus 2011',
-    jenisKelamin: 'Laki-laki',
-    pendidikan: 'MTS. AL-ISLAM JORESAN',
-    namaOrtu: 'Samsuri / Wiji Utami',
-    alamat: 'Joresan, Mlarak, Ponorogo'
-  },
-  '03422': {
-    nama: 'MUHAMMAD RIDHO SAPUTRA',
-    tempatLahir: 'Surabaya',
-    tanggalLahir: '30 Mei 2010',
-    jenisKelamin: 'Laki-laki',
-    pendidikan: 'MTS. AL-ISLAM JORESAN',
-    namaOrtu: 'Suparman / Sumarpi',
-    alamat: 'Bajang, Mlarak, Ponorogo'
-  },
-  '03423': {
-    nama: 'MUHAMMAD ROHMAN',
-    tempatLahir: 'Jakarta',
-    tanggalLahir: '23 Oktober 2009',
-    jenisKelamin: 'Laki-laki',
-    pendidikan: 'MTS. AL-ISLAM JORESAN',
-    namaOrtu: 'Alm. Anen Priyatna / Suginem',
-    alamat: 'Tangen, Sragen, Jawa Tengah'
-  },
-  '03424': {
-    nama: 'ZAYANA FAWAZARSYA RUWAIDAH',
-    tempatLahir: 'Ponorogo',
-    tanggalLahir: '17 Juli 2005',
-    jenisKelamin: 'Perempuan',
-    pendidikan: 'UIN PONOROGO',
-    namaOrtu: 'Syamsudin / Siti Arini',
-    alamat: 'Joresan, Mlarak, Ponorogo'
-  },
-  '03425': {
-    nama: 'AHMAD MUSYAFA NASYWATUL WAFFA',
-    tempatLahir: 'Lamongan',
-    tanggalLahir: '13 Maret 2009',
-    jenisKelamin: 'Laki-laki',
-    pendidikan: 'MTS. AL-ISLAM JORESAN',
-    namaOrtu: 'Latief Ali Zahrowi / Zaitul Erni',
-    alamat: 'Kariangau, Balikpapan Barat, Kaltim'
-  },
-  '03426': {
-    nama: 'AHMAD SABHAL LATHAF',
-    tempatLahir: 'Ponorogo',
-    tanggalLahir: '23 Februari 2008',
-    jenisKelamin: 'Laki-laki',
-    pendidikan: 'MTS. AL-ISLAM JORESAN',
-    namaOrtu: 'Rohmat Fadeli / Mursini',
-    alamat: 'Bulu, Sambit, Ponorogo'
-  },
-  '03427': {
-    nama: 'DWI PUTRA PRAYOGO',
-    tempatLahir: 'Magetan',
-    tanggalLahir: '30 Maret 2010',
-    jenisKelamin: 'Laki-laki',
-    pendidikan: 'MTS. AL-ISLAM JORESAN',
-    namaOrtu: 'Komarudin / Susilawati',
-    alamat: 'Dukuh, Lembeyan, Magetan'
-  },
-  '03428': {
-    nama: 'ISMA FAIZATUL MUNA',
-    tempatLahir: 'Ponorogo',
-    tanggalLahir: '18 Januari 2004',
-    jenisKelamin: 'Perempuan',
-    pendidikan: 'MTS. AL-ISLAM JORESAN',
-    namaOrtu: 'Muhrodji / Siti Solekah',
-    alamat: 'Joresan, Mlarak, Ponorogo'
-  },
-  '03429': {
-    nama: 'ARSYA RIZKY AL MUBAROK',
-    tempatLahir: 'Ponorogo',
-    tanggalLahir: '14 Juni 2013',
-    jenisKelamin: 'Laki-laki',
-    pendidikan: 'MTs. MIFTAHUL ULUM NGRAKET',
-    namaOrtu: 'Tukimun / Sutini',
-    alamat: 'Jonggol, Jambon, Ponorogo'
-  },
-  '03430': {
-    nama: 'STEVEN ORVA ROLANDA',
-    tempatLahir: 'Ponorogo',
-    tanggalLahir: '12 Juni 2014',
-    jenisKelamin: 'Laki-laki',
-    pendidikan: 'PP. DARUL HUDA MAYAK',
-    namaOrtu: 'Muh Heri Purwanto / Renita Tri Oktapia Dewi',
-    alamat: 'Jonggol, Jambon, Ponorogo'
-  },
-  '03431': {
-    nama: 'KELVIN RAMDANI SAPUTRA',
-    tempatLahir: 'Ponorogo',
-    tanggalLahir: '02 Februari 2013',
-    jenisKelamin: 'Laki-laki',
-    pendidikan: 'SMPN 2 BALONG',
-    namaOrtu: 'Trimo / Nanik Minasri',
-    alamat: 'Jonggol, Jambon, Ponorogo'
-  },
-  '03432': {
-    nama: 'NADIA HASNA SAKHI',
-    tempatLahir: 'Ponorogo',
-    tanggalLahir: '25 Juli 2012',
-    jenisKelamin: 'Perempuan',
-    pendidikan: 'MTs. MIFTAHUL ULUM NGRAKET',
-    namaOrtu: 'Sarju / Robit Tahtul Asadah',
-    alamat: 'Jonggol, Jambon, Ponorogo'
-  },
-  '03433': {
-    nama: 'NATHANIA AYU EVELINNA',
-    tempatLahir: 'Ponorogo',
-    tanggalLahir: '18 Desember 2009',
-    jenisKelamin: 'Perempuan',
-    pendidikan: 'SMK KESEHATAN PONOROGO',
-    namaOrtu: 'Bambang Maulana Maheswara / Fitri Yuliana',
-    alamat: 'Jonggol, Jambon, Ponorogo'
-  },
-  '03434': {
-    nama: 'FRISKA LAURENZIA LIDIA SABELLA',
-    tempatLahir: 'Ponorogo',
-    tanggalLahir: '04 Maret 2011',
-    jenisKelamin: 'Perempuan',
-    pendidikan: 'SMAN 1 BADEGAN',
-    namaOrtu: 'Mudjiono / Ria Dewi Yuliati',
-    alamat: 'Jonggol, Jambon, Ponorogo'
-  },
-  '03435': {
-    nama: 'ERLIA NUR HIDAYAH',
-    tempatLahir: 'Ponorogo',
-    tanggalLahir: '16 Februari 2011',
-    jenisKelamin: 'Perempuan',
-    pendidikan: 'SMK KESEHATAN BIMPO',
-    namaOrtu: 'Sugito / Umi Andarwati',
-    alamat: 'Jonggol, Jambon, Ponorogo'
-  },
-  '03436': {
-    nama: 'JOSHUA DAREN PRATAMA',
-    tempatLahir: 'Ponorogo',
-    tanggalLahir: '06 Januari 2014',
-    jenisKelamin: 'Laki-laki',
-    pendidikan: 'MTs. MIFTAHUL ULUM NGRAKET',
-    namaOrtu: 'Panji Asmoro / Katemi',
-    alamat: 'Jonggol, Jambon, Ponorogo'
-  },
-  '03437': {
-    nama: 'ARDAN ZHAFRAN DWI MAHADIKA',
-    tempatLahir: 'Ponorogo',
-    tanggalLahir: '20 Maret 2013',
-    jenisKelamin: 'Laki-laki',
-    pendidikan: 'SMPN 1 BALONG',
-    namaOrtu: 'Agus Supriyono / Puji Lestari',
-    alamat: 'Ngampel, Balong, Ponorogo'
-  },
-  '03438': {
-    nama: 'DAFFA FIRDAUS FIRJATULLAH',
-    tempatLahir: 'Ponorogo',
-    tanggalLahir: '19 November 2009',
-    jenisKelamin: 'Laki-laki',
-    pendidikan: 'SMK PGRI 2 PONOROGO',
-    namaOrtu: 'Hariyanto / Wijayanti',
-    alamat: 'Ngampel, Balong, Ponorogo'
-  },
-  '03439': {
-    nama: 'DIMAS ADHYASTHA BAGUS PAMBUDI',
-    tempatLahir: 'Ponorogo',
-    tanggalLahir: '23 Januari 2013',
-    jenisKelamin: 'Laki-laki',
-    pendidikan: 'SMPN 1 BALONG',
-    namaOrtu: 'Pambudi / Uswatun Hasanah',
-    alamat: 'Ngampel, Balong, Ponorogo'
-  },
-  '03440': {
-    nama: 'ANGGA BRIANTAMA',
-    tempatLahir: 'Ponorogo',
-    tanggalLahir: '10 November 2011',
-    jenisKelamin: 'Laki-laki',
-    pendidikan: 'SMPN 1 JETIS',
-    namaOrtu: 'Zaenal Abidin / Suratmi',
-    alamat: 'Ngampel, Balong, Ponorogo'
-  },
-  '03441': {
-    nama: 'KARTIKA NUR LAILATUR ROHMAH',
-    tempatLahir: 'Pacitan',
-    tanggalLahir: '03 Juli 2011',
-    jenisKelamin: 'Perempuan',
-    pendidikan: 'SMKN 1 SLAHUNG',
-    namaOrtu: 'Yuris Nur Kholid / Nurul Amin',
-    alamat: 'Ngilo-Ilo, Slahung, Ponorogo'
-  },
-  '03442': {
-    nama: 'ALEEZA ARUMADHANI KAYOON',
-    tempatLahir: 'Ponorogo',
-    tanggalLahir: '10 Juli 2013',
-    jenisKelamin: 'Perempuan',
-    pendidikan: 'MTS. MIFTAHUS SALAM KAMBENG',
-    namaOrtu: 'Susilo / Titik Handayani',
-    alamat: 'Ngilo-Ilo, Slahung, Ponorogo'
-  },
-  '03443': {
-    nama: 'HUSAIN SHAHBAZ',
-    tempatLahir: 'Ponorogo',
-    tanggalLahir: '27 Maret 2013',
-    jenisKelamin: 'Laki-laki',
-    pendidikan: 'SMPN 2 BALONG',
-    namaOrtu: 'Giman / Sri Wahyuni',
-    alamat: 'Ngasinan, Jetis, Ponorogo'
-  },
-  '03444': {
-    nama: 'MUHAMMAD NAUFAL ALFA RIZKY',
-    tempatLahir: 'Ponorogo',
-    tanggalLahir: '19 Maret 2012',
-    jenisKelamin: 'Laki-laki',
-    pendidikan: 'MTSN 1 PONOROGO',
-    namaOrtu: 'Mohammad Toha / Siti Fatimah',
-    alamat: 'Bajang, Balong, Ponorogo'
-  },
-  '03445': {
-    nama: 'MUHAMMAD RIZAL AVID AIMAN',
-    tempatLahir: 'Ponorogo',
-    tanggalLahir: '24 November 2012',
-    jenisKelamin: 'Laki-laki',
-    pendidikan: 'SMPN 1 BALONG',
-    namaOrtu: 'Sukateman / Rina Kholifatus',
-    alamat: 'Bajang, Balong, Ponorogo'
-  },
-  '03446': {
-    nama: 'SHUMA\'ALIM MUHAMMAD SYAH',
-    tempatLahir: 'Ponorogo',
-    tanggalLahir: '30 September 2006',
-    jenisKelamin: 'Laki-laki',
-    pendidikan: 'UIN PONOROGO',
-    namaOrtu: 'Ma\'shum Syah, S.Psi., M.Psi. / Syaukati Karimah, S.Pd.',
-    alamat: 'Truneng, Slahung, Ponorogo'
-  },
-  '03447': {
-    nama: 'PRASTYO ADI NUGROHO',
-    tempatLahir: 'Ponorogo',
-    tanggalLahir: '30 Oktober 2008',
-    jenisKelamin: 'Laki-laki',
-    pendidikan: 'SMKN SLAHUNG',
-    namaOrtu: 'Karlan / Sri Fatimah',
-    alamat: 'Bungkal, Bungkal, Ponorogo'
-  },
-  '03448': {
-    nama: 'ERFA\'RAJ ALFARIZQY',
-    tempatLahir: 'Ponorogo',
-    tanggalLahir: '11 Februari 2012',
-    jenisKelamin: 'Laki-laki',
-    pendidikan: 'SMPN 2 BUNGKAL',
-    namaOrtu: 'Suryanto / Rulik Hartatik',
-    alamat: 'Kupuk, Bungkal, Ponorogo'
-  },
-  '03449': {
-    nama: 'EGAR RESTU URAFA',
-    tempatLahir: 'Ponorogo',
-    tanggalLahir: '27 Mei 2012',
-    jenisKelamin: 'Laki-laki',
-    pendidikan: 'SMPN 2 BUNGKAL',
-    namaOrtu: 'Soiran / Sri Suharni',
-    alamat: 'Kupuk, Bungkal, Ponorogo'
-  },
-  '03450': {
-    nama: 'SRI SUHARNI',
-    tempatLahir: 'Lampung Selatan',
-    tanggalLahir: '19 Maret 1981',
-    jenisKelamin: 'Perempuan',
-    pendidikan: 'SMK MUHAMMADIYAH 1 KALIANDA',
-    namaOrtu: 'Solikhin / Toilah',
-    alamat: 'Kupuk, Bungkal, Ponorogo'
-  },
-  '03451': {
-    nama: 'SATRIA BINTANG BUMI',
-    tempatLahir: 'Ponorogo',
-    tanggalLahir: '25 Februari 2013',
-    jenisKelamin: 'Laki-laki',
-    pendidikan: 'SMPN 2 BUNGKAL',
-    namaOrtu: 'Soiran / Sri Suharni',
-    alamat: 'Kupuk, Bungkal, Ponorogo'
-  },
-  '03452': {
-    nama: 'LEONY PRIATMAYA',
-    tempatLahir: 'Ponorogo',
-    tanggalLahir: '14 Januari 2013',
-    jenisKelamin: 'Perempuan',
-    pendidikan: 'SMPN 2 BALONG',
-    namaOrtu: 'Supriyadi / Maimunah',
-    alamat: 'Ngendut, Balong, Ponorogo'
-  },
-  '03453': {
-    nama: 'RAHMAT FAIZ NUR KHAMBALI',
-    tempatLahir: 'Ponorogo',
-    tanggalLahir: '20 Agustus 2014',
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pencarian Sertifikat Gasmi</title>
+    <!-- Menggunakan Font Inter agar tampilan modern dan clean -->
+    <link href="https://googleapis.com" rel="stylesheet">
+    <!-- Menggunakan Font Awesome untuk ikon sosial media -->
+    <link rel="stylesheet" href="https://cloudflare.com">
+    
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            background-color: #f8f9fa;
+            color: #333333;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* Top Navigation Header Bar */
+        .navbar {
+            background-color: #ffffff;
+            border-bottom: 1px solid #e9ecef;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .nav-left {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .menu-icon {
+            font-size: 20px;
+            cursor: pointer;
+            color: #495057;
+        }
+
+        .brand-name {
+            font-size: 22px;
+            font-weight: 700;
+            color: #2b3044;
+        }
+
+        .hubungi-kami {
+            color: #dc3545;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        /* Main Container */
+        .container {
+            max-width: 500px;
+            width: 100%;
+            margin: 0 auto;
+            padding: 25px 20px;
+            flex: 1;
+        }
+
+        .page-title {
+            font-size: 24px;
+            font-weight: 700;
+            color: #2b3044;
+            margin-bottom: 25px;
+            text-align: left;
+        }
+
+        /* Form Controls */
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 14px;
+            font-weight: 500;
+            color: #6c757d;
+            margin-bottom: 8px;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 12px 16px;
+            font-size: 16px;
+            border: 1px solid #ced4da;
+            border-radius: 8px;
+            background-color: #ffffff;
+            transition: border-color 0.15s ease-in-out;
+            color: #2b3044;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: #dc3545;
+            box-shadow: 0 0 0 3px rgba(220, 53, 69, 0.1);
+        }
+
+        /* Custom Fake reCAPTCHA Widget Box */
+        .recaptcha-box {
+            background-color: #f9f9f9;
+            border: 1px solid #d3d3d3;
+            border-radius: 3px;
+            padding: 10px 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            margin-bottom: 25px;
+        }
+
+        .recaptcha-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            cursor: pointer;
+        }
+
+        .checkbox-custom {
+            width: 24px;
+            height: 24px;
+            border: 2px solid #c1c1c1;
+            border-radius: 2px;
+            background-color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+        }
+
+        .checkbox-custom.checked {
+            border-color: #04b74a;
+            background-color: #fff;
+        }
+
+        .checkbox-custom .check-mark {
+            display: none;
+            width: 6px;
+            height: 12px;
+            border: solid #04b74a;
+            border-width: 0 3px 3px 0;
+            transform: rotate(45deg);
+            margin-bottom: 2px;
+        }
+
+        .checkbox-custom.checked .check-mark {
+            display: block;
+        }
+
+        .recaptcha-text {
+            font-size: 13px;
+            color: #000000;
+            font-weight: 400;
+        }
+
+        .recaptcha-right {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .recaptcha-logo {
+            width: 32px;
+            height: 32px;
+            background: url('https://gstatic.com') no-repeat;
+            background-size: contain;
+        }
+
+        .recaptcha-privacy {
+            font-size: 8px;
+            color: #555;
+            text-decoration: none;
+            margin-top: 2px;
+        }
+
+        /* Action Buttons */
+        .btn-cari {
+            background-color: #dc3545;
+            color: #ffffff;
+            border: none;
+            padding: 12px 28px;
+            font-size: 16px;
+            font-weight: 600;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+            margin-bottom: 30px;
+        }
+
+        .btn-cari:hover {
+            background-color: #bd2130;
+        }
+
+        /* Search Results Panel Container */
+        .result-card {
+            display: none;
+            background: #ffffff;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.02), 0 1px 3px rgba(0,0,0,0.05);
+            border: 1px solid #e9ecef;
+            position: relative;
+            overflow: hidden;
+            margin-bottom: 40px;
+        }
+
+        /* Watermark Background Garuda/Gasmi */
+        .result-card::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 260px;
+            height: 260px;
+            background: url('https://wikimedia.org') no-repeat center;
+            background-size: contain;
+            opacity: 0.04;
+            transform: translate(-50%, -50%);
+            pointer-events: none;
+        }
+
+        .result-header {
+            font-size: 16px;
+            font-weight: 700;
+            color: #2b3044;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #f1f3f5;
+            margin-bottom: 15px;
+        }
+
+        .info-row {
+            display: flex;
+            padding: 10px 0;
+            border-bottom: 1px solid #f8f9fa;
+            font-size: 15px;
+            align-items: flex-start;
+        }
+
+        .info-label {
+            width: 35%;
+            color: #6c757d;
+            font-weight: 500;
+        }
+
+        .info-value {
+            width: 65%;
+            color: #2b3044;
+            font-weight: 600;
+            word-break: break-word;
+        }
+
+        .status-badge {
+            color: #04b74a;
+            font-weight: 700;
+        }
+
+        .error-message {
+            display: none;
+            background-color: #fff5f5;
+            color: #e53e3e;
+            padding: 15px;
+            border-radius: 8px;
+            border: 1px solid #fed7d7;
+            font-weight: 500;
+            margin-bottom: 30px;
+            font-size: 14px;
+        }
+
+        /* Footer Hubungi Kami Section */
+        .footer-info {
+            background-color: #fdfdfd;
+            border-top: 1px solid #e9ecef;
+            padding: 30px 20px;
+            text-align: left;
+        }
+
+        .footer-brand {
+            font-size: 20px;
+            font-weight: 700;
+            color: #2b3044;
+            margin-bottom: 15px;
+        }
+
+        .footer-address {
+            font-size: 14px;
+            color: #495057;
+            line-height: 1.6;
+            margin-bottom: 20px;
+            max-width: 450px;
+        }
+
+        .footer-title {
+            font-size: 16px;
+            font-weight: 700;
+            color: #2b3044;
+            margin-bottom: 10px;
+        }
+
+        .footer-contact-item {
+            font-size: 14px;
+            color: #495057;
+            margin-bottom: 8px;
+        }
+
+        .footer-social-section {
+            margin-top: 25px;
+        }
+
+        .footer-social-section p {
+            font-size: 14px;
+            color: #495057;
+            margin-bottom: 12px;
+            font-weight: 500;
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 12px;
+        }
+
+        .social-btn {
+            width: 42px;
+            height: 42px;
+            border-radius: 8px;
+            border: 1px solid #dee2e6;
+            background-color: #ffffff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #495057;
+            text-decoration: none;
+            font-size: 16px;
+            transition: all 0.2s;
+        }
+
+        .social-btn:hover {
+            background-color: #f1f3f5;
+            color: #dc3545;
+        }
+
+        /* Bottom Dark Footer Navbar */
+        .bottom-nav {
+            background-color: #2b3044;
+            color: #ffffff;
+            padding: 20px;
+            text-align: center;
+            position: relative;
+        }
+
+        .bottom-links {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 15px;
+            font-size: 14px;
+        }
+
+        .bottom-links a {
+            color: #ffffff;
+            text-decoration: none;
+            opacity: 0.8;
+        }
+
+        .bottom-links a:hover {
+            opacity: 1;
+        }
+
+        .copyright {
+            font-size: 12px;
+            opacity: 0.6;
+        }
+
+        .btn-scroll-top {
+            position: absolute;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
