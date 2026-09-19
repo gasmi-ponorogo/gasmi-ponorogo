@@ -108,18 +108,18 @@ if (!idQuery) {
       });
       
        if (siswa) {
-        wadahKonten.innerHTML =
-          '<div class="kartu-data">' +
-            '<h2>' + siswa.nama + '</h2>' +
-            '<hr>' +
-            '<p><strong>ID Anggota:</strong> ' + siswa.id + '</p>' +
-            '<p><strong>No. Induk:</strong> ' + (siswa.no_induk || '-') + '</p>' +
-            '<p><strong>Tempat, Tgl Lahir:</strong> ' + (siswa.ttl || '-') + '</p>' +
-            '<p><strong>Jenis Kelamin:</strong> ' + (siswa.jk || '-') + '</p>' +
-            '<p><strong>Pendidikan:</strong> ' + (siswa.pendidikan || '-') + '</p>' +
-            '<p><strong>Nama Orang Tua:</strong> ' + (siswa.ortu || '-') + '</p>' +
-            '<p><strong>Alamat:</strong> ' + (siswa.alamat || '-') + '</p>' +
-          '</div>';
+       wadahKonten.innerHTML =
+  '<div class="kartu-data">' +
+    '<h2>' + siswa.no_induk + '</h2>' +  // ← INI YANG SALAH!
+    '<hr>' +
+    '<p><strong>ID Anggota:</strong> ' + siswa.id + '</p>' +
+    '<p><strong>No. Induk:</strong> ' + (siswa.no_induk || '-') + '</p>' +
+    '<p><strong>Tempat, Tgl Lahir:</strong> ' + (siswa.ttl || '-') + '</p>' +
+    '<p><strong>Jenis Kelamin:</strong> ' + (siswa.jk || '-') + '</p>' +
+    '<p><strong>Pendidikan:</strong> ' + (siswa.pendidikan || '-') + '</p>' +
+    '<p><strong>Nama Orang Tua:</strong> ' + (siswa.ortu || '-') + '</p>' +
+    '<p><strong>Alamat:</strong> ' + (siswa.alamat || '-') + '</p>' +
+  '</div>';
       }
     })
     .catch(function(err) {
