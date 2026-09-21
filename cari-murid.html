@@ -5,107 +5,149 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Pencarian Sertifikat Gasmi</title>
   <style>
-    * {box-sizing: border-box; font-family: 'Segoe UI', sans-serif;}
-    body {max-width: 700px; margin: 3rem auto; padding: 0 1.5rem; line-height: 1.6; color: #1f2937;}
-    h1 {font-size: 2rem; margin-bottom: 2rem;}
-    .form-group {margin-bottom: 1.5rem;}
-    label {display: block; margin-bottom: 0.5rem; font-weight: 500;}
-    input {width: 100%; padding: 0.85rem 1rem; border: 1px solid #d1d5db; border-radius: 8px; font-size: 1rem;}
-    button {background-color: #dc2626; color: white; border: none; padding: 0.85rem 2rem; font-size: 1rem; border-radius: 6px; cursor: pointer; font-weight: 600;}
-    button:hover {background-color: #b91c1c;}
-    .result {margin-top: 2rem; padding: 1.5rem; border-radius: 10px; background-color: #f9fafb; border-left: 4px solid #16a34a; display: none;}
-    .not-found {border-left-color: #ef4444; background-color: #fef2f2;}
-    .info-row {margin: 0.4rem 0;}
-    .label {font-weight: 600; display: inline-block; min-width: 120px;}
+    * {box-sizing: border-box; font-family: 'Segoe UI', Roboto, sans-serif; margin: 0; padding: 0;}
+    body {background-color: #ffffff; color: #333333; line-height: 1.6; min-height: 100vh; display: flex; flex-direction: column;}
+
+    /* Header */
+    .header {display: flex; align-items: center; justify-content: space-between; padding: 1rem 1.5rem; border-bottom: 1px solid #eee;}
+    .menu-icon {font-size: 1.5rem; cursor: pointer;}
+    .logo {font-size: 1.5rem; font-weight: 700; color: #2c3e50;}
+    .hubungi {color: #e74c3c; text-decoration: none; font-weight: 500;}
+
+    /* Konten Utama */
+    .container {max-width: 500px; margin: 2rem auto; padding: 0 1.5rem; flex: 1; width: 100%;}
+    h1 {font-size: 1.8rem; margin-bottom: 2rem; color: #2c3e50;}
+
+    .form-group {margin-bottom: 1.25rem;}
+    label {display: block; margin-bottom: 0.5rem; color: #666; font-size: 0.95rem;}
+    input {width: 100%; padding: 0.85rem 1rem; border: 1px solid #ddd; border-radius: 6px; font-size: 1rem;}
+    input:focus {outline: none; border-color: #e74c3c; box-shadow: 0 0 0 2px rgba(231, 76, 60, 0.15);}
+
+    .recaptcha-box {border: 1px solid #ddd; border-radius: 6px; padding: 1rem; display: flex; align-items: center; gap: 0.75rem; margin: 1rem 0; background: #fafafa;}
+    .checkbox {width: 24px; height: 24px; border: 2px solid #888; border-radius: 3px; cursor: pointer; flex-shrink: 0;}
+    .captcha-text {font-size: 0.85rem; color: #666; flex: 1;}
+    .captcha-icon {width: 40px; height: 40px; background: #eef; border-radius: 4px; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; color: #555;}
+
+    button {background-color: #e74c3c; color: white; border: none; padding: 0.85rem 2rem; font-size: 1rem; border-radius: 6px; cursor: pointer; font-weight: 600; width: 100%; margin: 0.5rem 0;}
+    button:hover {background-color: #c0392b;}
+
+    /* Hasil Pencarian */
+    .hasil {margin-top: 2rem; border: 1px solid #eee; border-radius: 8px; overflow: hidden; display: none;}
+    .hasil-judul {background: #f8f8f8; padding: 1rem 1.25rem; font-size: 1.1rem; font-weight: 600; color: #333;}
+    .hasil-body {padding: 1.25rem;}
+    .baris {display: flex; padding: 0.5rem 0; border-bottom: 1px solid #eee;}
+    .baris:last-child {border-bottom: none;}
+    .kolom-kiri {width: 35%; color: #666; font-weight: 500;}
+    .kolom-kanan {width: 65%; color: #222; font-weight: 500;}
+
+    /* Footer */
+    .footer {margin-top: auto; padding: 2rem 1.5rem; background: #f8f8f8; font-size: 0.9rem; color: #666;}
+    .footer p {margin: 0.3rem 0;}
+    .sosmed {display: flex; gap: 1rem; margin: 1rem 0;}
+    .sosmed-icon {width: 40px; height: 40px; border: 1px solid #ddd; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #666; text-decoration: none;}
+    .nav-bawah {display: flex; gap: 2rem; margin: 1rem 0;}
+    .nav-bawah a {color: #666; text-decoration: none;}
+    .copyright {margin-top: 1rem; color: #999; font-size: 0.8rem;}
   </style>
 </head>
 <body>
 
-  <h1>Pencarian Sertifikat Gasmi</h1>
-
-  <div class="form-group">
-    <label for="noInduk">Silahkan Masukkan Nomor Induk</label>
-    <input type="text" id="noInduk" placeholder="Contoh: 03352-19-09">
+  <!-- Header -->
+  <div class="header">
+    <span class="menu-icon">☰</span>
+    <span class="logo">Gasmi</span>
+    <a href="#" class="hubungi">Hubungi Kami</a>
   </div>
 
-  <div class="form-group">
-    <label for="namaOrtu">Silahkan Masukkan Nama Orangtua</label>
-    <input type="text" id="namaOrtu" placeholder="Contoh: Mesnan / Dati">
+  <!-- Konten Pencarian -->
+  <div class="container">
+    <h1>Pencarian Sertifikat Gasmi</h1>
+
+    <div class="form-group">
+      <label for="noInduk">Silakan Masukkan Nomor Induk</label>
+      <input type="text" id="noInduk" placeholder="">
+    </div>
+
+    <div class="form-group">
+      <label for="namaOrtu">Silakan Masukkan Nama Orangtua</label>
+      <input type="text" id="namaOrtu" placeholder="">
+    </div>
+
+    <!-- Kotak reCAPTCHA tampilan saja -->
+    <div class="recaptcha-box">
+      <div class="checkbox" id="captchaCheck"></div>
+      <div class="captcha-text">Saya bukan robot<br><small>reCAPTCHA mengubah persyaratan layanannya. Ambil tindakan.</small></div>
+      <div class="captcha-icon">🔄</div>
+    </div>
+
+    <button id="btnCari">Cari</button>
+
+    <!-- Hasil Pencarian -->
+    <div class="hasil" id="hasil">
+      <div class="hasil-judul">Hasil Pencarian: <span id="hasilJudulNomor"></span></div>
+      <div class="hasil-body">
+        <div class="baris">
+          <div class="kolom-kiri">Tidak ada Induk</div>
+          <div class="kolom-kanan" id="hNoInduk"></div>
+        </div>
+        <div class="baris">
+          <div class="kolom-kiri">Nama</div>
+          <div class="kolom-kanan" id="hNama"></div>
+        </div>
+        <div class="baris">
+          <div class="kolom-kiri">TTL</div>
+          <div class="kolom-kanan" id="hTtl"></div>
+        </div>
+        <div class="baris">
+          <div class="kolom-kiri">Jenis Kelamin</div>
+          <div class="kolom-kanan" id="hJk"></div>
+        </div>
+        <div class="baris">
+          <div class="kolom-kiri">Pendidikan</div>
+          <div class="kolom-kanan" id="hPendidikan"></div>
+        </div>
+        <div class="baris">
+          <div class="kolom-kiri">Orang Tua</div>
+          <div class="kolom-kanan" id="hOrtu"></div>
+        </div>
+        <div class="baris">
+          <div class="kolom-kiri">Alamat</div>
+          <div class="kolom-kanan" id="hAlamat"></div>
+        </div>
+      </div>
+    </div>
   </div>
 
-  <button id="btnCari">Cari</button>
+  <!-- Footer -->
+  <div class="footer">
+    <h3>Gasmi</h3>
+    <p>Jl. KH. Abdul Karim, Lirboyo, No. 45, Kec. Mojoroto, Kota Kediri.</p>
+    
+    <h4 style="margin-top: 1rem;">Kontak</h4>
+    <p>gasmihosting@gmail.com</p>
+    <p>6285878079700</p>
 
-  <div id="hasil" class="result">
-    <div class="info-row"><span class="label">Nomor Induk:</span> <span id="rNoInduk"></span></div>
-    <div class="info-row"><span class="label">Nama:</span> <span id="rNama"></span></div>
-    <div class="info-row"><span class="label">TTL:</span> <span id="rTtl"></span></div>
-    <div class="info-row"><span class="label">Jenis Kelamin:</span> <span id="rJk"></span></div>
-    <div class="info-row"><span class="label">Pendidikan:</span> <span id="rPendidikan"></span></div>
-    <div class="info-row"><span class="label">Orang Tua:</span> <span id="rOrtu"></span></div>
-    <div class="info-row"><span class="label">Alamat:</span> <span id="rAlamat"></span></div>
+    <p style="margin-top: 1rem;">Atau terhubung dengan kami di:</p>
+    <div class="sosmed">
+      <a href="#" class="sosmed-icon">f</a>
+      <a href="#" class="sosmed-icon">📷</a>
+      <a href="#" class="sosmed-icon">▶</a>
+      <a href="#" class="sosmed-icon">🐦</a>
+    </div>
+
+    <div class="nav-bawah">
+      <a href="#">Masuk</a>
+      <a href="#">Kontak</a>
+    </div>
+
+    <p class="copyright">2026 © Gasmi</p>
   </div>
 
 <script>
+// === DATA SISWA ===
 const dataSiswa = `
 03352-19-09|DEWI NOVITAYENI|Trenggalek, 23 Agustus 2005|Perempuan|SMK FATHUL MUNA|Mesnan / Dati|Botoputih, Bendungan, Trenggalek
-03353-19-09|AFNAN GHOZI MAYRIA ASEGAF|Ponorogo, 20 Mei 2008|Laki-Laki|MTS AL-JAWARIYAH|Agus Riyadi / Siti Maysaroh|Grogol, Sawoo, Ponorogo
-3354-19-09|FARA SURYARENATA|Ponorogo, 07 Juni 2011|Perempuan|MTSN 1 JETIS|Suryadi / Sri Turini|Campurejo, Sambit, Ponorogo
-3355-19-09|DENIS YOGA PRATAMA|OKU, 06 September 2012|Laki-Laki|SMP FATHUL MUNA|Jarman / Surati|Kurungan Nyawa II, Buay Madang, OKU Timur
-3356-19-09|ANISA DWI YANA PUTRI|Ponorogo, 18 Februari 2012|Perempuan|MTSN 1 JETIS|Edi Sunaryanto / Srika Dwi Yana Anjani|Campurejo, Sambit, Ponorogo
-3357-19-09|SEPTIAN TRIANI YOGA ADHITAMA|Ponorogo, 06 September 2006|Laki-Laki|MA MA'ARIF KRATON MOJO KEDIRI|Parni / Jemitri|Grogol, Sawoo, Ponorogo
-3358-19-09|FAIREL ATHARIZZ CALIEF LEE|Ponorogo, 08 Januari 2014|Laki-Laki|SDN 1 KEMUNING|Nur Ali / Priyanti|Wringinanom, Sambit, Ponorogo
-3359-19-09|RIYAN NUR HANDAYIKA PRASETYO|Blora, 11 Juli 2007|Laki-Laki|SMK PGRI 2 PONOROGO|Bonangin / Sri Wahyuni|Sedaran, Balong, Ponorogo
-3360-19-09|AFIZA SITI ARIYANTI|Pekalongan, 09 Juni 2013|Perempuan|SMP FATHUL MUNA|Agus Giyanto / Aris Karisna|Prantaan, Bogorejo, Blora
-3361-19-09|ZAHWA NADIA IZZATI|Ponorogo, 30 Oktober 2007|Perempuan|SMK MUHAMMADIYAH DORO|Maroto / Fitriyah|Pandak, Balong, Ponorogo
-3362-19-09|SITI NUR ROSIDAH|Ponorogo, 22 Agustus 2009|Perempuan|SMAN 1 SLAHUNG|Sarnianto / Sri Suparmi|Baosan Kidul, Ngrayun, Ponorogo
-3363-19-09|MUHAMMAD SYAHRUL MUNIB|Cilacap, 10 Juni 2012|Laki-Laki|SMP FATHUL MUNA|Suyono / Katri|Wagir Kidul, Pulung, Ponorogo
-3364-19-09|AHMAD HAETI|Ponorogo, 19 Agustus 2010|Laki-Laki|SMK FATHUL MUNA|Turijan / Siti Halimatus Sa'diyah|Labangka, Babulu, Penajam Paser Utara
-3365-19-09|IKHDA WARDATUL ANNISA'|Ponorogo, 17 Juli 2008|Perempuan|MA AL-ISLAM|Sumari / Puriyah|Kutu Wetan, Jetis, Ponorogo
-3366-19-09|MIRDAYANI AGUSTINA|Ponorogo, 22 Agustus 2008|Perempuan|MTS MA'ARIF AL-ISLAH|Suryono / Tutik Kholistiana|Bung, Bungkal, Ponorogo
-3367-19-09|LUTFI NUFITA ASFA'I|Ponorogo, 22 November 2007|Perempuan|MTS MA'ARIF AL-ISLAH|Imam Syafi'i / Sriyatin|Munggu, Bungkal, Ponorogo
-3368-19-09|RIZKI KURNIAWAN|Ponorogo, 10 Agustus 2006|Laki-Laki|MTS MA'ARIF AL-ISLAH|Katino / Mesti|Wringinanom, Sambit, Ponorogo
-3369-19-09|VANES RYAN SAPUTRA|Ponorogo, 24 Januari 2007|Laki-Laki|SMKN 1 JENANGAN|Yani / Turini|Ketro, Sawoo, Ponorogo
-3370-19-09|KEVIN ANDREAN PUTRA|Madiun, 24 Maret 2009|Laki-Laki|SMPN 2 SAMBIT|Sutoyo / Yuliani|Ketro, Sawoo, Ponorogo
-3371-19-09|LARAS INDAH ANUNGRAHITA SURGAWI|Ponorogo, 17 Mei 2009|Perempuan|MTS AL-ISLAM JORESAN|Edi Prasetyo / Sri Kusuma Rahayu|Nglewan, Sambit, Ponorogo
-3372-19-09|FATHUROHIM AULIA|Ponorogo, 20 Juli 2008|Laki-Laki|SMP FATHUL MUNA|Imam Sukirno|Baosan Kidul, Ngrayun, Ponorogo
-3373-19-09|NADHIFA RAHMA DEWANTI|Ponorogo, 23 Juli 2007|Perempuan|SMKN 1 SLAHUNG|Sumari / Misinem|Singkil, Balong, Ponorogo
-3374-19-09|MUH. RIFAI AINURSALAM|Ponorogo, 04 Mei 2012|Laki-Laki|SDN 8 BAOSAN LOR|Nurwahid / Seniati|Baosan Kidul, Ngrayun, Ponorogo
-3375-19-09|AYUNDA CHINTIYA FIRDA SARI NING TIYAS|Ponorogo, 20 November 2011|Perempuan|SDN 4 BAOSAN LOR|Riyanto / Subinti|Baosan Lor, Ngrayun, Ponorogo
-3376-19-09|ZASKIA ALTHOFUNISA|Ponorogo, 23 Mei 2012|Perempuan|MI MA'ARIF AL-FAQIH|Trimawan / Erna Rahmawati|Wringinanom, Sambit, Ponorogo
-3377-19-09|FAJAR APRIAN ALI MUSYAFA|Pacitan, 06 Juni 2013|Laki-Laki|SDIT AL-MAWADDAH COPER|Supriono / Siti Nurul Solikah|Wringinanom, Sambit, Ponorogo
-3378-19-09|DIAN WAHYU PUTRI|Pacitan, 06 November 2008|Perempuan|SMPN 5 TAGALOMBO|Miswan / Suprihatun|Ploso, Tegalombo, Pacitan
-3379-19-09|AMELIA RAHMAWATI|Pacitan, 05 Agustus 2009|Perempuan|SMPN 5 TAGALOMBO|Sukatno / Tutik Susanti|Ploso, Tegalombo, Pacitan
-3380-19-09|MIFTAHUL MUDTAQIN|Pacitan, 23 Juni 2009|Laki-Laki|MTS AL FATTAH TAHUNAN|Mahmud Jiono / Paryati|Ploso, Tegalombo, Pacitan
-3381-19-09|ANDIKA PUTRA FERDIANSA|Pacitan, 06 Juli 2007|Laki-Laki|MA AL FATTAH TAHUNAN|Sugianto / Murtini|Ploso, Tegalombo, Pacitan
-3382-19-09|SELVIRA JULIA INDRIANA SARI|Pacitan, 31 Juli 2009|Perempuan|SMPN 5 TAGALOMBO|Jarno / Misti|Ploso, Tegalombo, Pacitan
-3383-19-09|NATHAN ADI PRATAMA|Pacitan, 12 Agustus 2010|Laki-Laki|SMKN 1 BANDAR PACITAN|Nur Handoko / Wiwid Widiani|Kledung, Bandar, Pacitan
-3384-19-09|RIZKI ALFIAN NUGROHO|Pacitan, 18 November 2009|Laki-Laki|SMPN 1 BANDAR PACITAN|Suparno / Suwarti|Kledung, Bandar, Pacitan
-3385-19-09|DELTA AYU SAFIRA|Pacitan, 30 Desember 2010|Perempuan|MTS AL-FATTAH TAHUNAN|Meseri / Wiwin Winarti|Ploso, Tegalombo, Pacitan
-3386-19-09|ARSYAVIN MORGAN DIESTA HAIYKAL|Ponorogo, 13 Desember 2012|Laki-Laki|SDN 2 TAHUNAN BARU TEGALOMBO|Didik Budi Santoso / Ika Yuliana|Ngilo-Ilo, Slahung, Ponorogo
-3387-19-09|FAHRIS IMRON KHOIRI|Ponorogo, 12 Mei 2012|Laki-Laki|SDN 2 TAHUNAN BARU TEGALOMBO|Wagiyanto / Sri Purwati|Ngilo-Ilo, Slahung, Ponorogo
-3388-19-09|AHMAD NUR HASAN|Ponorogo, 11 Maret 2012|Laki-Laki|SDN 2 TAHUNAN BARU TEGALOMBO|Jari Nur Said / Sri Lestari|Ngilo-Ilo, Slahung, Ponorogo
-3389-19-09|JAHAROH IZZAH FADZILAH|Ponorogo, 09 Desember 2011|Perempuan|MTS AL-HIKMAH NGRAYUN|Lamiyo / Tulastri|Baosan Kidul, Ngrayun, Ponorogo
-3390-19-09|ADITYA RAHMAT WIDYANTO|Ponorogo, 26 Juni 2009|Laki-Laki|MA AL-HIKMAH NGRAYUN|Tato / Widya Supartin|Baosan Lor, Ngrayun, Ponorogo
-3391-19-09|MIFTAHUL HIDAYAH ISMAIL|Ponorogo, 21 Mei 2012|Laki-Laki|MTS AL-HIKMAH NGRAYUN|Imam Mutakin / Siti Rukayah|Mrayan, Ngrayun, Ponorogo
-3392-19-09|BRAMA ECHA PRASETYA|Pacitan, 19 Desember 2012|Laki-Laki|SMPN 2 GEMAHARJO|Arif Setyo Darmanto / Duwi Ekasari|Tahunan Baru, Tegalombo, Pacitan
-3393-19-09|AHMAD JENDRA ALHAFIDL|Pacitan, 13 Oktober 2012|Laki-Laki|SMPN 2 GEMAHARJO|Budiono / Dewi Agustina|Tahunan Baru, Tegalombo, Pacitan
-3394-19-09|EVI YUNITA ANGGRAINI|Pacitan, 08 Juni 2011|Perempuan|MA AL-FATTAH TAHUNAN|Darmanto / Maryam|Tahunan Baru, Tegalombo, Pacitan
-3395-19-09|NADIYA SEPTIA MAHARANI|Pacitan, 24 September 2010|Perempuan|MA AL-FATTAH TAHUNAN|Hendrik Kurniawan / Surati|Tahunan Baru, Tegalombo, Pacitan
-3396-19-09|FATHYA ALVINATUL RISKI|Pacitan, 30 Desember 2006|Perempuan|SMK AL-FATTAH TAHUNAN|Marjito / Partini|Tahunan Baru, Tegalombo, Pacitan
-3397-19-09|ADITIYA PRADANA PUTRA|Pacitan, 03 Mei 2007|Laki-Laki|SDN 1 GEMAHARJO|Sukadi / Suhartini|Tahunan Baru, Tegalombo, Pacitan
-3398-19-09|ZION ALFA SATIAGRAHA|Pacitan, 29 Juni 2010|Laki-Laki|MTS MUHAMMADIYAH BANDAR|Kaseri / Mesiyem|Kledung, Bandar, Pacitan
-3399-19-09|ABDUL AZIS KHOIRY|Pacitan, 05 Februari 2010|Laki-Laki|SMKN BANDAR|Tumirin / Sri Utami|Kledung, Bandar, Pacitan
-3400-19-09|KURNIA NASIROH|Pacitan, 20 Februari 2013|Perempuan|SMPN 1 BANDAR|Suparno / Suwarti|Kledung, Bandar, Pacitan
-3401-19-09|FARIS AL GOZHI|Pacitan, 06 Juli 2008|Laki-Laki|SMPN 1 BANDAR|Eko Ferianto / Karsini|Mangunharjo, Arjosari, Pacitan
-3402-19-09|YOGI FIRNANDA|Pacitan, 26 Agustus 2012|Laki-Laki|SMPN 5 TEGALOMBO|Mulyono / Rani Febrianti|Ploso, Tegalombo, Pacitan
-3403-19-09|AGUS FRIANTO|Pacitan, 02 Agustus 2013|Laki-Laki|SDN 2 PLOSO|Mispan / Lasmini|Ploso, Tegalombo, Pacitan
-3404-19-09|MELFIN RIFA'I|Pacitan, 02 November 2011|Laki-Laki|SMPN 5 TEGALOMBO|Wasit / Tumini|Ploso, Tegalombo, Pacitan
-3405-19-09|RISKI ALFIAN|Pacitan, 15 Februari 2010|Laki-Laki|SMPN 5 TEGALOMBO|Giyanto / Etik Ernawati|Ploso, Tegalombo, Pacitan
-3406-19-09|ANGGIA RESTU INVANI|Pacitan, 03 September 2010|Perempuan|SMKN BANDAR|Adi Aulia Ardiansah / Surati|Kledung, Bandar, Pacitan
-3407-19-09|EDI TRIATMOKO|Pacitan, 24 Mei 2012|Laki-Laki|SMPN 5 TEGALOMBO|Soiman / Sujiati|Ploso, Tegalombo, Pacitan
-3408-19-09|ANANG SETIYAWAN|Pacitan, 22 Juli 2010|Laki-Laki|SMKN BANDAR|Teguh Wiyono / Trismiatin|Mangunharjo, Arjosari, Pacitan
-3409-19-09|WILDAN ALRUZAIN|Pacitan, 16 April 2012|Laki-Laki|SMPN 2 TEGALOMBO|Paniran / Warsiyem|Gemaharjo, Tegalombo, Pacitan
-3410-19-09|ANANDA RIO RISKI SAPUTRA|Pacitan, 26 Mei 2000|Laki-Laki|SMAN 1 TEGALOMBO|Mujiran / Sri Handayani|Margahayu, Loa Kulu
+01356-30-05|AGUNG DRIVANTO|[Belum Ada TTL]|[Belum Ada JK]|[Belum Ada Pendidikan]|Soirin / Tuminem|[Belum Ada Alamat]
 `;
 
 // Proses data
@@ -134,12 +176,6 @@ function cari() {
   const kataOrtu = elNamaOrtu.value.trim().toLowerCase();
   
   elHasil.style.display = 'none';
-  elHasil.classList.remove('not-found');
-
-  if (!kataInduk && !kataOrtu) {
-    alert('Masukkan Nomor Induk atau Nama Orang Tua');
-    return;
-  }
 
   const ditemukan = daftar.filter(s => {
     const cocokInduk = !kataInduk || s.noInduk === kataInduk;
@@ -147,21 +183,28 @@ function cari() {
     return cocokInduk && cocokOrtu;
   });
 
+  document.getElementById('hasilJudulNomor').textContent = kataInduk || '-';
+
   if (ditemukan.length === 0) {
+    document.getElementById('hNoInduk').textContent = 'Tidak ditemukan';
+    document.getElementById('hNama').textContent = '-';
+    document.getElementById('hTtl').textContent = '-';
+    document.getElementById('hJk').textContent = '-';
+    document.getElementById('hPendidikan').textContent = '-';
+    document.getElementById('hOrtu').textContent = '-';
+    document.getElementById('hAlamat').textContent = '-';
     elHasil.style.display = 'block';
-    elHasil.classList.add('not-found');
-    elHasil.innerHTML = '<strong>Data tidak ditemukan.</strong><br>Cek kembali Nomor Induk dan Nama Orang Tua.<br>Contoh: Nomor Induk <b>03352-19-09</b>, Nama Ortu <b>Mesnan / Dati</b>';
     return;
   }
 
   const d = ditemukan[0];
-  document.getElementById('rNoInduk').textContent = d.noInduk;
-  document.getElementById('rNama').textContent = d.nama;
-  document.getElementById('rTtl').textContent = d.ttl;
-  document.getElementById('rJk').textContent = d.jk;
-  document.getElementById('rPendidikan').textContent = d.pendidikkan;
-  document.getElementById('rOrtu').textContent = d.ortu;
-  document.getElementById('rAlamat').textContent = d.alamat;
+  document.getElementById('hNoInduk').textContent = d.noInduk;
+  document.getElementById('hNama').textContent = d.nama;
+  document.getElementById('hTtl').textContent = d.ttl;
+  document.getElementById('hJk').textContent = d.jk;
+  document.getElementById('hPendidikan').textContent = d.pendidikan;
+  document.getElementById('hOrtu').textContent = d.ortu;
+  document.getElementById('hAlamat').textContent = d.alamat;
   
   elHasil.style.display = 'block';
 }
