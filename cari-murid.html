@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pencarian Sertifikat Gasmi</title>
+    <!-- reCAPTCHA Script -->
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
     <style>
         * {
             box-sizing: border-box;
@@ -41,6 +43,9 @@
             outline: none;
             border-color: #d32f2f;
             box-shadow: 0 0 0 2px rgba(211, 47, 47, 0.2);
+        }
+        .recaptcha-container { 
+            margin: 1.5rem 0;
         }
         .btn-cari {
             width: 100%;
@@ -96,6 +101,13 @@
                 <input type="text" id="namaOrangtua" placeholder="Contoh: Mesnan / Dati" required>
             </div>
 
+            <!-- reCAPTCHA v2 — Pastikan kunci di bawah BENAR -->
+            <div class="recaptcha-container">
+                <div class="g-recaptcha" 
+                    data-sitekey="6LftMsctAAAAALrwQzTBpJujtr-o3iE7y7TpIViN">
+                </div>
+            </div>
+
             <button type="submit" class="btn-cari" id="btnCari">Cari</button>
         </form>
 
@@ -116,11 +128,11 @@
                 tanggalTerbit: "2026-09-21",
                 nomorSertifikat: "GASMI-PO-2026-0987"
             }
-            // Tambahkan format:
+            // Format tambahan:
             // ,{
-            //     nomorInduk: "nomorAnda",
+            //     nomorInduk: "0xxxxx-xx-xx",
             //     namaOrangtua: "Nama / Ayah",
-            //     namaSiswa: "Nama Lengkap Siswa",
+            //     namaSiswa: "Nama Lengkap",
             //     program: "Gasmi Ponorogo",
             //     tanggalTerbit: "2026-09-21",
             //     nomorSertifikat: "GASMI-PO-xxxx-xxxxx"
@@ -148,15 +160,23 @@
             const nomorInduk = document.getElementById('nomorInduk').value.trim();
             const namaOrangtua = document.getElementById('namaOrangtua').value.trim();
 
+            // Validasi format nomor induk
             if (!validasiNomorInduk(nomorInduk)) {
                 errNomor.textContent = 'Format salah. Gunakan: 03352-19-09';
                 errNomor.style.display = 'block';
                 return;
             }
 
+            // Cek reCAPTCHA — DIPERBAIKI
+            if (typeof grecaptcha === 'undefined' || !grecaptcha.getResponse()) {
+                alert('⚠️ Silakan centang kotak "Saya bukan robot" terlebih dahulu');
+                return;
+            }
+
             btnCari.disabled = true;
             btnCari.textContent = 'Mencari...';
 
+            // Cari data
             const hasil = dataSiswa.find(s => 
                 s.nomorInduk === nomorInduk && 
                 s.namaOrangtua.toLowerCase() === namaOrangtua.toLowerCase()
@@ -182,6 +202,11 @@
                 kotakHasil.style.display = 'block';
                 btnCari.disabled = false;
                 btnCari.textContent = 'Cari';
+                
+                // Reset reCAPTCHA setelah selesai
+                if (typeof grecaptcha !== 'undefined') {
+                    grecaptcha.reset();
+                }
             }, 600);
         });
     </script>
