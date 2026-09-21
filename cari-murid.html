@@ -4,49 +4,49 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pencarian Sertifikat Gasmi</title>
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
     <style>
         * {
+            box-sizing: border-box;
             margin: 0;
             padding: 0;
-            box-sizing: border-box;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
         body {
-            color: #333;
             line-height: 1.6;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
+            color: #333;
+            background-color: #fff;
         }
         header {
-            padding: 1rem 2rem;
-            border-bottom: 1px solid #eee;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            padding: 1rem 2rem;
+            border-bottom: 1px solid #eee;
+        }
+        .menu-icon {
+            font-size: 1.5rem;
+            cursor: pointer;
         }
         .logo {
             font-size: 1.8rem;
-            font-weight: 700;
-            color: #222;
+            font-weight: bold;
+            color: #000;
         }
         .hubungi-kami {
             color: #d32f2f;
             text-decoration: none;
             font-weight: 500;
         }
-        main {
-            flex: 1;
+        .container {
             max-width: 600px;
-            width: 90%;
             margin: 3rem auto;
-            padding: 0 1rem;
+            padding: 0 2rem;
         }
         h1 {
             text-align: center;
-            color: #222;
             margin-bottom: 2.5rem;
-            font-size: 2rem;
+            color: #222;
         }
         .form-group {
             margin-bottom: 1.5rem;
@@ -54,32 +54,22 @@
         label {
             display: block;
             margin-bottom: 0.5rem;
-            color: #555;
+            font-weight: 500;
         }
         input {
             width: 100%;
-            padding: 0.9rem 1rem;
+            padding: 0.9rem;
             border: 1px solid #ddd;
             border-radius: 6px;
             font-size: 1rem;
-            transition: border-color 0.3s;
         }
         input:focus {
             outline: none;
             border-color: #d32f2f;
+            box-shadow: 0 0 0 2px rgba(211, 47, 47, 0.2);
         }
-        .captcha-box {
-            display: flex;
-            align-items: center;
-            gap: 0.8rem;
+        .recaptcha-container {
             margin: 1.5rem 0;
-            padding: 1rem;
-            background: #f9f9f9;
-            border-radius: 6px;
-        }
-        .captcha-box input[type="checkbox"] {
-            width: auto;
-            transform: scale(1.2);
         }
         .btn-cari {
             width: 100%;
@@ -96,68 +86,55 @@
         .btn-cari:hover {
             background-color: #b71c1c;
         }
+        .btn-cari:disabled {
+            background-color: #ef9a9a;
+            cursor: not-allowed;
+        }
         .hasil {
             margin-top: 2rem;
             padding: 1.5rem;
             border-radius: 8px;
             display: none;
         }
-        .hasil.ada {
+        .hasil.sukses {
             background-color: #e8f5e9;
-            border: 1px solid #c8e6c9;
-            display: block;
+            border: 1px solid #4caf50;
         }
-        .hasil.tidak-ada {
+        .hasil.error {
             background-color: #ffebee;
-            border: 1px solid #ffcdd2;
-            display: block;
+            border: 1px solid #ef5350;
         }
-        .hasil h3 {
-            margin-bottom: 1rem;
-            color: #2e7d32;
-        }
-        .hasil.tidak-ada h3 {
-            color: #c62828;
-        }
-        .data-row {
-            padding: 0.5rem 0;
-            border-bottom: 1px dashed #ddd;
-        }
-        .data-row:last-child {
-            border-bottom: none;
+        .info-row {
+            margin: 0.5rem 0;
         }
         .label {
             font-weight: 600;
             display: inline-block;
             min-width: 140px;
         }
-        .menu-btn {
-            position: absolute;
-            top: 1.2rem;
-            left: 1.5rem;
-            font-size: 1.5rem;
-            background: none;
-            border: none;
-            cursor: pointer;
+        .pesan-kesalahan {
+            color: #d32f2f;
+            margin-top: 0.5rem;
+            font-size: 0.9rem;
+            display: none;
         }
     </style>
 </head>
 <body>
-    <button class="menu-btn" title="Menu">☰</button>
-
     <header>
-        <div></div>
+        <div class="menu-icon">☰</div>
         <div class="logo">Gasmi</div>
         <a href="#" class="hubungi-kami">Hubungi Kami</a>
     </header>
 
-    <main>
+    <main class="container">
         <h1>Pencarian Sertifikat Gasmi</h1>
-
-        <form id="formCari">
+        
+        <form id="formPencarian">
             <div class="form-group">
                 <label for="nomorInduk">Silakan Masukkan Nomor Induk</label>
                 <input type="text" id="nomorInduk" placeholder="Contoh: 03352-19-09" required>
+                <div class="pesan-kesalahan" id="errNomor"></div>
             </div>
 
             <div class="form-group">
@@ -165,115 +142,105 @@
                 <input type="text" id="namaOrangtua" placeholder="Contoh: Mesnan / Dati" required>
             </div>
 
-            <div class="captcha-box">
-                <input type="checkbox" id="bukanRobot" required>
-                <label for="bukanRobot">Saya bukan robot</label>
-                <small style="margin-left: auto; color: #666;">reCAPTCHA mengubah persyaratan layanannya. Ambil tindakan.</small>
+            <div class="recaptcha-container">
+                <div class="g-recaptcha" 
+                    data-sitekey="GANTI_DENGAN_KUNCI_SITE_RECAPTCHA_ANDA">
+                </div>
             </div>
 
-            <button type="submit" class="btn-cari">Cari</button>
+            <button type="submit" class="btn-cari" id="btnCari">Cari</button>
         </form>
 
-        <div id="hasilPencarian" class="hasil">
+        <div class="hasil" id="kotakHasil">
             <h3 id="judulHasil"></h3>
             <div id="isiHasil"></div>
         </div>
     </main>
 
     <script>
-        // === BANK DATA SISWA — Lengkap ===
+        // --- DATA SISWA (sesuaikan dengan data Anda) ---
         const dataSiswa = [
-            { nomorInduk: "03352-19-09", namaSiswa: "DEWI NOVITAYENI", tempatTglLahir: "Trenggalek, 23 Agustus 2005", jenisKelamin: "Perempuan", sekolah: "SMK FATHUL MUNA", namaOrangtua: "Mesnan / Dati", alamat: "Botoputih, Bendungan, Trenggalek" },
-            { nomorInduk: "03353-19-09", namaSiswa: "AFNAN GHOZI MAYRIA ASEGAF", tempatTglLahir: "Ponorogo, 20 Mei 2008", jenisKelamin: "Laki-Laki", sekolah: "MTS. AL-JAWARIYAH", namaOrangtua: "Agus Riyadi / Siti Maysaroh", alamat: "Grogol, Sawoo Ponorogo" },
-            { nomorInduk: "3354-19-09", namaSiswa: "FARA SURYARENATA", tempatTglLahir: "Ponorogo, 07 Juni 2011", jenisKelamin: "Perempuan", sekolah: "MTSN 1 JETIS", namaOrangtua: "Suryadi / Sri Turini", alamat: "Campurejo, Sambit, Ponorogo" },
-            { nomorInduk: "3355-19-09", namaSiswa: "DENIS YOGA PRATAMA", tempatTglLahir: "Oku, 06 September 2012", jenisKelamin: "Laki-Laki", sekolah: "SMP FATHUL MUNA", namaOrangtua: "Jarman / Surati", alamat: "Kurungan Nyawa II, Buay Madang, Oku Timur" },
-            { nomorInduk: "3356-19-09", namaSiswa: "ANISA DWI YANA PUTRI", tempatTglLahir: "Ponorogo, 18 Februari 2012", jenisKelamin: "Perempuan", sekolah: "MTSN 1 JETIS", namaOrangtua: "Edi Sunaryanto / Srika Dwi Yana Anjani", alamat: "Campurejo, Sambit, Ponorogo" },
-            { nomorInduk: "3357-19-09", namaSiswa: "SEPTIAN TRIANI YOGA ADHITAMA", tempatTglLahir: "Ponorogo, 06 September 2006", jenisKelamin: "Laki-Laki", sekolah: "MA MAARIF KRATON MOJO KEDIRI", namaOrangtua: "Parni / Jemitri", alamat: "Grogol, Sawoo Ponorogo" },
-            { nomorInduk: "3358-19-09", namaSiswa: "FAIREL ATHARIZZ CALIEF LEE", tempatTglLahir: "Ponorogo, 08 Januari 2014", jenisKelamin: "Laki-Laki", sekolah: "SDN 1 KEMUNING", namaOrangtua: "Nur Ali / Priyanti", alamat: "Wringinanom, Sambit, Ponorogo" },
-            { nomorInduk: "3359-19-09", namaSiswa: "RIYAN NUR HANDIKA PRASETYO", tempatTglLahir: "Blora, 11 Juli 2007", jenisKelamin: "Laki-Laki", sekolah: "SMK PGRI 2 PONOROGO", namaOrangtua: "Bonangin / Sriwahyuni", alamat: "Sedarat, Balong, Ponorogo" },
-            { nomorInduk: "3360-19-09", namaSiswa: "AFIZA SITI ARIYANTI", tempatTglLahir: "Pekalongan, 09 Juni 2013", jenisKelamin: "Perempuan", sekolah: "SMP FATHUL MUNA", namaOrangtua: "Agus Giyanto / Aris Karisna", alamat: "Prantaan, Bogorejo, Blora" },
-            { nomorInduk: "3361-19-09", namaSiswa: "ZAHWA NADIA IZZATI", tempatTglLahir: "Ponorogo, 30 Oktober 2007", jenisKelamin: "Perempuan", sekolah: "SMK MUHAMMADIYAH DORO", namaOrangtua: "Maroto / Fitriyah", alamat: "Pandak, Balong, Ponorogo" },
-            { nomorInduk: "3362-19-09", namaSiswa: "SITI NURROSIDAH", tempatTglLahir: "Ponorogo, 22 Agustus 2009", jenisKelamin: "Perempuan", sekolah: "SMAN 1 SLAHUNG", namaOrangtua: "Sarnianto / Sri Suparmi", alamat: "Baosan Kidul, Ngrayun, Ponorogo" },
-            { nomorInduk: "3363-19-09", namaSiswa: "MUHAMMAD SYAHRUL MUNIB", tempatTglLahir: "Cilacap, 10 Juni 2012", jenisKelamin: "Laki-Laki", sekolah: "SMP FATHUL MUNA", namaOrangtua: "Suyono / Katri", alamat: "Wagir Kidul, Pulung, Ponorogo" },
-            { nomorInduk: "3364-19-09", namaSiswa: "AHMAD HAETI", tempatTglLahir: "Ponorogo, 19 Agustus 2010", jenisKelamin: "Laki-Laki", sekolah: "SMK FATHUL MUNA", namaOrangtua: "Turijan / Siti Halimatus Sadiyah", alamat: "Labangka, Babulu, Penajam Paser Utara" },
-            { nomorInduk: "3365-19-09", namaSiswa: "IKHDA WARDATUL ANNISA'", tempatTglLahir: "Ponorogo, 17 Juli 2008", jenisKelamin: "Perempuan", sekolah: "MA AL-ISLAM", namaOrangtua: "Sumari / Puriyah", alamat: "Kutu Wetan, Jetis, Ponorogo" },
-            { nomorInduk: "3366-19-09", namaSiswa: "MIRDAYANI AGUSTINA", tempatTglLahir: "Ponorogo, 22 Agustus 2008", jenisKelamin: "Perempuan", sekolah: "MTS. MA'ARIF AL-ISHLAH", namaOrangtua: "Suryono / Tutik Kholistiana", alamat: "Bungu, Bungkal, Ponorogo" },
-            { nomorInduk: "3367-19-09", namaSiswa: "LUTFI NUFITA ASFA'I", tempatTglLahir: "Ponorogo, 22 November 2007", jenisKelamin: "Perempuan", sekolah: "MTS MA'ARIF AL ISLAH", namaOrangtua: "Imam Safi / Sriyatin", alamat: "Munggu, Bungkal, Ponorogo" },
-            { nomorInduk: "3368-19-09", namaSiswa: "RIZKI KURNIAWAN", tempatTglLahir: "Ponorogo, 10 Agustus 2006", jenisKelamin: "Laki-Laki", sekolah: "MTS MA'ARIF AL ISLAH", namaOrangtua: "Kateno / Mesti", alamat: "Wringinanom, Sambit, Ponorogo" },
-            { nomorInduk: "3369-19-09", namaSiswa: "VANES RYAN SAPUTRA", tempatTglLahir: "Ponorogo, 24 Januari 2007", jenisKelamin: "Laki-Laki", sekolah: "SMKN 1 JENANGAN", namaOrangtua: "Yani / Turini", alamat: "Ketro, Sawoo, Ponorogo" },
-            { nomorInduk: "3370-19-09", namaSiswa: "KEVIN ANDREAN PUTRA", tempatTglLahir: "Madiun, 24 Maret 2009", jenisKelamin: "Laki-Laki", sekolah: "SMPN 2 SAMBIT", namaOrangtua: "Sutoyo / Yuliani", alamat: "Ketro, Sawoo, Ponorogo" },
-            { nomorInduk: "3371-19-09", namaSiswa: "LARAS INDAH ANUNGRAHITA SURGAWI", tempatTglLahir: "Ponorogo, 17 Mei 2009", jenisKelamin: "Perempuan", sekolah: "MTS AL-ISLAM JORESAN", namaOrangtua: "Edhi Prastyo / Sri Kusuma Rahayu", alamat: "Nglewan, Sambit, Ponorogo" },
-            { nomorInduk: "3372-19-09", namaSiswa: "FATHUROHIM AULIA", tempatTglLahir: "Ponorogo, 20 Juli 2008", jenisKelamin: "Laki-Laki", sekolah: "SMP FATHUL MUNA", namaOrangtua: "Imam Sukirno", alamat: "Baosan Kidul, Ngrayun, Ponorogo" },
-            { nomorInduk: "3373-19-09", namaSiswa: "NADHIFA RAHMA DEWANTI", tempatTglLahir: "Ponorogo, 23 Juli 2007", jenisKelamin: "Perempuan", sekolah: "SMKN 1 SLAHUNG", namaOrangtua: "Sumari / Misinem", alamat: "Singkil, Balong, Ponorogo" },
-            { nomorInduk: "3374-19-09", namaSiswa: "MUH.RIFAI AINURSALAM", tempatTglLahir: "Ponorogo, 04 Mei 2012", jenisKelamin: "Laki-Laki", sekolah: "SDN 8 BAOSAN LOR", namaOrangtua: "Nurwahid / Seniati", alamat: "Baosan Kidul, Ngrayun, Ponorogo" },
-            { nomorInduk: "3375-19-09", namaSiswa: "AYUNDA CHINTIYA FIRDA SARI NING TIYAS", tempatTglLahir: "Ponorogo, 20 November 2011", jenisKelamin: "Perempuan", sekolah: "SDN 4 BAOSAN LOR", namaOrangtua: "Riyanto / Subinti", alamat: "Baosan Lor, Ngrayun, Ponorogo" },
-            { nomorInduk: "3376-19-09", namaSiswa: "ZASKIA ALTHOFUNISA", tempatTglLahir: "Ponorogo, 23 Mei 2012", jenisKelamin: "Perempuan", sekolah: "MI MA'ARIF AL-FAQIH", namaOrangtua: "Trimawan / Erna Rahmawati", alamat: "Wringinanom, Sambit, Ponorogo" },
-            { nomorInduk: "3377-19-09", namaSiswa: "FAJAR APRIAN ALI MUSYAFA", tempatTglLahir: "Pacitan, 06 Juni 2013", jenisKelamin: "Laki-Laki", sekolah: "SDIT AL-MAWADDAH COPER", namaOrangtua: "Supriono / Siti Nurul Solikah", alamat: "Wringinanom, Sambit, Ponorogo" },
-            { nomorInduk: "3378-19-09", namaSiswa: "DIAN WAHYU PUTRI", tempatTglLahir: "Pacitan, 06 November 2008", jenisKelamin: "Perempuan", sekolah: "SMPN 5 TAGALOMBO", namaOrangtua: "Miswan / Suprihatun", alamat: "Ploso, Tegalombo, Pacitan" },
-            { nomorInduk: "3379-19-09", namaSiswa: "AMELIA RAHMAWATI", tempatTglLahir: "Pacitan, 05 Agustus 2009", jenisKelamin: "Perempuan", sekolah: "SMPN 5 TAGALOMBO", namaOrangtua: "Sukatno / Tutik Susanti", alamat: "Ploso, Tegalombo, Pacitan" },
-            { nomorInduk: "3380-19-09", namaSiswa: "MIFTAHUL MUDTAQIN", tempatTglLahir: "Pacitan, 23 Juni 2009", jenisKelamin: "Laki-Laki", sekolah: "MTS AL FATTAH TAHUNAN", namaOrangtua: "Mahmud Jiono / Paryati", alamat: "Ploso, Tegalombo, Pacitan" },
-            { nomorInduk: "3381-19-09", namaSiswa: "ANDIKA PUTRA FERDIANSA", tempatTglLahir: "Pacitan, 06 Juli 2007", jenisKelamin: "Laki-Laki", sekolah: "MA AL FATTAH TAHUNAN", namaOrangtua: "Sugianto / Murtini", alamat: "Ploso, Tegalombo, Pacitan" },
-            { nomorInduk: "3382-19-09", namaSiswa: "SELVIRA JULIA INDRIANA SARI", tempatTglLahir: "Pacitan, 31 Juli 2009", jenisKelamin: "Perempuan", sekolah: "SMPN 5 TAGALOMBO", namaOrangtua: "Jarno / Misti", alamat: "Ploso, Tegalombo, Pacitan" },
-            { nomorInduk: "3383-19-09", namaSiswa: "NATHAN ADI PRATAMA", tempatTglLahir: "Pacitan, 12 Agustus 2010", jenisKelamin: "Laki-Laki", sekolah: "SMKN 1 BANDAR PACITAN", namaOrangtua: "Nur Handoko / Wiwid Widiani", alamat: "Kledung, Bandar, Pacitan" },
-            { nomorInduk: "3384-19-09", namaSiswa: "RIZKI ALFIAN NUGROHO", tempatTglLahir: "Pacitan, 18 November 2009", jenisKelamin: "Laki-Laki", sekolah: "SMPN 1 BANDAR PACITAN", namaOrangtua: "Suparno / Suwarti", alamat: "Kledung, Bandar, Pacitan" },
-            { nomorInduk: "3385-19-09", namaSiswa: "DELTA AYU SAFIRA", tempatTglLahir: "Pacitan, 30 Desember 2010", jenisKelamin: "Perempuan", sekolah: "MTS. AL-FATTAH TAHUNAN", namaOrangtua: "Meseri / Wiwin Winarti", alamat: "Ploso, Tegalombo, Pacitan" },
-            { nomorInduk: "3386-19-09", namaSiswa: "ARSYAVIN MORGAN DIESTA HAIYKAL", tempatTglLahir: "Ponorogo, 13 Desember 2012", jenisKelamin: "Laki-Laki", sekolah: "SDN 2 TAHUNAN BARU TEGALOMBO", namaOrangtua: "Didik Budi Santoso / Ika Yuliana", alamat: "Ngilo-Ilo, Slahung, Ponorogo" },
-            { nomorInduk: "3387-19-09", namaSiswa: "FAHRIS IMRON KHOIRI", tempatTglLahir: "Ponorogo, 12 Mei 2012", jenisKelamin: "Laki-Laki", sekolah: "SDN 2 TAHUNAN BARU TEGALOMBO", namaOrangtua: "Wagiyanto / Sri Purwati", alamat: "Ngilo-Ilo, Slahung, Ponorogo" },
-            { nomorInduk: "3388-19-09", namaSiswa: "AHMAD NUR HASAN", tempatTglLahir: "Ponorogo, 11 Maret 2012", jenisKelamin: "Laki-Laki", sekolah: "SDN 2 TAHUNAN BARU TEGALOMBO", namaOrangtua: "Jari Nur Said / Sri Lestari", alamat: "Ngilo-Ilo, Slahung, Ponorogo" },
-            { nomorInduk: "3389-19-09", namaSiswa: "JAHAROH IZZAH FADZILAH", tempatTglLahir: "Ponorogo, 09 Desember 2011", jenisKelamin: "Perempuan", sekolah: "MTS. AL-HIKMAH NGRAYUN", namaOrangtua: "Lamiyo / Tulastri", alamat: "Baosan Kidul, Ngrayun, Ponorogo" },
-            { nomorInduk: "3390-19-09", namaSiswa: "ADITYA RAHMAT WIDYANTO", tempatTglLahir: "Ponorogo, 26 Juni 2009", jenisKelamin: "Laki-Laki", sekolah: "MA. AL-HIKMAH NGRAYUN", namaOrangtua: "Tato / Widya Supartin", alamat: "Baosan Lor, Ngrayun, Ponorogo" },
-            { nomorInduk: "3391-19-09", namaSiswa: "MIFTAHUL HIDAYAH ISMAIL", tempatTglLahir: "Ponorogo, 21 Mei 2012", jenisKelamin: "Laki-Laki", sekolah: "MTS. AL-HIKMAH NGRAYUN", namaOrangtua: "Imam Mutakin / Siti Rukayah", alamat: "Mrayan, Ngrayun, Ponorogo" },
-            { nomorInduk: "3392-19-09", namaSiswa: "BRAMA ECHA PRASETYA", tempatTglLahir: "Pacitan, 19 Desember 2012", jenisKelamin: "Laki-Laki", sekolah: "SMPN 2 GEMAHARJO", namaOrangtua: "Arif Setyo Darmanto / Duwi Ekasari", alamat: "Tahunan Baru, Tegalombo, Pacitan" },
-            { nomorInduk: "3393-19-09", namaSiswa: "AHMAD JENDRA ALHAFIDL", tempatTglLahir: "Pacitan, 13 Oktober 2012", jenisKelamin: "Laki-Laki", sekolah: "SMPN 2 GEMAHARJO", namaOrangtua: "Budiono / Dewi Agustina", alamat: "Tahunan Baru, Tegalombo, Pacitan" },
-            { nomorInduk: "3394-19-09", namaSiswa: "EVI YUNITA ANGGRAINI", tempatTglLahir: "Pacitan, 08 Juni 2011", jenisKelamin: "Perempuan", sekolah: "MA. AL-FATTAH TAHUNAN", namaOrangtua: "Darmanto / Maryam", alamat: "Tahunan Baru, Tegalombo, Pacitan" },
-            { nomorInduk: "3395-19-09", namaSiswa: "NADIYA SEPTIA MAHARANI", tempatTglLahir: "Pacitan, 24 September 2010", jenisKelamin: "Perempuan", sekolah: "MA. AL-FATTAH TAHUNAN", namaOrangtua: "Hendrik Kurniawan / Surati", alamat: "Tahunan Baru, Tegalombo, Pacitan" },
-            { nomorInduk: "3396-19-09", namaSiswa: "FATHYA ALVINATUL RISKI", tempatTglLahir: "Pacitan, 30 Desember 2006", jenisKelamin: "Perempuan", sekolah: "SMK. AL-FATTAH TAHUNAN", namaOrangtua: "Marjito / Partini", alamat: "Tahunan Baru, Tegalombo, Pacitan" },
-            { nomorInduk: "3397-19-09", namaSiswa: "ADITIYA PRADANA PUTRA", tempatTglLahir: "Pacitan, 03 Mei 2007", jenisKelamin: "Laki-Laki", sekolah: "SDN 1 GEMAHARJO", namaOrangtua: "Sukadi / Suhartini", alamat: "Tahunan Baru, Tegalombo, Pacitan" },
-            { nomorInduk: "3398-19-09", namaSiswa: "ZION ALFA SATIAGRAHA", tempatTglLahir: "Pacitan, 29 Juni 2010", jenisKelamin: "Laki-Laki", sekolah: "MTS. MUHAMMADIYAH BANDAR", namaOrangtua: "Kaseri / Mesiyem", alamat: "Kledung, Bandar, Pacitan" },
-            { nomorInduk: "3399-19-09", namaSiswa: "ABDUL AZIS KHOIRY", tempatTglLahir: "Pacitan, 05 Februari 2010", jenisKelamin: "Laki-Laki", sekolah: "SMKN BANDAR", namaOrangtua: "Tumirin / Sri Utami", alamat: "Kledung, Bandar, Pacitan" },
-            { nomorInduk: "3400-19-09", namaSiswa: "KURNIA NASIROH", tempatTglLahir: "Pacitan, 20 Februari 2013", jenisKelamin: "Perempuan", sekolah: "SMPN 1 BANDAR", namaOrangtua: "Suparno / Suwarti", alamat: "Kledung, Bandar, Pacitan" },
-            { nomorInduk: "3401-19-09", namaSiswa: "FARIS AL GOZHI", tempatTglLahir: "Pacitan, 06 Juli 2008", jenisKelamin: "Laki-Laki", sekolah: "SMPN 1 BANDAR", namaOrangtua: "Eko Ferianto / Karsini", alamat: "Mangunharjo, Arjosari, Pacitan" },
-            { nomorInduk: "3402-19-09", namaSiswa: "YOGI FIRNANDA", tempatTglLahir: "Pacitan, 26 Agustus 2012", jenisKelamin: "Laki-Laki", sekolah: "SMPN 5 TEGALOMBO", namaOrangtua: "Mulyono / Rani Febrianti", alamat: "Ploso, Tegalombo, Pacitan" },
-            { nomorInduk: "3403-19-09", namaSiswa: "AGUS FRIANTO", tempatTglLahir: "Pacitan, 02 Agustus 2013", jenisKelamin: "Laki-Laki", sekolah: "SDN 2 PLOSO", namaOrangtua: "Mispan / Lasmini", alamat: "Ploso, Tegalombo, Pacitan" },
-            { nomorInduk: "3404-19-09", namaSiswa: "MELFIN RIFA'I", tempatTglLahir: "Pacitan, 02 November 2011", jenisKelamin: "Laki-Laki", sekolah: "SMPN 5 TEGALOMBO", namaOrangtua: "Wasit / Tumini", alamat: "Ploso, Tegalombo, Pacitan" },
-            { nomorInduk: "3405-19-09", namaSiswa: "RISKI ALFIAN", tempatTglLahir: "Pacitan, 15 Februari 2010", jenisKelamin: "Laki-Laki", sekolah: "SMPN 5 TEGALOMBO", namaOrangtua: "Giyanto / Etik Ernawati", alamat: "Ploso, Tegalombo, Pacitan" },
-            { nomorInduk: "3406-19-09", namaSiswa: "ANGGIA RESTU INVANI", tempatTglLahir: "Pacitan, 03 September 2010", jenisKelamin: "Perempuan", sekolah: "SMKN BANDAR", namaOrangtua: "Adi Aulia Ardiansah / Surati", alamat: "Kledung, Bandar, Pacitan" },
-            { nomorInduk: "3407-19-09", namaSiswa: "EDI TRIATMOKO", tempatTglLahir: "Pacitan, 24 Mei 2012", jenisKelamin: "Laki-Laki", sekolah: "SMPN 5 TEGALOMBO", namaOrangtua: "Soiman / Sujiati", alamat: "Ploso, Tegalombo, Pacitan" },
-            { nomorInduk: "3408-19-09", namaSiswa: "ANANG SETIYAWAN", tempatTglLahir: "Pacitan, 22 Juli 2010", jenisKelamin: "Laki-Laki", sekolah: "SMKN BANDAR", namaOrangtua: "Teguh Wiyono / Trismiatin", alamat: "Mangunharjo, Arjosari, Pacitan" },
-            { nomorInduk: "3409-19-09", namaSiswa: "WILDAN ALRUZAIN", tempatTglLahir: "Pacitan, 16 April 2012", jenisKelamin: "Laki-Laki", sekolah: "SMPN 2 TEGALOMBO", namaOrangtua: "Paniran / Warsiyem", alamat: "Gemaharjo, Tegalombo, Pacitan" },
-            { nomorInduk: "3410-19-09", namaSiswa: "ANANDA RIO RISKI SAPUTRA", tempatTglLahir: "Pacitan, 26 Mei 2000", jenisKelamin: "Laki-Laki", sekolah: "SMAN 1 TEGALOMBO", namaOrangtua: "Mujiran / Sri Handayani", alamat: "Margahayu, Loa Kulu" },
-            { nomorInduk: "3411-19-09", namaSiswa: "FANI AFNAN NURHAFIZAH", tempatTglLahir: "Banjarnegara, 23 April 2010", jenisKelamin: "Perempuan", sekolah: "MA DARUL ISTIQOMAH", namaOrangtua: "Mohamad Khoirul Anifin / Siti Mukharomah", alamat: "Winong, Bawang, Banjarnegara" },
-            { nomorInduk: "3412-19-09", namaSiswa: "MOHAMMAD MAFTUH FADLI", tempatTglLahir: "Ponorogo, 10 Februari 2010", jenisKelamin: "Laki-Laki", sekolah: "MA DARUL ISTIQOMAH", namaOrangtua: "Kani / Sumiati", alamat: "Semanding, Kauman, Ponorogo" },
-            { nomorInduk: "3413-19-09", namaSiswa: "MUROBBI EKA ADITYA", tempatTglLahir: "Ponorogo, 05 Maret 2010", jenisKelamin: "Laki-Laki", sekolah: "MA DARUL ISTIQOMAH", namaOrangtua: "Poniran / Yati", alamat: "Semanding, Kauman, Ponorogo" },
-            { nomorInduk: "3414-19-09", namaSiswa: "SYNTIA 'ULYA KHUSNITA", tempatTglLahir: "Ponorogo, 24 Juli 2009", jenisKelamin: "Perempuan", sekolah: "MA DARUL ISTIQOMAH", namaOrangtua: "Parni / Parti", alamat: "Dadapan, Balong, Ponorogo" },
-            { nomorInduk: "3415-19-09", namaSiswa: "MUHAMMAD AMHAR MUMTAZ", tempatTglLahir: "Ponorogo, 20 Juni 2010", jenisKelamin: "Laki-Laki", sekolah: "MTS. DARUL ISTIQOMAH", namaOrangtua: "Kusno, S.Pd. I / Ema Wardati, S.Pd. I", alamat: "Ngumpul, Jambon, Ponorogo" },
-            { nomorInduk: "3416-19-09", namaSiswa: "IJAT FAHEM BADIUL ALAM", tempatTglLahir: "Ponorogo, 08 November 2011", jenisKelamin: "Laki-Laki", sekolah: "MTS. DARUL ISTIQOMAH", namaOrangtua: "Sunarno / Dwi Erni Widiastuti", alamat: "Ngumpul, Jambon, Ponorogo" },
-            { nomorInduk: "3417-19-09", namaSiswa: "MUHAMMAD ZAKARIYA NURROHMAN", tempatTglLahir: "Ponorogo, 13 Oktober 2011", jenisKelamin: "Laki-Laki", sekolah: "MTS. DARUL ISTIQOMAH", namaOrangtua: "Prianto / Sunarti", alamat: "Pandak, Balong, Ponorogo" },
-            { nomorInduk: "3418-19-09", namaSiswa: "MUHAMAD ALDY NURSALAM", tempatTglLahir: "Nganjuk, 12 Desember 2011", jenisKelamin: "Laki-Laki", sekolah: "MTS. DARUL ISTIQOMAH", namaOrangtua: "Ali Jafar Shodiq / Parmiatun", alamat: "Ngumpul, Jambon, Ponorogo" },
-            { nomorInduk: "3419-19-09", namaSiswa: "NABIL ZAKI IBRAHIM", tempatTglLahir: "Tangerang, 19 November 2008", jenisKelamin: "Laki-Laki", sekolah: "MTS. AL-ISLAM JORESAN", namaOrangtua: "Casmudi / Hesti Setiarini", alamat: "Tambakrejo, Pemalang, Jawa Tengah" },
-            { nomorInduk: "3420-19-09", namaSiswa: "ULUL ALBAB", tempatTglLahir: "Sukamulya, 16 September 2008", jenisKelamin: "Laki-Laki", sekolah: "MTS. AL-ISLAM JORESAN", namaOrangtua: "Supriyanto / Sri Haryati", alamat: "Rawamangun, Pulogadung, Jakarta Timur" },
-            { nomorInduk: "3421-19-09", namaSiswa: "AHMAD WILDAN ROMDLONI", tempatTglLahir: "Ponorogo, 22 Agustus 2011", jenisKelamin: "Laki-Laki", sekolah: "MTS. AL-ISLAM JORESAN", namaOrangtua: "Samsuri / Wiji Utami", alamat: "Joresan, Mlarak, Ponorogo" },
-            { nomorInduk: "3422-19-09", namaSiswa: "MUHAMMAD RIDHO SAPUTRA", tempatTglLahir: "Surabaya, 30 Mei 2010", jenisKelamin: "Laki-Laki", sekolah: "MTS. AL-ISLAM JORESAN", namaOrangtua: "Suparman / Sumarpi", alamat: "Bajang, Mlarak, Ponorogo" },
-            { nomorInduk: "3423-19-09", namaSiswa: "MUHAMMAD ROHMAN", tempatTglLahir: "Jakarta, 23 Oktober 2009", jenisKelamin: "Laki-Laki", sekolah: "MTS. AL-ISLAM JORESAN", namaOrangtua: "Alm. Anen Priyatna / Suginem", alamat: "Tangen, Sragen, Jawa Tengah" },
-            { nomorInduk: "3424-19-09", namaSiswa: "ZAYANA FAWAZARSYA RUWAIDAH", tempatTglLahir: "Ponorogo, 17 Juli 2005", jenisKelamin: "Perempuan", sekolah: "UIN PONOROGO", namaOrangtua: "Syamsudin / Siti Arini", alamat: "Joresan, Mlarak, Ponorogo" },
-            { nomorInduk: "3425-19-09", namaSiswa: "AHMAD MUSYAFA NASYWATUL WAFFA", tempatTglLahir: "Lamongan, 13 Maret 2009", jenisKelamin: "Laki-Laki", sekolah: "MTS. AL-ISLAM JORESAN", namaOrangtua: "Latief Ali Zahrowi / Zaitul Erni", alamat: "Kariangau, Balikpapan Barat, Kaltim" },
-            { nomorInduk: "3426-19-09", namaSiswa: "AHMAD SABHAL LATHAF", tempatTglLahir: "Ponorogo, 23 Februari 2008", jenisKelamin: "Laki-Laki", sekolah: "MTS. AL-ISLAM JORESAN", namaOrangtua: "Rohmat Fadeli / Mursini", alamat: "Bulu, Sambit, Ponorogo" },
-            { nomorInduk: "3427-19-09", namaSiswa: "DWI PUTRA PRAYOGO", tempatTglLahir: "Magetan, 30 Maret 2010", jenisKelamin: "Laki-Laki", sekolah: "MTS. AL-ISLAM JORESAN", namaOrangtua: "Komarudin / Susilawati", alamat: "Dukuh, Lembeyan, Magetan" },
-            { nomorInduk: "3428-19-09", namaSiswa: "ISMA FAIZATUL MUNA", tempatTglLahir: "Ponorogo, 18 Januari 2004", jenisKelamin: "Perempuan", sekolah: "MTS. AL-ISLAM JORESAN", namaOrangtua: "Muhrodji / Siti Solekah", alamat: "Joresan, Mlarak, Ponorogo" },
-            { nomorInduk: "3429-19-09", namaSiswa: "ARSYA RIZKY AL MUBAROK", tempatTglLahir: "Ponorogo, 14 Juni 2013", jenisKelamin: "Laki-Laki", sekolah: "MTs. MIFTAHUL ULUM NGRAKET", namaOrangtua: "Tukimun / Sutini", alamat: "Jonggol, Jambon, Ponorogo" },
-            { nomorInduk: "3430-19-09", namaSiswa: "STEVEN ORVA ROLANDA", tempatTglLahir: "Ponorogo, 12 Juni 2014", jenisKelamin: "Laki-Laki", sekolah: "PP. DARUL HUDA MAYAK", namaOrangtua: "Muh. Heri Purwanto / Renita Tri Oktapia Dewi", alamat: "Jonggol, Jambon, Ponorogo" },
-            { nomorInduk: "3431-19-09", namaSiswa: "KELVIN RAMDANI SAPUTRA", tempatTglLahir: "Ponorogo, 02 Februari 2013", jenisKelamin: "Laki-Laki", sekolah: "SMPN 2 BALONG", namaOrangtua: "Trimo / Nanik Minasri", alamat: "Jonggol, Jambon, Ponorogo" },
-            { nomorInduk: "3432-19-09", namaSiswa: "NADIA HASNA SAKHI", tempatTglLahir: "Ponorogo, 25 Juli 2012", jenisKelamin: "Perempuan", sekolah: "MTs. MIFTAHUL ULUM NGRAKET", namaOrangtua: "Sarju / Robit Tahtul Asadah", alamat: "Jonggol, Jambon, Ponorogo" },
-            { nomorInduk: "3433-19-09", namaSiswa: "NATHANIA AYU EVELINNA", tempatTglLahir: "Ponorogo, 18 Desember 2009", jenisKelamin: "Perempuan", sekolah: "SMK KESEHATAN PONOROGO", namaOrangtua: "Bambang Maulana Maheswara / Fitri Yuliana", alamat: "Jonggol, Jambon, Ponorogo" },
-            { nomorInduk: "3434-19-09", namaSiswa: "FRISKA LAURENZIA LIDIA SABELLA", tempatTglLahir: "Ponorogo, 04 Maret 2011", jenisKelamin: "Perempuan", sekolah: "SMAN 1 BADEGAN", namaOrangtua: "Mudjiono / Ria Dewi Yuliati", alamat: "Jonggol, Jambon, Ponorogo" },
-            { nomorInduk: "3435-19-09", namaSiswa: "ERLIA NUR HIDAYAH", tempatTglLahir: "Ponorogo, 16 Februari 2011", jenisKelamin: "Perempuan", sekolah: "SMK KESEHATAN BIMPO", namaOrangtua: "Sugito / Umi Andarwati", alamat: "Jonggol, Jambon, Ponorogo" },
-            { nomorInduk: "3436-19-09", namaSiswa: "JOSHUA DAREN PRATAMA", tempatTglLahir: "Ponorogo, 06 Januari 2014", jenisKelamin: "Laki-Laki", sekolah: "MTs. MIFTAHUL ULUM NGRAKET", namaOrangtua: "Panji Asmoro / Katemi", alamat: "Jonggol, Jambon, Ponorogo" },
-            { nomorInduk: "3437-19-09", namaSiswa: "ARDAN ZHAFRAN DWI MAHADIKA", tempatTglLahir: "Ponorogo, 20 Maret 2013", jenisKelamin: "Laki-Laki", sekolah: "SMPN 1 BALONG", namaOrangtua: "Agus Supriyono / Puji Lestari", alamat: "Ngampel, Balong, Ponorogo" },
-            { nomorInduk: "3438-19-09", namaSiswa: "DAFFA FIRDAUS FIRJATULLAH", tempatTglLahir: "Ponorogo, 19 November 2009", jenisKelamin: "Laki-Laki", sekolah: "SMK PGRI 2 PONOROGO", namaOrangtua: "Hariyanto / Wijayanti", alamat: "Ngampel, Balong, Ponorogo" },
-            { nomorInduk: "3439-19-09", namaSiswa: "DIMAS ADHYASTHA BAGUS PAMBUDI", tempatTglLahir: "Ponorogo, 23 Januari 2013", jenisKelamin: "Laki-Laki", sekolah: "SMPN 1 BALONG", namaOrangtua: "Pambudi / Uswatun Hasanah", alamat: "Ngampel, Balong, Ponorogo" },
-            { nomorInduk: "3440-19-09", namaSiswa: "ANGGA BRIANTAMA", tempatTglLahir: "Ponorogo, 10 November 2011", jenisKelamin: "Laki-Laki", sekolah: "SMPN 1 JETIS", namaOrangtua: "Zaenal Abidin / Suratmi", alamat: "Ngampel, Balong, Ponorogo" },
-            { nomorInduk: "3441-19-09", namaSiswa: "KARTIKA NUR LAILATUR ROHMAH", tempatTglLahir: "Pacitan, 03 Juli 2011", jenisKelamin: "Perempuan", sekolah: "SMKN 1 SLAHUNG", namaOrangtua: "Yuris Nur Kholid / Nurul Amin", alamat: "Ngilo-Ilo, Slahung, Ponorogo" },
-            { nomorInduk: "3442-19-09", namaSiswa: "ALEEZA ARUMADHANI KAYOON", tempatTglLahir: "Ponorogo, 10 Juli 2013", jenisKelamin: "Perempuan", sekolah: "MTS. MIFTAHUS SALAM KAMBENG", namaOrangtua: "Susilo / Titik Handayani", alamat: "Ngilo-Ilo, Slahung, Ponorogo" },
-            { nomorInduk: "3443-19-09", namaSiswa: "HUSAIN SHAHBAZ", tempatTglLahir: "Ponorogo, 27 Maret 2013", jenisKelamin: "Laki-Laki", sekolah: "SMPN 2 BALONG", namaOrangtua: "Giman / Sri Wahyuni", alamat: "Ngasinan, Jetis, Ponorogo" },
-            { nomorInduk: "3444-19-09", namaSiswa: "MUHAMM
+            {
+                nomorInduk: "03352-19-09",
+                namaOrangtua: "Mesnan / Dati",
+                namaSiswa: "Nama Siswa Contoh",
+                program: "Gasmi Ponorogo",
+                tanggalTerbit: "2026-09-21",
+                nomorSertifikat: "GASMI-PO-2026-0987"
+            }
+            // Tambahkan data lain di sini
+        ];
 
+        const form = document.getElementById('formPencarian');
+        const btnCari = document.getElementById('btnCari');
+        const kotakHasil = document.getElementById('kotakHasil');
+        const isiHasil = document.getElementById('isiHasil');
+        const judulHasil = document.getElementById('judulHasil');
+        const errNomor = document.getElementById('errNomor');
+
+        // Validasi format nomor induk
+        function validasiNomorInduk(nomor) {
+            const pola = /^\d{5}-\d{2}-\d{2}$/;
+            return pola.test(nomor);
+        }
+
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Sembunyikan hasil sebelumnya
+            kotakHasil.style.display = 'none';
+            errNomor.style.display = 'none';
+
+            const nomorInduk = document.getElementById('nomorInduk').value.trim();
+            const namaOrangtua = document.getElementById('namaOrangtua').value.trim();
+            const recaptchaResponse = grecaptcha.getResponse();
+
+            // Cek format nomor induk
+            if (!validasiNomorInduk(nomorInduk)) {
+                errNomor.textContent = 'Format salah. Gunakan: 03352-19-09';
+                errNomor.style.display = 'block';
+                return;
+            }
+
+            // Cek reCAPTCHA
+            if (!recaptchaResponse) {
+                alert('Silakan centang "Saya bukan robot" terlebih dahulu');
+                return;
+            }
+
+            btnCari.disabled = true;
+            btnCari.textContent = 'Mencari...';
+
+            // Cari data
+            const hasil = dataSiswa.find(s => 
+                s.nomorInduk === nomorInduk && 
+                s.namaOrangtua.toLowerCase() === namaOrangtua.toLowerCase()
+            );
+
+            // Tampilkan hasil
+            setTimeout(() => {
+                if (hasil) {
+                    kotakHasil.className = 'hasil sukses';
+                    judulHasil.textContent = '✅ Data Ditemukan';
+                    isiHasil.innerHTML = `
+                        <div class="info-row"><span class="label">Nomor Induk:</span> ${hasil.nomorInduk}</div>
+                        <div class="info-row"><span class="label">Nama Orangtua:</span> ${hasil.namaOrangtua}</div>
+                        <div class="info-row"><span class="label">Nama Siswa:</span> ${hasil.namaSiswa}</div>
+                        <div class="info-row"><span class="label">Program:</span> ${hasil.program}</div>
+                        <div class="info-row"><span class="label">Nomor Sertifikat:</span> ${hasil.nomorSertifikat}</div>
+                        <div class="info-row"><span class="label">Tanggal Terbit:</span> ${hasil.tanggalTerbit}</div>
+                    `;
+                } else {
+                    kotakHasil.className = 'hasil error';
+                    judulHasil.textContent = '❌ Data Tidak Ditemukan';
+                    isiHasil.innerHTML = `<p>Pastikan Nomor Induk dan Nama Orangtua sudah ditulis sesuai di dokumen.</p>`;
+                }
+                kotakHasil.style.display = 'block';
+                btnCari.disabled = false;
+                btnCari.textContent = 'Cari';
+                grecaptcha.reset(); // Reset reCAPTCHA
+            }, 800);
+        });
+    </script>
+</body>
+</html>
