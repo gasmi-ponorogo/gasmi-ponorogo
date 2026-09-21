@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pencarian Sertifikat Gasmi</title>
-    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
     <style>
         * {
             box-sizing: border-box;
@@ -43,7 +42,6 @@
             border-color: #d32f2f;
             box-shadow: 0 0 0 2px rgba(211, 47, 47, 0.2);
         }
-        .recaptcha-container { margin: 1.5rem 0; }
         .btn-cari {
             width: 100%;
             padding: 1rem;
@@ -98,12 +96,6 @@
                 <input type="text" id="namaOrangtua" placeholder="Contoh: Mesnan / Dati" required>
             </div>
 
-            <div class="recaptcha-container">
-                <div class="g-recaptcha" 
-                   data-sitekey="6LftMsctAAAAALrwQzTBpJujtr-o3iE7y7TplViN">
-                </div>
-            </div>
-
             <button type="submit" class="btn-cari" id="btnCari">Cari</button>
         </form>
 
@@ -155,16 +147,10 @@
 
             const nomorInduk = document.getElementById('nomorInduk').value.trim();
             const namaOrangtua = document.getElementById('namaOrangtua').value.trim();
-            const recaptchaResponse = grecaptcha.getResponse();
 
             if (!validasiNomorInduk(nomorInduk)) {
                 errNomor.textContent = 'Format salah. Gunakan: 03352-19-09';
                 errNomor.style.display = 'block';
-                return;
-            }
-
-            if (!recaptchaResponse) {
-                alert('Silakan centang "Saya bukan robot" terlebih dahulu');
                 return;
             }
 
@@ -196,7 +182,6 @@
                 kotakHasil.style.display = 'block';
                 btnCari.disabled = false;
                 btnCari.textContent = 'Cari';
-                grecaptcha.reset();
             }, 600);
         });
     </script>
