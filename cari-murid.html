@@ -6,32 +6,29 @@
   <title>Pencarian Sertifikat Gasmi</title>
   <style>
     * {box-sizing: border-box; font-family: 'Segoe UI', Roboto, sans-serif; margin: 0; padding: 0;}
-    body {background-color: #ffffff; color: #333333; line-height: 1.6; min-height: 100vh; display: flex; flex-direction: column;}
+    body {background-color: #ffffff; color: #333; line-height: 1.6; min-height: 100vh; display: flex; flex-direction: column;}
 
-    /* Header */
     .header {display: flex; align-items: center; justify-content: space-between; padding: 1rem 1.5rem; border-bottom: 1px solid #eee;}
     .menu-icon {font-size: 1.5rem; cursor: pointer;}
     .logo {font-size: 1.5rem; font-weight: 700; color: #2c3e50;}
     .hubungi {color: #e74c3c; text-decoration: none; font-weight: 500;}
 
-    /* Konten Utama */
-    .container {max-width: 500px; margin: 2rem auto; padding: 0 1.5rem; flex: 1; width: 100%;}
-    h1 {font-size: 1.8rem; margin-bottom: 2rem; color: #2c3e50;}
+    .container {max-width: 520px; margin: 2rem auto; padding: 0 1.5rem; flex: 1; width: 100%;}
+    h1 {font-size: 1.8rem; margin-bottom: 2rem; color: #2c3e50; text-align: center;}
 
     .form-group {margin-bottom: 1.25rem;}
     label {display: block; margin-bottom: 0.5rem; color: #666; font-size: 0.95rem;}
     input {width: 100%; padding: 0.85rem 1rem; border: 1px solid #ddd; border-radius: 6px; font-size: 1rem;}
-    input:focus {outline: none; border-color: #e74c3c; box-shadow: 0 0 0 2px rgba(231, 76, 60, 0.15);}
+    input:focus {outline: none; border-color: #e74c3c; box-shadow: 0 0 0 2px rgba(231,76,60,0.15);}
 
-    .recaptcha-box {border: 1px solid #ddd; border-radius: 6px; padding: 1rem; display: flex; align-items: center; gap: 0.75rem; margin: 1rem 0; background: #fafafa;}
+    .recaptcha-box {border: 1px solid #eee; border-radius: 6px; padding: 1rem; display: flex; align-items: center; gap: 0.75rem; margin: 1rem 0; background: #fafafa;}
     .checkbox {width: 24px; height: 24px; border: 2px solid #888; border-radius: 3px; cursor: pointer; flex-shrink: 0;}
     .captcha-text {font-size: 0.85rem; color: #666; flex: 1;}
-    .captcha-icon {width: 40px; height: 40px; background: #eef; border-radius: 4px; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; color: #555;}
+    .captcha-icon {width: 40px; height: 40px; background: #eef; border-radius: 4px; display: flex; align-items: center; justify-content: center; font-size: 1.1rem; color: #555;}
 
-    button {background-color: #e74c3c; color: white; border: none; padding: 0.85rem 2rem; font-size: 1rem; border-radius: 6px; cursor: pointer; font-weight: 600; width: 100%; margin: 0.5rem 0;}
-    button:hover {background-color: #c0392b;}
+    button {background-color: #c0392b; color: white; border: none; padding: 0.85rem 2rem; font-size: 1rem; border-radius: 6px; cursor: pointer; font-weight: 600; width: 100%; margin: 0.5rem 0;}
+    button:hover {background-color: #a93226;}
 
-    /* Hasil Pencarian */
     .hasil {margin-top: 2rem; border: 1px solid #eee; border-radius: 8px; overflow: hidden; display: none;}
     .hasil-judul {background: #f8f8f8; padding: 1rem 1.25rem; font-size: 1.1rem; font-weight: 600; color: #333;}
     .hasil-body {padding: 1.25rem;}
@@ -40,9 +37,7 @@
     .kolom-kiri {width: 35%; color: #666; font-weight: 500;}
     .kolom-kanan {width: 65%; color: #222; font-weight: 500;}
 
-    /* Footer */
     .footer {margin-top: auto; padding: 2rem 1.5rem; background: #f8f8f8; font-size: 0.9rem; color: #666;}
-    .footer p {margin: 0.3rem 0;}
     .sosmed {display: flex; gap: 1rem; margin: 1rem 0;}
     .sosmed-icon {width: 40px; height: 40px; border: 1px solid #ddd; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #666; text-decoration: none;}
     .nav-bawah {display: flex; gap: 2rem; margin: 1rem 0;}
@@ -52,14 +47,12 @@
 </head>
 <body>
 
-  <!-- Header -->
   <div class="header">
     <span class="menu-icon">☰</span>
     <span class="logo">Gasmi</span>
     <a href="#" class="hubungi">Hubungi Kami</a>
   </div>
 
-  <!-- Konten Pencarian -->
   <div class="container">
     <h1>Pencarian Sertifikat Gasmi</h1>
 
@@ -73,16 +66,14 @@
       <input type="text" id="namaOrtu" placeholder="">
     </div>
 
-    <!-- Kotak reCAPTCHA tampilan saja -->
     <div class="recaptcha-box">
-      <div class="checkbox" id="captchaCheck"></div>
+      <div class="checkbox"></div>
       <div class="captcha-text">Saya bukan robot<br><small>reCAPTCHA mengubah persyaratan layanannya. Ambil tindakan.</small></div>
       <div class="captcha-icon">🔄</div>
     </div>
 
     <button id="btnCari">Cari</button>
 
-    <!-- Hasil Pencarian -->
     <div class="hasil" id="hasil">
       <div class="hasil-judul">Hasil Pencarian: <span id="hasilJudulNomor"></span></div>
       <div class="hasil-body">
@@ -118,63 +109,45 @@
     </div>
   </div>
 
-  <!-- Footer -->
   <div class="footer">
     <h3>Gasmi</h3>
     <p>Jl. KH. Abdul Karim, Lirboyo, No. 45, Kec. Mojoroto, Kota Kediri.</p>
-    
-    <h4 style="margin-top: 1rem;">Kontak</h4>
+    <h4 style="margin-top:1rem;">Kontak</h4>
     <p>gasmihosting@gmail.com</p>
     <p>6285878079700</p>
-
-    <p style="margin-top: 1rem;">Atau terhubung dengan kami di:</p>
+    <p style="margin-top:1rem;">Atau terhubung dengan kami di:</p>
     <div class="sosmed">
       <a href="#" class="sosmed-icon">f</a>
       <a href="#" class="sosmed-icon">📷</a>
       <a href="#" class="sosmed-icon">▶</a>
       <a href="#" class="sosmed-icon">🐦</a>
     </div>
-
     <div class="nav-bawah">
       <a href="#">Masuk</a>
       <a href="#">Kontak</a>
     </div>
-
     <p class="copyright">2026 © Gasmi</p>
   </div>
 
 <script>
-// === DATA SISWA ===
 const dataSiswa = `
 03352-19-09|DEWI NOVITAYENI|Trenggalek, 23 Agustus 2005|Perempuan|SMK FATHUL MUNA|Mesnan / Dati|Botoputih, Bendungan, Trenggalek
-01356-30-05|AGUNG DRIVANTO|[Belum Ada TTL]|[Belum Ada JK]|[Belum Ada Pendidikan]|Soirin / Tuminem|[Belum Ada Alamat]
+01356-30-05|AGUNG DRIVANTO|-|-|-|Soirin / Tuminem|-
 `;
 
-// Proses data
 const daftar = dataSiswa.trim().split('\n').map(baris => {
   const [noInduk, nama, ttl, jk, pendidikkan, ortu, alamat] = baris.split('|');
-  return { 
-    noInduk: noInduk.trim(), 
-    nama: nama.trim(), 
-    ttl: ttl.trim(), 
-    jk: jk.trim(), 
-    pendidikkan: pendidikkan.trim(), 
-    ortu: ortu.trim(), 
-    alamat: alamat.trim() 
-  };
+  return { noInduk: noInduk.trim(), nama: nama.trim(), ttl: ttl.trim(), jk: jk.trim(), pendidikkan: pendidikkan.trim(), ortu: ortu.trim(), alamat: alamat.trim() };
 });
 
-// Elemen
 const elNoInduk = document.getElementById('noInduk');
 const elNamaOrtu = document.getElementById('namaOrtu');
 const btnCari = document.getElementById('btnCari');
 const elHasil = document.getElementById('hasil');
 
-// Fungsi cari
 function cari() {
   const kataInduk = elNoInduk.value.trim();
   const kataOrtu = elNamaOrtu.value.trim().toLowerCase();
-  
   elHasil.style.display = 'none';
 
   const ditemukan = daftar.filter(s => {
@@ -205,7 +178,6 @@ function cari() {
   document.getElementById('hPendidikan').textContent = d.pendidikan;
   document.getElementById('hOrtu').textContent = d.ortu;
   document.getElementById('hAlamat').textContent = d.alamat;
-  
   elHasil.style.display = 'block';
 }
 
