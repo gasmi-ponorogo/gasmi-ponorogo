@@ -44,9 +44,7 @@
             border-color: #d32f2f;
             box-shadow: 0 0 0 2px rgba(211, 47, 47, 0.2);
         }
-        .recaptcha-container { 
-            margin: 1.5rem 0;
-        }
+        .recaptcha-container { margin: 1.5rem 0; }
         .btn-cari {
             width: 100%;
             padding: 1rem;
@@ -101,10 +99,10 @@
                 <input type="text" id="namaOrangtua" placeholder="Contoh: Mesnan / Dati" required>
             </div>
 
-            <!-- reCAPTCHA v2 — Pastikan kunci di bawah BENAR -->
+            <!-- reCAPTCHA v2 - Pastikan kunci di bawah sudah BENAR & terdaftar -->
             <div class="recaptcha-container">
                 <div class="g-recaptcha" 
-                    data-sitekey="6LftMsctAAAAALrwQzTBpJujtr-o3iE7y7TplViN">
+                    data-sitekey="6LftMsctAAAAALrwQzTBpJujtr-o3iE7y7TpIViN">
                 </div>
             </div>
 
@@ -118,22 +116,26 @@
     </main>
 
     <script>
-        // --- DATA SISWA — Tambahkan data asli di sini ---
+        // ==========================================
+        // DATA SISWA — TAMBAHKAN DATA ASLI DI SINI
+        // ==========================================
         const dataSiswa = [
             {
                 nomorInduk: "03552-19-09",
-                nama: "DEWI NOVITAYENI",
-                JenisKelamin: "Perempuan",
-                "Pendidikan": "SMK FATHUL MUNA",
-                "StatusSertifikat": "ASLI",
+                namaOrangtua: "Mesnan / Dati",
+                namaSiswa: "Nama Siswa Contoh",
+                program: "Gasmi Ponorogo",
+                tanggalTerbit: "2026-09-21",
+                nomorSertifikat: "GASMI-PO-2026-0987"
             }
-            // Format tambahan:
+            // Contoh menambah data:
             // ,{
-            //     "nomorInduk": "03353 - 19 - 09",
-                    "nama": "AFNAN GHOZI MAYRIA ASEGAF",
-                    "JenisKelamin": "Laki-Laki",
-                    "Pendidikan": "MTS.AL - JAWARIYAH",
-                    "StatusSertifikat": "ASLI",
+            //     nomorInduk: "01234-20-01",
+            //     namaOrangtua: "Budi / Siti",
+            //     namaSiswa: "Ahmad Rizki",
+            //     program: "Gasmi Ponorogo",
+            //     tanggalTerbit: "2026-09-20",
+            //     nomorSertifikat: "GASMI-PO-2026-0001"
             // }
         ];
 
@@ -144,6 +146,7 @@
         const judulHasil = document.getElementById('judulHasil');
         const errNomor = document.getElementById('errNomor');
 
+        // Validasi format nomor induk: 5angka-2angka-2angka
         function validasiNomorInduk(nomor) {
             const pola = /^\d{5}-\d{2}-\d{2}$/;
             return pola.test(nomor);
@@ -152,29 +155,31 @@
         form.addEventListener('submit', function(e) {
             e.preventDefault();
             
+            // Sembunyikan hasil sebelumnya
             kotakHasil.style.display = 'none';
             errNomor.style.display = 'none';
 
+            // Ambil nilai input
             const nomorInduk = document.getElementById('nomorInduk').value.trim();
             const namaOrangtua = document.getElementById('namaOrangtua').value.trim();
 
-            // Validasi format nomor induk
+            // 1. Validasi format nomor induk
             if (!validasiNomorInduk(nomorInduk)) {
-                errNomor.textContent = 'Format salah. Gunakan: 03352-19-09';
+                errNomor.textContent = '❌ Format salah. Gunakan: 03352-19-09';
                 errNomor.style.display = 'block';
                 return;
             }
 
-            // Cek reCAPTCHA — DIPERBAIKI
+            // 2. Cek reCAPTCHA
             if (typeof grecaptcha === 'undefined' || !grecaptcha.getResponse()) {
                 alert('⚠️ Silakan centang kotak "Saya bukan robot" terlebih dahulu');
                 return;
             }
 
+            // 3. Proses pencarian
             btnCari.disabled = true;
             btnCari.textContent = 'Mencari...';
 
-            // Cari data
             const hasil = dataSiswa.find(s => 
                 s.nomorInduk === nomorInduk && 
                 s.namaOrangtua.toLowerCase() === namaOrangtua.toLowerCase()
@@ -182,6 +187,7 @@
 
             setTimeout(() => {
                 if (hasil) {
+                    // Ditemukan
                     kotakHasil.className = 'hasil sukses';
                     judulHasil.textContent = '✅ Data Ditemukan';
                     isiHasil.innerHTML = `
@@ -193,15 +199,23 @@
                         <div class="info-row"><span class="label">Tanggal Terbit:</span> ${hasil.tanggalTerbit}</div>
                     `;
                 } else {
+                    // Tidak ditemukan
                     kotakHasil.className = 'hasil error';
                     judulHasil.textContent = '❌ Data Tidak Ditemukan';
-                    isiHasil.innerHTML = `<p>Pastikan Nomor Induk & Nama Orangtua sesuai dokumen.</p>`;
+                    isiHasil.innerHTML = `
+                        <p>Pastikan Nomor Induk & Nama Orangtua sesuai dokumen.</p>
+                        <p style="margin-top:0.5rem;font-size:0.9rem;">
+                            Yang Anda masukkan:<br>
+                            Nomor Induk: <strong>${nomorInduk}</strong><br>
+                            Nama Orangtua: <strong>${namaOrangtua}</strong>
+                        </p>
+                    `;
                 }
                 kotakHasil.style.display = 'block';
                 btnCari.disabled = false;
                 btnCari.textContent = 'Cari';
                 
-                // Reset reCAPTCHA setelah selesai
+                // Reset reCAPTCHA
                 if (typeof grecaptcha !== 'undefined') {
                     grecaptcha.reset();
                 }
