@@ -4,8 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pencarian Sertifikat Gasmi</title>
-    <!-- reCAPTCHA Script -->
-    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
     <style>
         * {
             box-sizing: border-box;
@@ -44,7 +42,6 @@
             border-color: #d32f2f;
             box-shadow: 0 0 0 2px rgba(211, 47, 47, 0.2);
         }
-        .recaptcha-container { margin: 1.5rem 0; }
         .btn-cari {
             width: 100%;
             padding: 1rem;
@@ -90,20 +87,13 @@
         <form id="formPencarian">
             <div class="form-group">
                 <label for="nomorInduk">Silakan Masukkan Nomor Induk</label>
-                <input type="text" id="nomorInduk" placeholder="Contoh: 03352-19-09" required>
+                <input type="text" id="nomorInduk" placeholder="Contoh: 03552-19-09" required>
                 <div class="pesan-kesalahan" id="errNomor"></div>
             </div>
 
             <div class="form-group">
                 <label for="namaOrangtua">Silakan Masukkan Nama Orangtua</label>
                 <input type="text" id="namaOrangtua" placeholder="Contoh: Mesnan / Dati" required>
-            </div>
-
-            <!-- reCAPTCHA v2 - Pastikan kunci di bawah sudah BENAR & terdaftar -->
-            <div class="recaptcha-container">
-                <div class="g-recaptcha" 
-                    data-sitekey="6LftMsctAAAAALrwQzTBpJujtr-o3iE7y7TpIViN">
-                </div>
             </div>
 
             <button type="submit" class="btn-cari" id="btnCari">Cari</button>
@@ -117,26 +107,53 @@
 
     <script>
         // ==========================================
-        // DATA SISWA — TAMBAHKAN DATA ASLI DI SINI
+        // DATA SISWA — Tambahkan data asli di sini
         // ==========================================
         const dataSiswa = [
-            {
-                nomorInduk: "03552-19-09",
-                namaOrangtua: "Mesnan / Dati",
-                namaSiswa: "Nama Siswa Contoh",
-                program: "Gasmi Ponorogo",
-                tanggalTerbit: "2026-09-21",
-                nomorSertifikat: "GASMI-PO-2026-0987"
-            }
-            // Contoh menambah data:
-            // ,{
-            //     nomorInduk: "01234-20-01",
-            //     namaOrangtua: "Budi / Siti",
-            //     namaSiswa: "Ahmad Rizki",
-            //     program: "Gasmi Ponorogo",
-            //     tanggalTerbit: "2026-09-20",
-            //     nomorSertifikat: "GASMI-PO-2026-0001"
-            // }
+           Nomor Induk : 03352 - 19 - 09Nama : DEWI NOVITAYENITTL : Trenggalek, 23 Agustus 2005Jenis Kelamin : PerempuanPendidikan : SMK FATHUL MUNAAlamat : Botoputih, Bendungan,Trenggalek
+Nomor Induk : 03353 - 19 - 09Nama : AFNAN GHOZI MAYRIA ASEGAFTTL : Ponorogo, 20 Mei 2008Jenis Kelamin : Laki-LakiPendidikan : MTS.AL - JAWARIYAHAlamat : Grogol, Sawoo Ponorogo
+Nomor Induk : 3354 - 19 - 09Nama : FARA SURYARENATATTL : Ponorogo, 07 Juni 2011Jenis Kelamin : PerempuanPendidikan : MTSN 1 JETISAlamat : Campurejo, Sambit, Ponorogo
+Nomor Induk : 3355 - 19 - 09Nama : DENIS YOGA PRATAMATTL : Oku, 06 September 2012Jenis Kelamin : Laki-LakiPendidikan : SMP FATHUL MUNAAlamat : Kurungan Nyawa Ii,Buay Madang,.Oku Timur
+Nomor Induk : 3356 - 19 - 09Nama : ANISA DWI YANA PUTRITTL : Ponorogo, 18 Februari 2012Jenis Kelamin : PerempuanPendidikan : MTSN 1 JETISAlamat : Campurejo, Sambit, Ponorogo
+Nomor Induk : 3357 - 19 - 09Nama : SEPTIAN TRIANI YOGA ADHITAMATTL : Ponorogo, 06 September 2006Jenis Kelamin : Laki-LakiPendidikan : MA MAARIF KRATON MOJO KEDIRIAlamat : Grogol, Sawoo Ponorogo
+Nomor Induk : 3358 - 19 - 09Nama : FAIREL ATHARIZZ CALIEF LEETTL : Ponorogo, 08 Januari 2014Jenis Kelamin : Laki-LakiPendidikan : SDN 1 KEMUNINGAlamat : Wringinanom, Sambit, Ponorogo
+Nomor Induk : 3359 - 19 - 09Nama : RIYAN NUR HANDIKA PRASETYOTTL : Blora, 11 Juli 2007Jenis Kelamin : Laki-LakiPendidikan : SMK PGRI 2 PONOROGOAlamat : Sedarat, Balong, Ponorogo
+Nomor Induk : 3360 - 19 - 09Nama : AFIZA SITI ARIYANTITTL : Pekalongan, 09 Juni 2013Jenis Kelamin : PerempuanPendidikan : SMP FATHUL MUNAAlamat : Prantaan, Bogorejo, Blora
+Nomor Induk : 3361 - 19 - 09Nama : ZAHWA NADIA IZZATITTL : Ponorogo, 30 Oktober 2007Jenis Kelamin : PerempuanPendidikan : SMK MUHAMMADIYAH DOROAlamat : Pandak, Balo+F12ng, Ponorogo
+Nomor Induk : 3362 - 19 - 09Nama : SITI NURROSIDAHTTL : Ponorogo, 22 Agustus 2009Jenis Kelamin : PerempuanPendidikan : SMAN 1 SLAHUNGAlamat : Baosan Kidul, Ngrayun, Ponorogo
+Nomor Induk : 3363 - 19 - 09Nama : MUHAMMAD SYAHRUL MUNIBTTL : Cilacap, 10 Juni 2012Jenis Kelamin : Laki-LakiPendidikan : SMP FATHUL MUNAAlamat : Wagir Kidul, Pulung, Ponorogo
+Nomor Induk : 3364 - 19 - 09Nama : AHMAD HAETITTL : Ponorogo, 19 Agustus 2010Jenis Kelamin : Laki-LakiPendidikan : SMK FATHUL MUNAAlamat : Labangka. Babulu, Penajam Paser Utara
+Nomor Induk : 3365 - 19 - 09Nama : IKHDA WARDATUL ANNISA’TTL : Ponorogo, 17 Juli 2008Jenis Kelamin : PerempuanPendidikan : MA AL-ISLAMAlamat : Kutu Wetan, Jetis, Ponorogo
+Nomor Induk : 3366 - 19 - 09Nama : MIRDAYANI AGUSTINATTL : Ponorogo, 22 Agustus 2008Jenis Kelamin : PerempuanPendidikan : MTS. MAÀRIF AL - ISHLAHAlamat : Bungu, Bungkal, Ponorogo
+Nomor Induk : 3367 - 19 - 09Nama : LUTFI NUFITA ASFA'ITTL : Ponorogo, 22 November 2007Jenis Kelamin : PerempuanPendidikan : MTS MA'ARIF AL ISLAHAlamat : Munggu, Bungkal, Ponorogo
+Nomor Induk : 3368 - 19 - 09Nama : RIZKI KURNIAWANTTL : Ponorogo, 10 Agustus 2006Jenis Kelamin : Laki-LakiPendidikan : MTS MA'ARIF AL ISLAHAlamat : Wringinanom, Sambit, Ponorogo
+Nomor Induk : 3369 - 19 - 09Nama : VANES RYAN SAPUTRATTL : Ponorogo, 24 Januari 2007Jenis Kelamin : Laki-LakiPendidikan : SMKN 1 JENANGANAlamat : Ketro, Sawoo, Ponorogo
+Nomor Induk : 3370 - 19 - 09Nama : KEVIN ANDREAN PUTRATTL : Madiun, 24 Maret 2009Jenis Kelamin : Laki-LakiPendidikan : SMPN 2 SAMBITAlamat : Ketro, Sawoo, Ponorogo
+Nomor Induk : 3371 - 19 - 09Nama : LARAS INDAH ANUNGRAHITA SURGAWITTL : Ponorogo, 17 Mei 2009Jenis Kelamin : PerempuanPendidikan : MTS AL-ISLAM JORESANAlamat : Nglewan, Sambit, Ponorogo
+Nomor Induk : 3372 - 19 - 09Nama : FATHUROHIM AULIATTL : Ponorogo, 20 Juli 2008Jenis Kelamin : Laki-LakiPendidikan : SMP FATHUL MUNAAlamat : Baosan Kidul, Ngrayun, Ponorogo
+Nomor Induk : 3373 - 19 - 09Nama : NADHIFA RAHMA DEWANTITTL : Ponorogo, 23 Juli 2007Jenis Kelamin : PerempuanPendidikan : SMKN 1 SLAHUNGAlamat : Singkil, Balong, Ponorogo
+Nomor Induk : 3374 - 19 - 09Nama : MUH.RIFAI AINURSALAMTTL : Ponorogo, 04 Mei 2012Jenis Kelamin : Laki-LakiPendidikan : SDN 8 BAOSAN LORAlamat : Baosan Kidul, Ngrayun, Ponorogo
+Nomor Induk : 3375 - 19 - 09Nama : AYUNDA CHINTIYA FIRDA SARI NING TIYASTTL : Ponorogo, 20 November 2011Jenis Kelamin : PerempuanPendidikan : SDN 4 BAOSAN LORAlamat : Baosan Lor, Ngrayun, Ponorogo
+Nomor Induk : 3376 - 19 - 09Nama : ZASKIA ALTHOFUNISATTL : Ponorogo, 23 Mei 2012Jenis Kelamin : PerempuanPendidikan : MI MA'RIF AL - FAQIHAlamat : Wringinanom, Sambit, Ponorogo
+Nomor Induk : 3377 - 19 - 09Nama : FAJAR APRIAN ALI MUSYAFATTL : Pacitan, 06 Juni 2013Jenis Kelamin : Laki-LakiPendidikan : SDIT AL-MAWADDAH COPERAlamat : Wringinanom, Sambit, Ponorogo
+Nomor Induk : 3378 - 19 - 09Nama : DIAN WAHYU PUTRITTL : Pacitan, 06 November 2008Jenis Kelamin : PerempuanPendidikan : SMPN 5 TAGALOMBOAlamat : Ploso, Tegalombo, Pacitan
+Nomor Induk : 3379 - 19 - 09Nama : AMELIA RAHMAWATITTL : Pacitan, 05 Agustus 2009Jenis Kelamin : PerempuanPendidikan : SMPN 5 TAGALOMBOAlamat : Ploso, Tegalombo, Pacitan
+Nomor Induk : 3380 - 19 - 09Nama : MIFTAHUL MUDTAQINTTL : Pacitan, 23 Juni 2009Jenis Kelamin : Laki-LakiPendidikan : MTS AL FATTAH TAHUNANAlamat : Ploso, Tegalombo, Pacitan
+Nomor Induk : 3381 - 19 - 09Nama : ANDIKA PUTRA FERDIANSATTL : Pacitan, 06 Juli 2007Jenis Kelamin : Laki-LakiPendidikan : MA AL FATTAH TAHUNANAlamat : Ploso, Tegalombo, Pacitan
+Nomor Induk : 3382 - 19 - 09Nama : SELVIRA JULIA INDRIANA SARITTL : Pacitan, 31 Juli 2009Jenis Kelamin : PerempuanPendidikan : SMPN 5 TAGALOMBOAlamat : Ploso, Tegalombo, Pacitan
+Nomor Induk : 3383 - 19 - 09Nama : NATHAN ADI PRATAMATTL : Pacitan, 12 Agustus 2010Jenis Kelamin : Laki-LakiPendidikan : SMKN 1 BANDAR PACITANAlamat : Kledung,Bandar, Pacitan
+Nomor Induk : 3384 - 19 - 09Nama : RIZKI ALFIAN NUGROHOTTL : Pacitan, 18 November 2009Jenis Kelamin : Laki-LakiPendidikan : SMPN 1 BANDAR PACITANAlamat : Kledung,Bandar, Pacitan
+Nomor Induk : 3385 - 19 - 09Nama : DELTA AYU SAFIRATTL : Pacitan, 30 Desember 2010Jenis Kelamin : PerempuanPendidikan : MTS. AL - FATTAH TAHUNANAlamat : Ploso, Tegalombo, Pacitan
+Nomor Induk : 3386 - 19 - 09Nama : ARSYAVIN MORGAN DIESTA HAIYKALTTL : Ponorogo, 13 Desember 2012Jenis Kelamin : Laki-LakiPendidikan : SDN 2 TAHUNAN BARU TEGALOMBOAlamat : Ngilo - Ilo, Slahung, Ponorogo
+Nomor Induk : 3387 - 19 - 09Nama : FAHRIS IMRON KHOIRITTL : Ponorogo, 12 Mei 2012Jenis Kelamin : Laki-LakiPendidikan : SDN 2 TAHUNAN BARU TEGALOMBOAlamat : Ngilo - Ilo, Slahung, Ponorogo
+Nomor Induk : 3388 - 19 - 09Nama : AHMAD NUR HASANTTL : Ponorogo, 11 Maret 2012Jenis Kelamin : Laki-LakiPendidikan : SDN 2 TAHUNAN BARU TEGALOMBOAlamat : Ngilo - Ilo, Slahung, Ponorogo
+Nomor Induk : 3389 - 19 - 09Nama : JAHAROH IZZAH FADZILAHTTL : Ponorogo, 09 Desember 2011Jenis Kelamin : PerempuanPendidikan : MTS. AL - HIKMAH NGRAYUNAlamat : Baosan Kidul, Ngrayun, Ponorogo
+Nomor Induk : 3390 - 19 - 09Nama : ADITYA RAHMAT WIDYANTOTTL : Ponorogo, 26 Juni 2009Jenis Kelamin : Laki-LakiPendidikan : MA. AL - HIKMAH NGRAYUNAlamat : Baosan Lor, Ngrayun, Ponorogo
+Nomor Induk : 3391 - 19 - 09Nama : MIFTAHUL HIDAYAH ISMAILTTL : Ponorogo, 21 Mei 2012Jenis Kelamin : Laki-LakiPendidikan : MTS. AL - HIKMAH NGRAYUNAlamat : Mrayan, Ngrayun, Ponorogo
+Nomor Induk : 3392 - 19 - 09Nama : BRAMA ECHA PRASETYATTL : Pacitan, 19 Desember 2012Jenis Kelamin : Laki-LakiPendidikan : SMPN 2 GEMAHARJOAlamat : Tahunan Baru, Tegalombo, Pacitan
+Nomor Induk : 3393 - 19 - 09Nama : AHMAD JENDRA ALHAFIDLTTL : Pacitan, 13 Oktober 2012Jenis Kelamin : Laki-LakiPendidikan : SMPN 2 GEMAHARJOAlamat : Tahunan Baru, Tegalombo, Pacitan
+Nomor Induk : 3394 - 19 - 09Nama : EVI YUNITA ANGGRAINITTL : Pacitan, 08 Juni 2011Jenis Kelamin : Perempuan
+         
         ];
 
         const form = document.getElementById('formPencarian');
@@ -146,7 +163,6 @@
         const judulHasil = document.getElementById('judulHasil');
         const errNomor = document.getElementById('errNomor');
 
-        // Validasi format nomor induk: 5angka-2angka-2angka
         function validasiNomorInduk(nomor) {
             const pola = /^\d{5}-\d{2}-\d{2}$/;
             return pola.test(nomor);
@@ -155,28 +171,18 @@
         form.addEventListener('submit', function(e) {
             e.preventDefault();
             
-            // Sembunyikan hasil sebelumnya
             kotakHasil.style.display = 'none';
             errNomor.style.display = 'none';
 
-            // Ambil nilai input
             const nomorInduk = document.getElementById('nomorInduk').value.trim();
             const namaOrangtua = document.getElementById('namaOrangtua').value.trim();
 
-            // 1. Validasi format nomor induk
             if (!validasiNomorInduk(nomorInduk)) {
-                errNomor.textContent = '❌ Format salah. Gunakan: 03352-19-09';
+                errNomor.textContent = 'Format salah. Gunakan: 03552-19-09';
                 errNomor.style.display = 'block';
                 return;
             }
 
-            // 2. Cek reCAPTCHA
-            if (typeof grecaptcha === 'undefined' || !grecaptcha.getResponse()) {
-                alert('⚠️ Silakan centang kotak "Saya bukan robot" terlebih dahulu');
-                return;
-            }
-
-            // 3. Proses pencarian
             btnCari.disabled = true;
             btnCari.textContent = 'Mencari...';
 
@@ -187,7 +193,6 @@
 
             setTimeout(() => {
                 if (hasil) {
-                    // Ditemukan
                     kotakHasil.className = 'hasil sukses';
                     judulHasil.textContent = '✅ Data Ditemukan';
                     isiHasil.innerHTML = `
@@ -199,26 +204,18 @@
                         <div class="info-row"><span class="label">Tanggal Terbit:</span> ${hasil.tanggalTerbit}</div>
                     `;
                 } else {
-                    // Tidak ditemukan
                     kotakHasil.className = 'hasil error';
                     judulHasil.textContent = '❌ Data Tidak Ditemukan';
                     isiHasil.innerHTML = `
                         <p>Pastikan Nomor Induk & Nama Orangtua sesuai dokumen.</p>
                         <p style="margin-top:0.5rem;font-size:0.9rem;">
-                            Yang Anda masukkan:<br>
-                            Nomor Induk: <strong>${nomorInduk}</strong><br>
-                            Nama Orangtua: <strong>${namaOrangtua}</strong>
+                            Dimasukkan: ${nomorInduk} | ${namaOrangtua}
                         </p>
                     `;
                 }
                 kotakHasil.style.display = 'block';
                 btnCari.disabled = false;
                 btnCari.textContent = 'Cari';
-                
-                // Reset reCAPTCHA
-                if (typeof grecaptcha !== 'undefined') {
-                    grecaptcha.reset();
-                }
             }, 600);
         });
     </script>
