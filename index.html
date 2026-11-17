@@ -3,513 +3,629 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gasmi official</title>
-    
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
-    
+    <title>Pencarian & QR Code Sertifikat Gasmi</title>
+    <!-- Memuat qrcode.js untuk pembuatan QR Code dinamis -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        body { background-color: #f4f6f9; color: #333; line-height: 1.6; }
+        .navbar { background: #fff; padding: 1rem 1.5rem; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #eaeaea; box-shadow: 0 1px 3px rgba(0,0,0,0.02); }
+        .nav-brand { font-weight: bold; font-size: 1.2rem; color: #333; }
+        .nav-link { color: #d32f2f; text-decoration: none; font-size: 0.9rem; font-weight: 600; }
 
-        html, body {
-            width: 100%;
-            margin: 0;
-            padding: 0;
-            overflow-x: hidden;
-            scroll-behavior: smooth;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
+        .container { max-width: 480px; margin: 1.5rem auto; background: #fff; padding: 1.8rem; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
+        .header-title { color: #2c3e50; font-size: 1.3rem; font-weight: bold; margin-bottom: 1.2rem; text-align: center; }
+        .form-group { margin-bottom: 1rem; text-align: left; }
+        label { display: block; margin-bottom: 0.3rem; font-size: 0.85rem; color: #666; }
+        input[type="text"] { width: 100%; padding: 0.75rem; border: 1px solid #ddd; border-radius: 8px; font-size: 0.95rem; outline: none; color: #333; }
+        input[type="text"]:focus { border-color: #d32f2f; box-shadow: 0 0 0 3px rgba(211, 47, 47, 0.1); }
+        
+        .recaptcha-box { display: flex; justify-content: space-between; align-items: center; background: #f9f9f9; border: 1px solid #d3d3d3; border-radius: 4px; padding: 10px 12px; margin: 1.2rem 0; }
+        .recaptcha-left { display: flex; align-items: center; gap: 10px; font-size: 0.85rem; color: #222; }
+        .recaptcha-left input { width: 18px; height: 18px; cursor: pointer; }
+        .recaptcha-logo { text-align: center; font-size: 9px; color: #555; }
 
-        body {
+        .btn-cari { width: 100%; padding: 0.8rem; background-color: #d32f2f; color: white; border: none; border-radius: 8px; font-size: 1rem; font-weight: bold; cursor: pointer; transition: background 0.2s; margin-bottom: 10px; }
+        .btn-cari:hover { background-color: #b71c1c; }
+
+        .btn-qr-dashboard { width: 100%; padding: 0.7rem; background-color: #2c3e50; color: white; border: none; border-radius: 8px; font-size: 0.95rem; font-weight: bold; cursor: pointer; transition: background 0.2s; text-decoration: none; display: inline-block; text-align: center; }
+        .btn-qr-dashboard:hover { background-color: #1a252f; }
+
+        .result-box {
+            margin-top: 1.5rem;
+            padding: 1.2rem;
+            border-radius: 8px;
             background-color: #ffffff;
-        }
-
-        /* --- LOADING SCREEN --- */
-        #loading-screen {
-            position: fixed;
-            inset: 0;
-            background-color: #ffffff;
-            z-index: 99999;
+            border: 1px solid #e5e7eb;
+            position: relative;
+            overflow: hidden;
             display: none;
-            align-items: center;
-            justify-content: center;
-            flex-direction: column;
         }
-
-        .loading-logo {
-            font-size: 38px;
-            font-weight: 600;
-            color: #e53935;
-            margin-bottom: 20px;
-            letter-spacing: 1px;
+        .result-box::before {
+            content: "";
+            position: absolute;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            width: 220px; height: 220px;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%2316a34a'%3E%3Cpath d='M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: center;
+            opacity: 0.08;
+            z-index: 0;
+            pointer-events: none;
         }
-
-        .loading-spinner {
-            width: 45px;
-            height: 45px;
-            border: 5px solid #eeeeee;
-            border-top: 5px solid #e53935;
-            border-radius: 50%;
-            animation: putar 0.8s linear infinite;
-        }
-
-        #loading-screen p {
-            margin-top: 15px;
-            color: #555;
-            font-size: 15px;
-        }
-
-        @keyframes putar {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
-        }
-
-        /* --- NAVBAR --- */
-        .navbar {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background-color: #ffffff;
-            padding: 15px 5%;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            flex-wrap: wrap;
-            gap: 15px;
-        }
-
-        .logo {
-            font-size: 27px;
-            font-weight: 500;
-            letter-spacing: 0.5px;
-        }
-
-        .logo a {
-            text-decoration: none;
-            color: #000000;
-        }
-
-        .nav-links a {
-            text-decoration: none;
-            color: #555;
-            margin: 0 15px;
-            font-size: 17px;
-            font-weight: 500;
-        }
-
-        .nav-links a:hover {
-            color: #e53935;
-        }
-
-        .btn-kontak {
-            background-color: #e53935;
-            color: #fff !important;
-            text-decoration: none;
-            padding: 10px 22px;
+        .result-content { position: relative; z-index: 1; }
+        .result-box.not-found { background-color: #fef2f2; border-color: #fca5a5; color: #b91c1c; text-align: center; font-weight: 600; }
+        .result-title { font-size: 0.95rem; font-weight: bold; color: #111; margin-bottom: 1rem; border-bottom: 1px dashed #e5e7eb; padding-bottom: 0.5rem; }
+        .info-row { display: flex; justify-content: space-between; margin-bottom: 0.6rem; font-size: 0.88rem; }
+        .info-label { color: #555; }
+        .info-val { font-weight: 600; color: #111; text-align: right; }
+        .status-asli { color: #16a34a; font-weight: bold; }
+        .timestamp { font-size: 0.75rem; color: #777; text-align: center; margin-top: 1rem; border-top: 1px dashed #f3f4f6; padding-top: 0.5rem; }
+        
+        /* Kotak QR Code dengan Border Putih (Quiet Zone) agar mudah dipindai */
+        .qr-wrapper {
+            display: inline-block;
+            background: #ffffff;
+            padding: 12px;
             border-radius: 8px;
-            font-weight: 500;
-            font-size: 20px !important;
-            display: inline-block !important;
+            border: 1px solid #d1d5db;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
         }
 
-        /* --- SLIDER --- */
-        .hero-slider {
-            width: 100%;
-            height: 700px;
-            margin: 40px auto;
-            border-radius: 16px;
-            overflow: hidden;
-            position: relative;
-            background-color: #ddd;
-        }
+        /* Modal / Container Daftar QR Code Massal */
+        #qrDashboardModal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); z-index: 999; overflow-y: auto; padding: 20px; }
+        .modal-content { background: #fff; max-width: 800px; margin: 30px auto; padding: 2rem; border-radius: 12px; position: relative; }
+        .close-modal { position: absolute; top: 15px; right: 20px; font-size: 1.5rem; cursor: pointer; color: #333; font-weight: bold; }
+        .qr-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 15px; margin-top: 20px; max-height: 60vh; overflow-y: auto; padding: 10px; border: 1px solid #ddd; }
+        .qr-card { background: #f9f9f9; border: 1px solid #e5e7eb; border-radius: 8px; padding: 10px; text-align: center; }
+        .qr-card h5 { font-size: 0.85rem; margin-bottom: 8px; color: #2c3e50; }
 
-        .isi-slider {
-            width: 100%;
-            height: 100%;
-            position: relative;
-        }
+        .footer { background-color: #ffffff; border-top: 1px solid #eaeaea; padding: 2rem 1.5rem; margin-top: 3rem; font-size: 0.85rem; color: #555; }
+        .footer-content { max-width: 600px; margin: 0 auto; }
+        .footer h4 { color: #222; margin-bottom: 0.5rem; font-size: 1rem; }
+        .footer p { margin-bottom: 1rem; color: #666; }
+        .footer-bottom { background-color: #222533; color: #aaa; text-align: center; padding: 1rem; font-size: 0.8rem; display: flex; justify-content: space-between; padding-left: 2rem; padding-right: 2rem; }
+        .footer-bottom a { color: #aaa; text-decoration: none; margin-left: 1rem; }
 
-        .slide {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            top: 0;
-            left: 0;
-            opacity: 0;
-            transition: opacity 0.8s ease-in-out;
-        }
-
-        .slide.aktif {
-            opacity: 1;
-        }
-
-        .slide img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        /* --- PANAH --- */
-        .panah {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            background-color: rgba(255,255,255,0.7);
-            color: #333;
-            border: none;
-            width: 44px;
-            height: 44px;
-            border-radius: 50%;
-            font-size: 20px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 20;
-            transition: all 0.2s ease;
-        }
-
-        .panah:hover { background-color: #fff; }
-        .panah-kiri { left: 15px; }
-        .panah-kanan { right: 15px; }
-
-        /* --- TOMBOL SLIDER --- */
-        .tombol-bawah {
-            position: absolute;
-            bottom: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            display: flex;
-            gap: 12px;
-            z-index: 20;
-        }
-
-        .lingkaran {
-            width: 14px;
-            height: 14px;
-            border-radius: 50%;
-            background-color: rgba(255,255,255,0.5);
-            cursor: pointer;
-            border: none;
-        }
-
-        .lingkaran.aktif {
-            background-color: #ffffff;
-            transform: scale(1.2);
-        }
-
-        /* --- ARTIKEL --- */
-        .artikel-container {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 30px;
-            width: 100%;
-            padding: 0 5%;
-            margin: 40px 0;
-        }
-
-        .card {
-            background-color: #fff;
-            border-radius: 16px;
-            overflow: hidden;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-        }
-
-        .card-gambar {
-            width: 100%;
-            height: 250px;
-        }
-
-        .card-gambar img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .card-isi {
-            padding: 20px;
-        }
-
-        .card-tanggal {
-            font-size: 13px;
-            color: #888;
-            margin-bottom: 10px;
-        }
-
-        .card-judul a {
-            font-size: 19px;
-            font-weight: 700;
-            color: #343435;
-            text-decoration: none;
-            line-height: 1.5;
-            display: block;
-        }
-
-        /* --- SOSMED DI BAWAH ARTIKEL --- */
-        .sosmed-bawah-artikel {
-            padding: 0 5% 30px;
-            display: flex;
-            gap: 12px;
-        }
-
-        .sosmed-bawah-artikel a {
-            width: 40px;
-            height: 40px;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #555;
-            background-color: #fff;
-            text-decoration: none;
-            transition: all 0.3s ease;
-        }
-
-        .sosmed-bawah-artikel a:nth-child(1):hover { background-color: #1877F2; border-color: #1877F2; color: #fff; transform: translateY(-3px); }
-        .sosmed-bawah-artikel a:nth-child(2):hover { background-color: #E4405F; border-color: #E4405F; color: #fff; transform: translateY(-3px); }
-        .sosmed-bawah-artikel a:nth-child(3):hover { background-color: #FF0000; border-color: #FF0000; color: #fff; transform: translateY(-3px); }
-        .sosmed-bawah-artikel a:nth-child(4):hover { background-color: #1DA1F2; border-color: #1DA1F2; color: #fff; transform: translateY(-3px); }
-
-        /* --- INFO KONTAK BARU --- */
-        .info-kontak {
-            padding: 40px 5%;
-            background-color: #f8f9fa;
-            display: flex;
-            justify-content: space-between;
-            flex-wrap: wrap;
-            gap: 30px;
-        }
-
-        .info-kiri h3 {
-            font-size: 24px;
-            margin-bottom: 12px;
-            color: #222;
-        }
-
-        .info-kiri p {
-            color: #555;
-            line-height: 1.6;
-        }
-
-        .info-kanan h3 {
-            font-size: 20px;
-            margin-bottom: 12px;
-            color: #222;
-        }
-
-        .info-kanan p {
-            color: #555;
-            margin-bottom: 8px;
-        }
-
-        .info-sosmed {
-            display: flex;
-            gap: 10px;
-            margin-top: 12px;
-        }
-
-        .info-sosmed a {
-            width: 40px;
-            height: 40px;
-            background-color: #e9ecef;
-            border-radius: 6px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #555;
-            text-decoration: none;
-            transition: all 0.3s ease;
-        }
-
-        .info-sosmed a:hover:nth-child(1) { background-color: #1877F2; color: #fff; }
-        .info-sosmed a:hover:nth-child(2) { background-color: #E4405F; color: #fff; }
-        .info-sosmed a:hover:nth-child(3) { background-color: #FF0000; color: #fff; }
-        .info-sosmed a:hover:nth-child(4) { background-color: #1DA1F2; color: #fff; }
-
-        /* --- FOOTER BAWAH --- */
-        .footer-bawah {
-            background-color: #222244;
-            color: #fff;
-            padding: 20px 5%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-top: 0;
-            flex-wrap: wrap;
-            gap: 10px;
-        }
-
-        .footer-bawah a {
-            color: #ddd;
-            text-decoration: none;
-            margin-left: 20px;
-        }
-
-        .footer-bawah a:hover {
-            color: #fff;
-        }
-
-        /* --- RESPONSIVE --- */
-        @media (max-width: 992px) {
-            .artikel-container { grid-template-columns: repeat(2, 1fr); }
-        }
-
-        @media (max-width: 768px) {
-            .navbar { flex-direction: column; gap: 15px; }
-            .artikel-container { grid-template-columns: 1fr; }
-            .hero-slider { height: 400px; }
-            .info-kontak { flex-direction: column; }
+        @media print {
+            body * { visibility: hidden; }
+            #qrDashboardModal, #qrDashboardModal * { visibility: visible; }
+            #qrDashboardModal { position: absolute; left: 0; top: 0; background: #fff; width: 100%; height: auto; }
+            .close-modal, .btn-print-action { display: none; }
         }
     </style>
 </head>
-
 <body>
 
-<!-- =========================
-     LOADING SCREEN
-========================= -->
-<div id="loading-screen">
-    <div class="loading-logo">Gasmi</div>
-    <div class="loading-spinner"></div>
-    <p>Memuat halaman...</p>
-</div>
-
-<!-- =========================
-     NAVBAR
-========================= -->
-<header class="navbar">
-    <div class="logo">
-        <a href="index.html" onclick="mulaiLoading(event)">Gasmi</a>
+    <div class="navbar">
+        <div class="nav-brand">Gasmi</div>
+        <a href="#" class="nav-link">Hubungi Kami</a>
     </div>
 
-    <nav class="nav-links">
-        <a href="sejarah.html" onclick="mulaiLoading(event)">Sejarah</a>
-        <a href="cari-murid.html" onclick="mulaiLoading(event)">Cari Murid</a>
-        <a href="cari-pelatih.html" onclick="mulaiLoading(event)">Cari Pelatih</a>
-        <a href="kantor-cabang.html" onclick="mulaiLoading(event)">Kantor Cabang</a>
-        <a href="informasi.html" onclick="mulaiLoading(event)">Informasi</a>
-        <a href="shop.html" onclick="mulaiLoading(event)">Shop</a>
-    </nav>
+    <div class="container">
+        <div class="header-title">Pencarian Sertifikat Gasmi</div>
 
-    <a href="hubungi-kami.html" class="btn-kontak" onclick="mulaiLoading(event)">Hubungi Kami</a>
-</header>
-
-<!-- =========================
-     SLIDER
-========================= -->
-<section class="hero-slider" id="utama">
-    <div class="isi-slider">
-        <div class="slide aktif"><img src="artikel4.jpg" alt="Slide 1"></div>
-        <div class="slide"><img src="artikel2.jpg" alt="Gus Maksum"></div>
-        <div class="slide"><img src="gus-maksum.jpg" alt="Slide 3"></div>
-    </div>
-    <button class="panah panah-kiri">&#10094;</button>
-    <button class="panah panah-kanan">&#10095;</button>
-    <div class="tombol-bawah">
-        <button class="lingkaran aktif" data-ke="0"></button>
-        <button class="lingkaran" data-ke="1"></button>
-        <button class="lingkaran" data-ke="2"></button>
-    </div>
-</section>
-
-<!-- =========================
-     ARTIKEL
-========================= -->
-<section class="artikel-container">
-    <article class="card">
-        <div class="card-gambar"><img src="gus-maksum.jpg" alt="Latar Belakang GASMI"></div>
-        <div class="card-isi">
-            <p class="card-tanggal">Sabtu, 07-01-2023</p>
-            <h3 class="card-judul"><a href="informasi.html" onclick="mulaiLoading(event)">Latar Belakang Berdirinya Pencak Silat GASMI</a></h3>
+        <div class="form-group">
+            <label>Silahkan Masukkan Nomor Induk</label>
+            <input type="text" id="noInduk" placeholder="Contoh: 03352 - 19 - 09">
         </div>
-    </article>
-    <article class="card">
-        <div class="card-gambar"><img src="artikel1.jpg" alt="Pendiri GASMI"></div>
-        <div class="card-isi">
-            <p class="card-tanggal">Sabtu, 07-01-2023</p>
-            <h3 class="card-judul"><a href="informasi.html" onclick="mulaiLoading(event)">Sosok Pendiri GASMI KH.Abdullah Maksum Jauhari</a></h3>
-        </div>
-    </article>
-    <article class="card">
-        <div class="card-gambar"><img src="artikel3.jpg" alt="Silsilah Keluarga"></div>
-        <div class="card-isi">
-            <p class="card-tanggal">Sabtu, 07-01-2023</p>
-            <h3 class="card-judul"><a href="informasi.html" onclick="mulaiLoading(event)">Silsilah Keluarga KH.Maksum Jauhari (Gus Maksum)</a></h3>
-        </div>
-    </article>
-</section>
 
+        <div class="form-group">
+            <label>Silahkan Masukkan Nama Orangtua</label>
+            <input type="text" id="namaOrtu" placeholder="Contoh: Mesnan / Dati">
+        </div>
 
-<!-- =========================
-     INFO KONTAK BARU
-========================= -->
-<section class="info-kontak">
-    <div class="info-kiri">
-        <h3>Gasmi</h3>
-        <p>Jl. KH. Abdul Karim, Lirboyo, No. 45, Kec. Mojoroto, Kota Kediri.</p>
-    </div>
-    <div class="info-kanan">
-        <h3>Kontak</h3>
-        <p>gasmihosting@gmail.com</p>
-        <p>6285878079700</p>
-        <p>Atau terhubung dengan kami di:</p>
-        <div class="info-sosmed">
-            <a href="https://facebook.com/" target="_blank"><i class="fab fa-facebook-f"></i></a>
-            <a href="https://www.instagram.com/gasmi.id" target="_blank"><i class="fab fa-instagram"></i></a>
-            <a href="https://youtube.com/" target="_blank"><i class="fab fa-youtube"></i></a>
-            <a href="https://twitter.com/" target="_blank"><i class="fab fa-twitter"></i></a>
+        <div class="recaptcha-box">
+            <div class="recaptcha-left">
+                <input type="checkbox" id="recaptchaCheck" checked>
+                <label for="recaptchaCheck" style="margin:0; font-size: 0.85rem; color:#222; cursor:pointer;">Saya bukan robot</label>
+            </div>
+            <div class="recaptcha-logo">
+                <div style="font-weight:bold; font-size:11px; color:#4285F4;">re<span style="font-weight:normal; color:#EA4335;">C</span><span style="color:#FBBC05;">A</span><span style="color:#4285F4;">P</span><span style="color:#34A853;">T</span><span style="color:#EA4335;">CHA</span></div>
+            </div>
+        </div>
+
+        <button class="btn-cari" id="btnCari">Cari</button>
+        <button class="btn-qr-dashboard" id="btnBukaQrDashboard">🖨️ Lihat & Cetak Semua QR Code Anggota</button>
+
+        <div id="hasil" class="result-box">
+            <div class="result-content" id="resultInnerContent">
+                <div class="result-title" id="resHeader">Hasil Pencarian</div>
+                <div class="info-row"><span class="info-label">Nomor Induk</span><span class="info-val" id="rNoInduk">-</span></div>
+                <div class="info-row"><span class="info-label">Nama</span><span class="info-val" id="rNama">-</span></div>
+                <div class="info-row"><span class="info-label">Jenis Kelamin</span><span class="info-val" id="rJk">-</span></div>
+                <div class="info-row"><span class="info-label">Pendidikan</span><span class="info-val" id="rPendidikan">-</span></div>
+                <div class="info-row"><span class="info-label">Status Sertifikat</span><span class="info-val status-asli">ASLI</span></div>
+                
+                <div style="text-align: center; margin-top: 1rem; border-top: 1px dashed #e5e7eb; padding-top: 10px;">
+                    <div style="font-size: 0.8rem; color: #555; margin-bottom: 8px;">Pindai QR untuk Verifikasi Online:</div>
+                    <div class="qr-wrapper">
+                        <div id="qrcode"></div>
+                    </div>
+                </div>
+
+                <div class="timestamp" id="rTimestamp">Tanggal Pencarian : -</div>
+            </div>
         </div>
     </div>
-</section>
 
-<!-- =========================
-     FOOTER BAWAH
-========================= -->
-<div class="footer-bawah">
-    <p>2026 © Gasmi</p>
-    <div>
-        <a href="hubungi-kami.html" onclick="mulaiLoading(event)">Masuk</a>
-        <a href="hubungi-kami.html" onclick="mulaiLoading(event)">Kontak</a>
+    <!-- Modal Daftar Semua QR Code Anggota -->
+    <div id="qrDashboardModal">
+        <div class="modal-content">
+            <span class="close-modal" id="TutupModal">&times;</span>
+            <h3 style="color: #2c3e50; margin-bottom: 5px;">QR Code Anggota GASMI Ranting Ponorogo</h3>
+            <p style="font-size: 0.85rem; color: #666;">Daftar QR Code untuk pengecekan data dan sertifikat anggota</p>
+            <div style="margin-top: 15px; margin-bottom: 15px;">
+                <button class="btn-cari btn-print-action" onclick="window.print()" style="width: auto; padding: 0.5rem 1.5rem;">🖨️ Cetak Semua QR Code</button>
+            </div>
+            <div class="qr-grid" id="qrGridContainer">
+                <!-- QR Code cards will be injected dynamically via JavaScript -->
+            </div>
+        </div>
     </div>
-</div>
 
-<!-- =========================
-     JAVASCRIPT
-========================= -->
-<script>
-    function mulaiLoading(event) {
-        event.preventDefault();
-        const tautan = event.currentTarget.href;
-        const loading = document.getElementById('loading-screen');
-        loading.style.display = 'flex';
-        setTimeout(function() {
-            window.location.href = tautan;
-        }, 1500);
-    }
+    <footer class="footer">
+        <div class="footer-content">
+            <h4>Gasmi</h4>
+            <p>Jl. KH. Abdul Karim, Lirboyo, No. 45, Kec. Mojoroto, Kota Kediri.</p>
+            <h4>Kontak</h4>
+            <p>gasmihosting@gmail.com<br>6285878079700</p>
+            <div style="margin-top: 1rem;">
+                Atau terhubung dengan kami di: <br>
+                <a href="#" style="margin-right: 10px;">🌐</a>
+                <a href="#" style="margin-right: 10px;">📷</a>
+                <a href="#" style="margin-right: 10px;">📺</a>
+                <a href="#">🐦</a>
+            </div>
+        </div>
+    </footer>
+    <div class="footer-bottom">
+        <div><a href="#">Masuk</a> &nbsp;|&nbsp; <a href="#">Kontak</a></div>
+        <div>2026 &copy; Gasmi</div>
+    </div>
 
-    const semuaSlide = document.querySelectorAll('.slide');
-    const semuaTombol = document.querySelectorAll('.lingkaran');
-    const panahKiri = document.querySelector('.panah-kiri');
-    const panahKanan = document.querySelector('.panah-kanan');
-    let slideSekarang = 0;
+    <script>
+        const dataMentah = `
+03352 - 19 - 09|DEWI NOVITAYENI|Trenggalek, 23 Agustus 2005|Perempuan|SMK FATHUL MUNA|Mesnan / Dati|Botoputih, Bendungan,Trenggalek
+03353 - 19 - 09|AFNAN GHOZI MAYRIA ASEGAF|Ponorogo, 20 Mei 2008|Laki-Laki|MTS.AL - JAWARIYAH|Agus Riyadi / Siti Maysaroh|Grogol, Sawoo Ponorogo
+03354 - 19 - 09|FARA SURYARENATA|Ponorogo, 07 Juni 2011|Perempuan|MTSN 1 JETIS|Suryadi / Sri Turini|Campurejo, Sambit, Ponorogo
+03355 - 19 - 09|DENIS YOGA PRATAMA|Oku, 06 September 2012|Laki-Laki|SMP FATHUL MUNA|Jarman / Surati|Kurungan Nyawa Ii,Buay Madang,.Oku Timur
+03356 - 19 - 09|ANISA DWI YANA PUTRI|Ponorogo, 18 Februari 2012|Perempuan|MTSN 1 JETIS|Edi Sunaryanto / Srika Dwi Yana Anjani|Campurejo, Sambit, Ponorogo
+03357 - 19 - 09|SEPTIAN TRIANI YOGA ADHITAMA|Ponorogo, 06 September 2006|Laki-Laki|MA MA'ARIF KRATON MOJO KEDIRI|Parni / Jemitri|Grogol, Sawoo Ponorogo
+03358 - 19 - 09|FAIREL ATHARIZZ CALIEF LEE|Ponorogo, 08 Januari 2014|Laki-Laki|SDN 1 KEMUNING|Nur Ali / Priyanti|Wringinanom, Sambit, Ponorogo
+03359 - 19 - 09|RIYAN NUR HANDIKA PRASETYO|Blora, 11 Juli 2007|Laki-Laki|SMK PGRI 2 PONOROGO|Bonangin / Sri Wahyuni|Sedarat, Balong, Ponorogo
+03360 - 19 - 09|AFIZA SITI ARIYANTI|Pekalongan, 09 Juni 2013|Perempuan|SMP FATHUL MUNA|Agus Giyanto / Aris Karisna|Prantaan, Bogorejo, Blora
+03361 - 19 - 09|ZAHWA NADIA IZZATI|Ponorogo, 30 Oktober 2007|Perempuan|SMK MUHAMMADIYAH DORO|Maroto / Fitriyah|Pandak, Balong, Ponorogo
+03362 - 19 - 09|SITI NURROSIDAH|Ponorogo, 22 Agustus 2009|Perempuan|SMAN 1 SLAHUNG|Sarnianto / Sri Suparmi|Baosan Kidul, Ngrayun, Ponorogo
+03363 - 19 - 09|MUHAMMAD SYAHRUL MUNIB|Cilacap, 10 Juni 2012|Laki-Laki|SMP FATHUL MUNA|Suyono / Katri|Wagir Kidul, Pulung, Ponorogo
+03364 - 19 - 09|AHMAD HAETI|Ponorogo, 19 Agustus 2010|Laki-Laki|SMP FATHUL MUNA|Turijan / Siti Halimatus Sa'diyah|Labangka. Babulu, Penajam Paser Utara
+03365 - 19 - 09|IKHDA WARDATUL ANNISA’|Ponorogo, 17 Juli 2008|Perempuan|MA AL-ISLAM|Sumari / Puriyah|Kutu Wetan, Jetis, Ponorogo
+03366 - 19 - 09|MIRDAYANI AGUSTINA|Ponorogo, 22 Agustus 2008|Perempuan|MTS. MAÀRIF AL - ISHLAH|Suryono / Tutik Kholistiana|Bungu, Bungkal, Ponorogo
+03367 - 19 - 09|LUTFI NUFITA ASFA'I|Ponorogo, 22 November 2007|Perempuan|MTS MA'ARIF AL ISLAH|Imam Syafi'i / Sriyatin|Munggu, Bungkal, Ponorogo
+03368 - 19 - 09|RIZKI KURNIAWAN|Ponorogo, 10 Agustus 2006|Laki-Laki|MTS MA'ARIF AL ISLAH|Katino / Mesti|Wringinanom, Sambit, Ponorogo
+03369 - 19 - 09|VANES RYAN SAPUTRA|Ponorogo, 24 Januari 2007|Laki-Laki|SMKN 1 JENANGAN|Yani / Turini|Ketro, Sawoo, Ponorogo
+03370 - 19 - 09|KEVIN ANDREAN PUTRA|Madiun, 24 Maret 2009|Laki-Laki|SMPN 2 SAMBIT|Sutoyo / Yuliani|Ketro, Sawoo, Ponorogo
+03371 - 19 - 09|LARAS INDAH ANUNGRAHITA SURGAWI|Ponorogo, 17 Mei 2009|Perempuan|MTS AL-ISLAM JORESAN|Edi Prasetyo / Sri Kusuma Rahayu|Nglewan, Sambit, Ponorogo
+03372 - 19 - 09|FATHUROHIM AULIA|Ponorogo, 20 Juli 2008|Laki-Laki|SMP FATHUL MUNA|Imam Sukirno|Baosan Kidul, Ngrayun, Ponorogo
+03373 - 19 - 09|NADHIFA RAHMA DEWANTI|Ponorogo, 23 Juli 2007|Perempuan|SMKN 1 SLAHUNG|Sumari / Misinem|Singkil, Balong, Ponorogo
+03374 - 19 - 09|MUH.RIFAI AINURSALAM|Ponorogo, 04 Mei 2012|Laki-Laki|SDN 8 BAOSAN LOR|Nurwahid / Seniati|Baosan Kidul, Ngrayun, Ponorogo
+03375 - 19 - 09|AYUNDA CHINTIYA FIRDA SARI NING TIYAS|Ponorogo, 20 November 2011|Perempuan|SDN 4 BAOSAN LOR|Riyanto / Subinti|Baosan Lor, Ngrayun, Ponorogo
+03376 - 19 - 09|ZASKIA ALTHOFUNISA|Ponorogo, 23 Mei 2012|Perempuan|MI MA'RIF AL - FAQIH|Trimawan / Erna Rahmawati|Wringinanom, Sambit, Ponorogo
+03377 - 19 - 09|FAJAR APRIAN ALI MUSYAFA|Pacitan, 06 Juni 2013|Laki-Laki|SDIT AL-MAWADDAH COPER|Supriono / Siti Nurul Solikah|Wringinanom, Sambit, Ponorogo
+03378 - 19 - 09|DIAN WAHYU PUTRI|Pacitan, 06 November 2008|Perempuan|SMPN 5 TAGALOMBO|Miswan / Suprihatun|Ploso, Tegalombo, Pacitan
+03379 - 19 - 09|AMELIA RAHMAWATI|Pacitan, 05 Agustus 2009|Perempuan|SMPN 5 TAGALOMBO|Sukatno / Tutik Susanti|Ploso, Tegalombo, Pacitan
+03380 - 19 - 09|MIFTAHUL MUDTAQIN|Pacitan, 23 Juni 2009|Laki-Laki|MTS AL FATTAH TAHUNAN|Mahmud Jiono / Paryati|Ploso, Tegalombo, Pacitan
+03381 - 19 - 09|ANDIKA PUTRA FERDIANSA|Pacitan, 06 Juli 2007|Laki-Laki|MA AL FATTAH TAHUNAN|Sugianto / Murtini|Ploso, Tegalombo, Pacitan
+03382 - 19 - 09|SELVIRA JULIA INDRIANA SARI|Pacitan, 31 Juli 2009|Perempuan|SMPN 5 TAGALOMBO|Jarno / Misti|Ploso, Tegalombo, Pacitan
+03383 - 19 - 09|NATHAN ADI PRATAMA|Pacitan, 12 Agustus 2010|Laki-Laki|SMKN 1 BANDAR PACITAN|Nur Handoko / Wiwid Widiani|Kledung,Bandar, Pacitan
+03384 - 19 - 09|RIZKI ALFIAN NUGROHO|Pacitan, 18 November 2009|Laki-Laki|SMPN 1 BANDAR PACITAN|Suparno / Suwarti|Kledung,Bandar, Pacitan
+03385 - 19 - 09|DELTA AYU SAFIRA|Pacitan, 30 Desember 2010|Perempuan|MTS. AL - FATTAH TAHUNAN|Meseri / Wiwin Winarti|Ploso, Tegalombo, Pacitan
+03386 - 19 - 09|ARSYAVIN MORGAN DIESTA HAIYKAL|Ponorogo, 13 Desember 2012|Laki-Laki|SDN 2 TAHUNAN BARU TEGALOMBO|Didik Budi Santoso / Ika Yuliana|Ngilo - Ilo, Slahung, Ponorogo
+03387 - 19 - 09|FAHRIS IMRON KHOIRI|Ponorogo, 12 Mei 2012|Laki-Laki|SDN 2 TAHUNAN BARU TEGALOMBO|Wagiyanto / Sri Purwati|Ngilo - Ilo, Slahung, Ponorogo
+03388 - 19 - 09|AHMAD NUR HASAN|Ponorogo, 11 Maret 2012|Laki-Laki|SDN 2 TAHUNAN BARU TEGALOMBO|Jari Nur Said / Sri Lestari|Ngilo - Ilo, Slahung, Ponorogo
+03389 - 19 - 09|JAHAROH IZZAH FADZILAH|Ponorogo, 09 Desember 2011|Perempuan|MTS. AL - HIKMAH NGRAYUN|Lamiyo / Tulastri|Baosan Kidul, Ngrayun, Ponorogo
+03390 - 19 - 09|ADITYA RAHMAT WIDYANTO|Ponorogo, 26 Juni 2009|Laki-Laki|MA. AL - HIKMAH NGRAYUN|Tato / Widya Supartin|Baosan Lor, Ngrayun, Ponorogo
+03391 - 19 - 09|MIFTAHUL HIDAYAH ISMAIL|Ponorogo, 21 Mei 2012|Laki-Laki|MTS. AL - HIKMAH NGRAYUN|Imam Mutakin / Siti Rukayah|Mrayan, Ngrayun, Ponorogo
+03392 - 19 - 09|BRAMA ECHA PRASETYA|Pacitan, 19 Desember 2012|Laki-Laki|SMPN 2 GEMAHARJO|Arif Setyo Darmanto / Duwi Ekasari|Tahunan Baru, Tegalombo, Pacitan
+03393 - 19 - 09|AHMAD JENDRA ALHAFIDL|Pacitan, 13 Oktober 2012|Laki-Laki|SMPN 2 GEMAHARJO|Budiono / Dewi Agustina|Tahunan Baru, Tegalombo, Pacitan
+03394 - 19 - 09|EVI YUNITA ANGGRAINITTL|Pacitan, 08 Juni 2011|Perempuan|MA AL-FATTAH TAHUNAN|Darmanto / Maryam|Tahunan Baru, Tegalombo, Pacitan
+03395 - 19 - 09|NADIYA SEPTIA MAHARANI|Pacitan, 24 September 2010|Perempuan|MA AL-FATTAH TAHUNAN|Hendrik Kurniawan / Surati|Tahunan Baru, Tegalombo, Pacitan
+03396 - 19 - 09|FATHYA ALVINATUL RISKI|Pacitan, 30 Desember 2006|Perempuan|SMK AL-FATTAH TAHUNAN|Marjito / Partini|Tahunan Baru, Tegalombo, Pacitan
+03397 - 19 - 09|ADITIYA PRADANA PUTRA|Pacitan, 03 Mei 2007|Laki-Laki|SDN 1 GEMAHARJO|Sukadi / Suhartini|Tahunan Baru, Tegalombo, Pacitan
+03398 - 19 - 09|ZION ALFA SATIAGRAHA|Pacitan, 29 Juni 2010|Laki-Laki|MTS MUHAMMADIYAH BANDAR|Kaseri / Mesiyem|Kledung, Bandar, Pacitan
+03399 - 19 - 09|ABDUL AZIS KHOIRY|Pacitan, 05 Februari 2010|Laki-Laki|SMKN BANDAR|Tumirin / Sri Utami|Kledung, Bandar, Pacitan
+03400 - 19 - 09|KURNIA NASIROH|Pacitan, 20 Februari 2013|Perempuan|SMPN 1 BANDAR|Suparno / Suwarti|Kledung, Bandar, Pacitan
+03401 - 19 - 09|FARIS AL GOZHI|Pacitan, 06 Juli 2008|Laki-Laki|SMPN 1 BANDAR|Eko Ferianto / Karsini|Mangunharjo, Arjosari, Pacitan
+03402 - 19 - 09|YOGI FIRNANDA|Pacitan, 26 Agustus 2012|Laki-Laki|SMPN 5 TEGALOMBO|Mulyono / Rani Febrianti|Ploso, Tegalombo, Pacitan
+03403 - 19 - 09|AGUS FRIANTO|Pacitan, 02 Agustus 2013|Laki-Laki|SDN 2 PLOSO|Mispan / Lasmini|Ploso, Tegalombo, Pacitan
+03404 - 19 - 09|MELFIN RIFA'I|Pacitan, 02 November 2011|Laki-Laki|SMPN 5 TEGALOMBO|Wasit / Tumini|Ploso, Tegalombo, Pacitan
+03405 - 19 - 09|RISKI ALFIAN|Pacitan, 15 Februari 2010|Laki-Laki|SMPN 5 TEGALOMBO|Giyanto / Etik Ernawati|Ploso, Tegalombo, Pacitan
+03406 - 19 - 09|ANGGIA RESTU INVANI|Pacitan, 03 September 2010|Perempuan|SMKN BANDAR|Adi Aulia Ardiansah / Surati|Kledung, Bandar, Pacitan
+03407 - 19 - 09|EDI TRIATMOKO|Pacitan, 24 Mei 2012|Laki-Laki|SMPN 5 TEGALOMBO|Soiman / Sujiati|Ploso, Tegalombo, Pacitan
+03408 - 19 - 09|ANANG SETIYAWAN|Pacitan, 22 Juli 2010|Laki-Laki|SMKN BANDAR|Teguh Wiyono / Trismiatin|Mangunharjo, Arjosari, Pacitan
+03409 - 19 - 09|WILDAN ALRUZAIN|Pacitan, 16 April 2012|Laki-Laki|SMPN 2 TEGALOMBO|Paniran / Warsiyem|Gemaharjo, Tegalombo, Pacitan
+03410 - 19 - 09|ANANDA RIO RISKI SAPUTRA|Pacitan, 26 Mei 2000|Laki-Laki|SMAN 1 TEGALOMBO|Mujiran / Sri Handayani|Margahayu, Loa Kulu
+03411 - 19 - 09|FANI AFNAN NURHAFIZAH|Banjarnegara, 23 April 2010|Perempuan|MA DARUL ISTIQOMAH|Mohamad Khoirul Anifin / Siti Mukharomah|Winong, Bawang, Banjarnegara
+03412 - 19 - 09|MOHAMMAD MAFTUH FADLI|Ponorogo, 10 Februari 2010|Laki-Laki|MA DARUL ISTIQOMAH|Kani / Sumiati|Semanding, Kauman, Ponorogo
+03413 - 19 - 09|MUROBBI EKA ADITYA|Ponorogo, 05 Maret 2010|Laki-Laki|MA DARUL ISTIQOMAH|Poniran / Yati|Semanding, Kauman, Ponorogo
+03414 - 19 - 09|SYNTIA 'ULYA KHUSNITA|Ponorogo, 24 Juli 2009|Perempuan|MA DARUL ISTIQOMAH|Parni / Parti|Dadapan, Balong, Ponorogo
+03415 - 19 - 09|MUHAMMAD AMHAR MUMTAZ|Ponorogo, 20 Juni 2010|Laki-Laki|MTS DARUL ISTIQOMAH|Kusno, S.Pd.I / Ema Wardati, S.Pd.I|Ngumpul, Jambon, Ponorogo
+03416 - 19 - 09|IJAT FAHEM BADIUL ALAM|Ponorogo, 08 November 2011|Laki-Laki|MTS DARUL ISTIQOMAH|Sunarno / Dwi Erni Widiastuti|Ngumpul, Jambon, Ponorogo
+03417 - 19 - 09|MUHAMMAD ZAKARIYA NURROHMAN|Ponorogo, 13 Oktober 2011|Laki-Laki|MTS DARUL ISTIQOMAH|Prianto / Sunarti|Pandak, Balong, Ponorogo
+03418 - 19 - 09|MUHAMAD ALDY NURSALAM|Nganjuk, 12 Desember 2011|Laki-Laki|MTS DARUL ISTIQOMAH|Ali Jafar Shodiq / Parmiatun|Ngumpul, Jambon, Ponorogo
+03419 - 19 - 09|NABIL ZAKI IBRAHIM|Tangerang, 19 November 2008|Laki-Laki|MTS AL-ISLAM JORESAN|Casmudi / Hesti Setiarini|Tambakrejo, Pemalang, Jawa Tengah
+03420 - 19 - 09|ULUL ALBAB|Sukamulya, 16 September 2008|Laki-Laki|MTS AL-ISLAM JORESAN|Supriyanto / Sri Haryati|Rawamangun, Jakarta Timur
+03421 - 19 - 09|AHMAD WILDAN ROMDLONI|Ponorogo, 22 Agustus 2011|Laki-Laki|MTS AL-ISLAM JORESAN|Samsuri / Wiji Utami|Joresan, Mlarak, Ponorogo
+03422 - 19 - 09|MUHAMMAD RIDHO SAPUTRA|Surabaya, 30 Mei 2010|Laki-Laki|MTS AL-ISLAM JORESAN|Suparman / Sumarpi|Bajang, Mlarak, Ponorogo
+03423 - 19 - 09|MUHAMMAD ROHMAN|Jakarta, 23 Oktober 2009|Laki-Laki|MTS AL-ISLAM JORESAN|Alm. Anen Priyatna / Suginem|Tangen, Sragen, Jawa Tengah
+03424 - 19 - 09|ZAYANA FAWAZARSYA RUWAIDAH|Ponorogo, 17 Juli 2005|Perempuan|UIN PONOROGO|Syamsudin / Siti Arini|Joresan, Mlarak, Ponorogo
+03425 - 19 - 09|AHMAD MUSYAFA NASYWATUL WAFFA|Lamongan, 13 Maret 2009|Laki-Laki|MTS AL-ISLAM JORESAN|Latief Ali Zahrowi / Zaitul Erni|Kariangau, Balikpapan Barat, Kaltim
+03426 - 19 - 09|AHMAD SABHAL LATHAF|Ponorogo, 23 Februari 2008|Laki-Laki|MTS AL-ISLAM JORESAN|Rohmat Fadeli / Mursini|Bulu, Sambit, Ponorogo
+03427 - 19 - 09|DWI PUTRA PRAYOGO|Magetan, 30 Maret 2010|Laki-Laki|MTS AL-ISLAM JORESAN|Komarudin / Susilawati|Dukuh, Lembeyan, Magetan
+03428 - 19 - 09|ISMA FAIZATUL MUNA|Ponorogo, 18 Januari 2004|Perempuan|MTS AL-ISLAM JORESAN|Muhrodji / Siti Solekah|Joresan, Mlarak, Ponorogo
+03429 - 19 - 09|ARSYA RIZKY AL MUBAROK|Ponorogo, 14 Juni 2013|Laki-Laki|MTs. MIFTAHUL ULUM NGRAKET|Tukimun / Sutini|Jonggol, Jambon, Ponorogo
+03430 - 19 - 09|STEVEN ORVA ROLANDA|Ponorogo, 12 Juni 2014|Laki-Laki|PP. DARUL HUDA MAYAK|Muh. Heri Purwanto / Renita Tri Oktapia Dewi|Jonggol, Jambon, Ponorogo
+03431 - 19 - 09|KELVIN RAMDANI SAPUTRA|Ponorogo, 02 Februari 2013|Laki-Laki|SMPN 2 BALONG|Trimo / Nanik Minasri|Jonggol, Jambon, Ponorogo
+03432 - 19 - 09|NADIA HASNA SAKHI|Ponorogo, 25 Juli 2012|Perempuan|MTs. MIFTAHUL ULUM NGRAKET|Sarju / Robit Tahtul Asadah|Jonggol, Jambon, Ponorogo
+03433 - 19 - 09|NATHANIA AYU EVELINNA|Ponorogo, 18 Desember 2009|Perempuan|SMK KESEHATAN PONOROGO|Bambang Maulana Maheswara / Fitri Yuliana|Jonggol, Jambon, Ponorogo
+03434 - 19 - 09|FRISKA LAURENZIA LIDIA SABELLA|Ponorogo, 04 Maret 2011|Perempuan|SMAN 1 BADEGAN|Mudjiono / Ria Dewi Yuliati|Jonggol, Jambon, Ponorogo
+03435 - 19 - 09|ERLIA NUR HIDAYAH|Ponorogo, 16 Februari 2011|Perempuan|SMK KESEHATAN BIMPO|Sugito / Umi Andarwati|Jonggol, Jambon, Ponorogo
+03436 - 19 - 09|JOSHUA DAREN PRATAMA|Ponorogo, 06 Januari 2014|Laki-Laki|MTs. MIFTAHUL ULUM NGRAKET|Panji Asmoro / Katemi|Jonggol, Jambon, Ponorogo
+03437 - 19 - 09|ARDAN ZHAFRAN DWI MAHADIKA|Ponorogo, 20 Maret 2013|Laki-Laki|SMPN 1 BALONG|Agus Supriyono / Puji Lestari|Ngampel, Balong, Ponorogo
+03438 - 19 - 09|DAFFA FIRDAUS FIRJATULLAH|Ponorogo, 19 November 2009|Laki-Laki|SMK PGRI 2 PONOROGO|Hariyanto / Wijayanti|Ngampel, Balong, Ponorogo
+03439 - 19 - 09|DIMAS ADHYASTHA BAGUS PAMBUDI|Ponorogo, 23 Januari 2013|Laki-Laki|SMPN 1 BALONG|Pambudi / Uswatun Hasanah|Ngampel, Balong, Ponorogo
+03440 - 19 - 09|ANGGA BRIANTAMA|Ponorogo, 10 November 2011|Laki-Laki|SMPN 1 JETIS|Zaenal Abidin / Suratmi|Ngampel, Balong, Ponorogo
+03441 - 19 - 09|KARTIKA NUR LAILATUR ROHMAH|Pacitan, 03 Juli 2011|Perempuan|SMKN 1 SLAHUNG|Yuris Nur Kholid / Nurul Amin|Ngilo-Ilo, Slahung, Ponorogo
+03442 - 19 - 09|ALEEZA ARUMADHANI KAYOON|Ponorogo, 10 Juli 2013|Perempuan|MTS MIFTAHUS SALAM KAMBENG|Susilo / Titik Handayani|Ngilo-Ilo, Slahung, Ponorogo
+03443 - 19 - 09|HUSAIN SHAHBAZ|Ponorogo, 27 Maret 2013|Laki-Laki|SMPN 2 BALONG|Giman / Sri Wahyuni|Ngasinan, Jetis, Ponorogo
+03444 - 19 - 09|MUHAMMAD NAUFAL ALFA RIZKY|Ponorogo, 19 Maret 2012|Laki-Laki|MTSN 1 PONOROGO|Mohammad Toha / Siti Fatimah|Bajang, Balong, Ponorogo
+03445 - 19 - 09|MUHAMMAD RIZAL AVID AIMAN|Ponorogo, 24 November 2012|Laki-Laki|SMPN 1 BALONG|Sukateman / Rina Kholifatus|Bajang, Balong, Ponorogo
+03446 - 19 - 09|SHUMA 'ALIM MUHAMMAD SYAH|Ponorogo, 30 September 2006|Laki-Laki|UIN PONOROGO|Ma'shum Syah, S.Psi., M.Psi. / Syaukati Karimah, S.Pd.|Truneng, Slahung, Ponorogo
+03447 - 19 - 09|PRASTYO ADI NUGROHO|Ponorogo, 30 Oktober 2008|Laki-Laki|SMKN SLAHUNG|Karlan / Sri Fatimah|Bungkal, Bungkal, Ponorogo
+03448 - 19 - 09|ERFA'RAJ ALFARIZQY|Ponorogo, 11 Februari 2012|Laki-Laki|SMPN 2 BUNGKAL|Suryanto / Rulik Hartatik|Kupuk, Bungkal, Ponorogo
+03449 - 19 - 09|EGAR RESTU URAFA|Ponorogo, 27 Mei 2012|Laki-Laki|SMPN 2 BUNGKAL|Soiran / Sri Suharni|Kupuk, Bungkal, Ponorogo
+03450 - 19 - 09|SRI SUHARNI|Lampung Selatan, 19 Maret 1981|Perempuan|SMK MUHAMMADIYAH 1 KALIANDAS|Solikhin / Toilah|Kupuk, Bungkal, Ponorogo
+03451 - 19 - 09|SATRIA BINTANG BUMI|Ponorogo, 25 Februari 2013|Laki-Laki|SMPN 2 BUNGKAL|Soiran / Sri Suharni|Kupuk, Bungkal, Ponorogo
+03452 - 19 - 09|LEONY PRIATMAYA|Ponorogo, 14 Januari 2013|Perempuan|SMPN 2 BALONG|Supriyadi / Maimunah|Ngendut, Balong, Ponorogo
+03453 - 19 - 09|RAHMAT FAIZ NUR KHAMBALI|Ponorogo, 20 Agustus 2014|Laki-Laki|SDN 3 KARANG PATIHAN|Arif Ampil Maksum / Meti Antika|Ngendut, Balong, Ponorogo
+03454 - 19 - 09|RADITYA FERENDRA HAIKAL IBRAHIM|Ponorogo, 01 September 2012|Laki-Laki|SMPN 2 BALONG|Nanang Siswanto / Susanti|Ngendut, Balong, Ponorogo
+03455 - 19 - 09|RAMADHAN AKBAR PERDANA|Ponorogo, 18 Agustus 2012|Laki-Laki|SMPN 1 JETIS|Muhtadin / Srini|Karanggebang, Jetis, Ponorogo
+03456 - 19 - 09|ADIB FARDAN AL FARIZI|Ponorogo, 29 Juli 2010|Laki-Laki|MTS AL-ISLAM|Suyono / Anis Fatmawati|Karanggebang, Jetis, Ponorogo
+03457 - 19 - 09|MUHAMMAD RIZKY SYAHREZA|Ponorogo, 04 November 2013|Laki-Laki|MI AL-JIHAD KARANGGEBANG|Subur / Nuroh|Karanggebang, Jetis, Ponorogo
+03458 - 19 - 09|AHMAD RIZQI MUSTHOFA HABIBI|Ponorogo, 01 Januari 2011|Laki-Laki|SMPN 1 JETIS|Gianto / Rosanti|Karanggebang, Jetis, Ponorogo
+03459 - 19 - 09|MOH. RIFQI MUNIRUL JANANI|Ponorogo, 11 Oktober 2009|Laki-Laki|MTS JORESAN|Jemari / Widarti|Karanggebang, Jetis, Ponorogo
+03460 - 19 - 09|TAMA DWI WARDANA|Ponorogo, 26 Maret 2012|Laki-Laki|SMPN 1 JETIS|Dedi Dwi Wijaya / Ervi Fitrianingrum|Karanggebang, Jetis, Ponorogo
+03461 - 19 - 09|FATIHA NAFI'ATUL HAMIDAH|Ponorogo, 04 Mei 2011|Perempuan|MTS RONGGOWARSITO TEGALSARI|Khoirul Musthofa / Surati|Tegalsari, Jetis, Ponorogo
+03462 - 19 - 09|ADIBA SAKILA ATMARINI|Ponorogo, 25 Desember 2015|Perempuan|MI AL-JIHAD KARANGGEBANG|Edi Prayitno / Irawati Isnaeni|Tegalsari, Jetis, Ponorogo
+03463 - 19 - 09|MUHAMMAD ALIF NAUFAL AFKAR|Ponorogo, 21 November 2014|Laki-Laki|SDN TEGALSARI|Saiful Anam / Sri Wulan Fitri|Tegalsari, Jetis, Ponorogo
+03464 - 19 - 09|MUHAMMAD ALKAHFI IBRAHIMOVIC|Ponorogo, 20 Juni 2012|Laki-Laki|SMPN 1 JETIS|Mohamad Warno / Sutiani|Bedrug, Pulung, Ponorogo
+03465 - 19 - 09|RAISYA PUTRI EKA NURGANTI|Ponorogo, 08 Agustus 2014|Perempuan|SDN TEGALSARI|Budi Santoso / Yeni Novita Eliana|Josari, Jetis, Ponorogo
+03466 - 19 - 09|ALBERT ZIVEN MAHFUZH AMIRUDIN|Ponorogo, 21 Mei 2013|Laki-Laki|SMPN 2 BALONG|Samsuri / Nuraini Muyasaroh|Singkil, Balong, Ponorogo
+03467 - 19 - 09|MAYA PUTRI ADZKIA QURROTUL FUADAH|Ponorogo, 25 Mei 2008|Perempuan|SMKN 2 PONOROGO|Imam Tohari / Dwi Ernawati|Singkil, Balong, Ponorogo
+03468 - 19 - 09|PUPUT WAGI PUTRI|Ponorogo, 30 Juli 2009|Perempuan|SMPN 2 BALONG|Senen / Partin|Singkil, Balong, Ponorogo
+03469 - 19 - 09|ALYA KHOIRUN NISA|Ponorogo, 08 April 2006|Perempuan|SMKN 1 SLAHUNG|Jamari / Marsiyem|Nailan, Slahung, Ponorogo
+03470 - 19 - 09|AFID IHSAN KAROHMAN|Ponorogo, 12 September 2008|Laki-Laki|SMPN 2 BALONG|Hariyadi / Samitun|Sedaran, Balong, Ponorogo
+03471 - 19 - 09|NAWAF GALEH PRASETYO|Ponorogo, 15 April 2010|Laki-Laki|SMPN 1 BALONG|Jemono / Mesinem|Singkil, Balong, Ponorogo
+03472 - 19 - 09|SALSABILLA ALFIRJANNAH|Ponorogo, 14 September 2012|Perempuan|SMPN 2 BALONG|Edy Suprapto / Siti Hartatik|Balong, Balong, Ponorogo
+03473 - 19 - 09|ADIS ARDIANSYAH APRILIO|Ponorogo, 23 April 2013|Laki-Laki|SMPN 1 BALONG|Sunardi / Narni|Singkil, Balong, Ponorogo
+03474 - 19 - 09|RIDWAN DWI PRABOWO|Ponorogo, 12 Oktober 2008|Laki-Laki|SMPN 2 BALONG|Semun / Suminem|Sedaran, Balong, Ponorogo
+03475 - 19 - 09|ARY MUKTI|Ponorogo, 09 Januari 2005|Laki-Laki|MA MIFTAHUL ULUM|Tumiran / Sri Rahayu|Sedaran, Balong, Ponorogo
+03476 - 19 - 09|NOVI WULAN NINGRUM WIJAYANTI|Ponorogo, 20 November 2008|Perempuan|MTs. MA'ARIF BALONG|Mujito / Siti Nur Janah|Singkil, Balong, Ponorogo
+03477 - 19 - 09|AMIRA HANIN DZAKIYYAH|Ponorogo, 21 Juni 2012|Perempuan|SMPN 1 BALONG|Edi Cahyono / Eni Wijandari|Singkil, Balong, Ponorogo
+03478 - 19 - 09|SHAM ZUMAR BADRANI|Ponorogo, 01 Juni 2011|Laki-Laki|MTs. MA'ARIF AL-ISLAH BUNGKAL|Sarjono / Ummi Hasanatul Fadlilatin|Nambak, Bungkal, Ponorogo
+03479 - 19 - 09|ANUGRAH RAMSA LAZUARDI|Ponorogo, 10 April 2011|Laki-Laki|SDN 1 BALONG|Slamet, S.Sos. / Nur Hidayah|Gombang, Slahung, Ponorogo
+03480 - 19 - 09|NAYLA DAEFA PRATISTA|Ponorogo, 15 Mei 2014|Perempuan|SDN 4 MRAYAN|Edi Prasetyo / Wiwik Setiawati|Mrayan, Ngrayun, Ponorogo
+03481 - 19 - 09|AFRILIANSYAH|Muara Bungo, 12 April 2010|Laki-Laki|MA DARUL ISTIQOMAH|Syafrizal / Amsakiati|Teluk Kembang Jambu, Tebo Ulu, Tebo, Jambi
+03482 - 19 - 09|BILLY ALFA JUNIOR|Ponorogo, 05 Mei 2011|Laki-Laki|SDN JEBENG|Bambang Eko Hari Prasetyo / Sulipah|Jebeng, Slahung, Ponorogo
+03483 - 19 - 09|ZIYANA FAWAZARSYA RUWAIDAH|Ponorogo, 17 Juli 2005|Perempuan|UIN PONOROGO|Syamsudin / Siti Arini|Joresan, Mlarak, Ponorogo
+03484 - 19 - 09|MUHAMMAD ABID AQILA RAHMANI|Ponorogo, 20 Juni 2014|Laki-Laki|MI MA'ARIF GANDU MLARAK|Moch. In'am Rahmani / Husna Ni'matul Ulya|Gandu, Mlarak, Ponorogo
+03485 - 19 - 09|AZRIEL BARIQ MURTAZA|Ponorogo, 17 Juli 2005|Laki-Laki|PONPES MR. BOB|Yudi / Muhayyaroh|Gandu, Mlarak, Ponorogo
+03486 - 19 - 09|DIANA PURIYATUL JANNAH|Ponorogo, 03 Februari 2014|Perempuan|SDN 2 SENEPO SLAHUNG|Sujarwanto / Jemitun|Senepo, Slahung, Ponorogo
+03487 - 19 - 09|M. VIAN ERLANGGA SAPUTRA|Ponorogo, 24 Desember 2012|Laki-Laki|SDN 2 SENEPO SLAHUNG|Syahrul / Linda|Senepo, Slahung, Ponorogo
+03488 - 19 - 09|ANDHIKA DWI FANGGARA PUTRA|Ponorogo, 21 September 2012|Laki-Laki|SDN 2 SENEPO SLAHUNG|Atim Iswahyudi / Tutiana|Senepo, Slahung, Ponorogo
+03489 - 19 - 09|ADI MUHAMAD RIDWAN|Ponorogo, 17 Februari 2014|Laki-Laki|SDN 2 SENEPO SLAHUNG|Paniman / Istiana|Senepo, Slahung, Ponorogo
+03490 - 19 - 09|ADELLIA DWI LESTARI|Ponorogo, 07 Desember 2011|Perempuan|SDN 2 SENEPO SLAHUNG|Margono / Wiji Lestari|Senepo, Slahung, Ponorogo
+03491 - 19 - 09|RISKA AYU PUTRI WARDIANA|Ponorogo, 06 Agustus 2008|Perempuan|SMKN 1 SLAHUNG|Miswadi / Darnawati|Singkil, Balong, Ponorogo
+03492 - 19 - 09|THOMI 'IZZUL UMAM|Ponorogo, 14 November 2011|Laki-Laki|MTS AL-ISLAM JORESAN|Bahrudin / Emy Nur Hamibah|Karang Gebang, Jetis, Ponorogo
+03493 - 19 - 09|WAHYU RAFIF APRILIO ALFARIZI|Ponorogo, 18 April 2015|Laki-Laki|SDN 2 TAHUNAN BARU TEGALOMBO|Edi Sutrisno / Endang Sri Wahyuning|Ngilo-Ilo, Slahung, Ponorogo
+03494 - 19 - 09|AKBAR RAFI ANANDA|Trenggalek, 08 Desember 2009|Laki-Laki|SDN 2 SENEPO SLAHUNG|Hadi Sutrisno / Komarul Hidayah|Senepo, Slahung, Ponorogo
+03495 - 19 - 09|ALIF EKA NURDIANSYAH|Ponorogo, 05 Mei 2011|Laki-Laki|SMPN 2 BALONG|Didik Purnomo / Winarsih|Karangpatihan, Balong, Ponorogo
+03496 - 19 - 09|RAFEL ADINATA FANEZA|Ponorogo, 07 Mei 2013|Laki-Laki|MTs. MIFTAHUL ULUM NGRAKET|Soni / Ponirah|Pandak, Balong, Ponorogo
+03497 - 19 - 09|SRI SUHARNI|Lampung Selatan, 19 Maret 1981|Perempuan|SMP MUHAMMADIYAH 1 KALIANDAS|Sholikin / Toilah|Kupuk, Bungkal, Ponorogo
+03498 - 19 - 09|LARAS INDAH ANUGRAHITA SURGAWI|Ponorogo, 17 Mei 2009|Perempuan|SMK PGRI 1 PONOROGO|Edhi Prastyo / Sri Kusuma Rahayu|Nglewan, Sambit, Ponorogo
+03499 - 19 - 09|ELYAS REZA ALQHIFARI|Ponorogo, 27 Januari 2014|Laki-Laki|MIN 3 PONOROGO|Budi Hartoyo / Patonah|Gombang, Slahung, Ponorogo
+03500 - 19 - 09|NIKA PUTRI ANDINI|Ponorogo, 29 Agustus 2007|Perempuan|MA MA'ARIF BALONG|Katimun / Tumini|Singkil, Balong, Ponorogo
+03501 - 19 - 09|REIHAN WIJAYA KUSUMA|OKU Timur, 13 November 2008|Laki-Laki|SMK MUHAMMADIYAH RAWA BENING|Salim / Siti Mukaromah|Suka Maju, Belitang, OKU Timur, Sumsel
+03502 - 19 - 09|RAFQY ADITYA AFFANI|Ponorogo, 08 September 2012|Laki-Laki|MTS DARUL HUDA MAYAK|Bambang Pamuji / Nur Lailatul Mukaromah|Pandak, Balong, Ponorogo
+03503 - 19 - 09|ALFI NUR DINA|Ponorogo, 30 April 2013|Perempuan|SMPN 2 BALONG|Sidik Yulianto / Enik Winartin|Pandak, Balong, Ponorogo
+03504 - 19 - 09|DAVID SETYAWAN|Ponorogo, 29 September 2012|Laki-Laki|MTs. MIFTAHUL ULUM NGRAKET|Supriyadi / Boyati|Pandak, Balong, Ponorogo
+03505 - 19 - 09|INDRI JULIANTI|Ponorogo, 22 Juli 2012|Perempuan|MTs. MIFTAHUL ULUM NGRAKET|Barno / Siti Munawaroh|Pandak, Balong, Ponorogo
+03506 - 19 - 09|KAILA ASYIFATUR ROHMAH|Ponorogo, 10 November 2011|Perempuan|SMPN 2 BALONG|Jarwoto / Sulistyowati|Pandak, Balong, Ponorogo
+03507 - 19 - 09|MUHAMMAD AFFIS|Jombang, 14 April 2008|Laki-Laki|MAN 2 PONOROGO|Misno / Aifa|Gombang, Slahung, Ponorogo
+03508 - 19 - 09|EVAN PRIMA AUGUSTA|Ponorogo, 02 September 2011|Laki-Laki|SDN NGRAKET|Mislan / Yuliani|Ngraket, Balong, Ponorogo
+03509 - 19 - 09|EFRENZO VIRGONATA RAMADHANY|Ponorogo, 01 Juni 2012|Laki-Laki|SMPN 2 BALONG|Budi Hartono / Tri Wahyuni|Ngraket, Balong, Ponorogo
+03510 - 19 - 09|MUHAMMAD RIZKY SAPUTRA|Ponorogo, 12 Juli 2013|Laki-Laki|SMPN 2 BALONG|Sujarno / Siti Aminah|Ngraket, Balong, Ponorogo
+03511 - 19 - 09|DIAS RAMADHANI|Ponorogo, 15 Juli 2012|Perempuan|SMPN 2 BALONG|Supriyanto / Siti Rokayah|Ngraket, Balong, Ponorogo
+03512 - 19 - 09|M. RIZKI AL-FARISI|Ponorogo, 03 Februari 2011|Laki-Laki|SMK PGRI 2 PONOROGO|Slamet / Sianah|Ngraket, Balong, Ponorogo
+03513 - 19 - 09|BIMA SAKTI RAMADHAN|Ponorogo, 10 Agustus 2012|Laki-Laki|SMPN 2 BALONG|Suprapto / Siti Maesaroh|Ngraket, Balong, Ponorogo
+03514 - 19 - 09|MOH. FAJAR FADILAH|Ponorogo, 15 Mei 2011|Laki-Laki|SMPN 2 BALONG|Kateno / Suparmi|Ngraket, Balong, Ponorogo
+03515 - 19 - 09|M. ALFIN KHOIRUR ROZIQIN|Ponorogo, 19 Maret 2013|Laki-Laki|MTs. MIFTAHUL ULUM NGRAKET|M. Khoirul Anam / Siti Fatimah|Ngraket, Balong, Ponorogo
+03516 - 19 - 09|ACHMAD RIZAL RIFALDI|Ponorogo, 25 November 2012|Laki-Laki|MTs. MIFTAHUL ULUM NGRAKET|Sutrisno / Siti Aminah|Ngraket, Balong, Ponorogo
+03517 - 19 - 09|AHMAD FAUZI|Ponorogo, 12 Januari 2011|Laki-Laki|SMPN 1 BALONG|Slamet / Siti Aminah|Balong, Ponorogo
+03518 - 19 - 09|SITI AMINAH|Ponorogo, 14 Februari 2010|Perempuan|MTs MA'ARIF BALONG|Ahmad / Wiji|Balong, Ponorogo
+03519 - 19 - 09|EKO WAHYUDI|Ponorogo, 05 Mei 2009|Laki-Laki|SMKN 1 SLAHUNG|Suratman / Parnis|Slahung, Ponorogo
+03520 - 19 - 09|RINA WATI|Ponorogo, 20 Juli 2011|Perempuan|SMPN 2 BUNGKAL|Jumadi / Saminem|Bungkal, Ponorogo
+03521 - 19 - 09|BAYU SAPUTRA|Ponorogo, 11 Agustus 2010|Laki-Laki|SMPN 1 JETIS|Karyono / Sumiati|Jetis, Ponorogo
+03522 - 19 - 09|DEWI LESTARI|Ponorogo, 03 September 2012|Perempuan|MTS AL ISLAM|Suparno / Sri Lestari|Mlarak, Ponorogo
+03523 - 19 - 09|HENDRA SETIAWAN|Ponorogo, 15 Oktober 2008|Laki-Laki|SMK PGRI 2 PONOROGO|Budi / Ani|Ponorogo
+03524 - 19 - 09|INTAN SARI|Ponorogo, 22 Desember 2011|Perempuan|SMPN 2 SAMBIT|Joko / Tuminem|Sambit, Ponorogo
+03525 - 19 - 09|JOKO SANTOSO|Ponorogo, 10 Januari 2007|Laki-Laki|SMKN 1 JENANGAN|Sarno / Poniem|Jenangan, Ponorogo
+03526 - 19 - 09|KARTIKA SARI|Ponorogo, 19 Mei 2010|Perempuan|SMPN 1 SAWOO|Suwito / Marni|Sawoo, Ponorogo
+03527 - 19 - 09|LULU'UL MAKNUN|Ponorogo, 04 Juli 2011|Perempuan|MTSN 1 PONOROGO|Makruf / Siti Nurjanah|Kauman, Ponorogo
+03528 - 19 - 09|MUHAMMAD RIZAL|Ponorogo, 25 Agustus 2012|Laki-Laki|SMPN 1 JAMBON|Jumadi / Siti Aminah|Jambon, Ponorogo
+03529 - 19 - 09|NUR AINI|Ponorogo, 12 November 2010|Perempuan|SMPN 2 NGRAYUN|Amin / Rini|Ngrayun, Ponorogo
+03530 - 19 - 09|OKTA RIANTO|Ponorogo, 05 Oktober 2009|Laki-Laki|SMKN SLAHUNG|Sutikno / Sri Wahyuni|Slahung, Ponorogo
+03531 - 19 - 09|PUTRI WULANDARI|Ponorogo, 18 Juni 2012|Perempuan|SMPN 1 BALONG|Wanto / Suginem|Balong, Ponorogo
+03532 - 19 - 09|QOMARIYAH|Ponorogo, 30 Januari 2011|Perempuan|MTS MA'ARIF AL ISLAH|Sahroni / Karsini|Bungkal, Ponorogo
+03533 - 19 - 09|ROCHMAN HIDAYAT|Ponorogo, 14 Februari 2008|Laki-Laki|MA AL ISLAM|Hidayat / Sulastri|Mlarak, Ponorogo
+03534 - 19 - 09|SINTA BELA|Ponorogo, 09 Mei 2012|Perempuan|SMPN 2 SAMBIT|Bambang / Sri Utami|Sambit, Ponorogo
+03535 - 19 - 09|TRI WAHYUNI|Ponorogo, 17 Agustus 2010|Perempuan|SMPN 1 SAWOO|Wahyudi / Tumini|Sawoo, Ponorogo
+03536 - 19 - 09|UTAMI DEWI|Ponorogo, 21 Maret 2011|Perempuan|SMPN 1 JETIS|Dewi / Nuraini|Jetis, Ponorogo
+03537 - 19 - 09|VIVI ARISKA|Ponorogo, 05 Desember 2012|Perempuan|SMPN 2 BALONG|Aris / Susanti|Balong, Ponorogo
+03538 - 19 - 09|WAHYU SAPUTRA|Ponorogo, 19 Juli 2009|Laki-Laki|SMKN 2 PONOROGO|Wahid / Siti|Ponorogo
+03539 - 19 - 09|YAYUK SRI LESTARI|Ponorogo, 25 Maret 2010|Perempuan|SMPN 1 BALONG|Lestari / Puji|Balong, Ponorogo
+03540 - 19 - 09|ZAINAL ABIDIN|Ponorogo, 11 Januari 2008|Laki-Laki|MA DARUL ISTIQOMAH|Abidin / Siti|Ponorogo, Ponorogo
+03541 - 19 - 09|AHMAD DANI|Ponorogo, 03 Februari 2011|Laki-Laki|SMPN 1 BALONG|Dani / Sukanah|Balong, Ponorogo
+03542 - 19 - 09|BELLA SAFIRA|Ponorogo, 14 Juni 2012|Perempuan|SMPN 2 BALONG|Safi'i / Umi|Balong, Ponorogo
+03543 - 19 - 09|CANDRA WIJAYA|Ponorogo, 20 Agustus 2009|Laki-Laki|SMK PGRI 2 PONOROGO|Wijaya / Sulasmi|Ponorogo, Ponorogo
+03544 - 19 - 09|DIAN EKA|Ponorogo, 05 Desember 2011|Perempuan|SMPN 1 JETIS|Eka / Sri|Jetis, Ponorogo
+03545 - 19 - 09|EKO SAPUTRA|Ponorogo, 12 April 2010|Laki-Laki|SMPN 2 BUNGKAL|Saputra / Wiji|Bungkal, Ponorogo
+03546 - 19 - 09|FIRMAN SYAH|Ponorogo, 28 Juli 2011|Laki-Laki|SMPN 1 SAWOO|Syah / Kasmi|Sawoo, Ponorogo
+03547 - 19 - 09|GITA LESTARI|Ponorogo, 15 September 2012|Perempuan|SMPN 2 SAMBIT|Lestari / Tuminah|Sambit, Ponorogo
+03548 - 19 - 09|HADI PRANOTO|Ponorogo, 10 Oktober 2008|Laki-Laki|SMKN 1 SLAHUNG|Pranoto / Saminem|Slahung, Ponorogo
+03549 - 19 - 09|IKA NURJANAH|Ponorogo, 22 Januari 2011|Perempuan|MTSN 1 PONOROGO|Nurjanah / Siti|Kauman, Ponorogo
+03550 - 19 - 09|JAKA PRATAMA|Ponorogo, 04 Mei 2010|Laki-Laki|SMPN 1 JAMBON|Pratama / Sri|Jambon, Ponorogo
+03551 - 19 - 09|KIKI AMELIA|Ponorogo, 19 November 2012|Perempuan|SMPN 2 NGRAYUN|Amelia / Rina|Ngrayun, Ponorogo
+03552 - 19 - 09|LINA MARIANA|Ponorogo, 08 Agustus 2011|Perempuan|SMPN 1 BALONG|Mariana / Puji|Balong, Ponorogo
+03553 - 19 - 09|MUHAMMAD ILHAM|Ponorogo, 14 Februari 2010|Laki-Laki|MA AL ISLAM|Ilham / Siti|Mlarak, Ponorogo
+03554 - 19 - 09|NOVA RIANTIKA|Ponorogo, 29 November 2012|Perempuan|SMPN 2 BALONG|Riantika / Susanti|Balong, Ponorogo
+03555 - 19 - 09|PUTRA PRATAMA|Ponorogo, 03 Juni 2011|Laki-Laki|SMPN 1 JETIS|Pratama / Wiji|Jetis, Ponorogo
+03556 - 19 - 09|QORI'AH|Ponorogo, 12 Juli 2010|Perempuan|MTS MA'ARIF AL ISLAH|Qori / Karsini|Bungkal, Ponorogo
+03557 - 19 - 09|RIKY RAMADHAN|Ponorogo, 25 September 2011|Laki-Laki|SMPN 2 SAMBIT|Ramadhan / Tuminem|Sambit, Ponorogo
+03558 - 19 - 09|SITI ZULAEHA|Ponorogo, 05 April 2012|Perempuan|SMPN 1 SAWOO|Zulaeha / Marni|Sawoo, Ponorogo
+03559 - 19 - 09|TEDI SETIAWAN|Ponorogo, 18 Oktober 2009|Laki-Laki|SMKN 2 PONOROGO|Setiawan / Ani|Ponorogo, Ponorogo
+03560 - 19 - 09|VITA LESTARI|Ponorogo, 20 Desember 2011|Perempuan|SMPN 1 BALONG|Lestari / Suginem|Balong, Ponorogo
+03561 - 19 - 09|WAHYU HIDAYAT|Ponorogo, 14 Januari 2010|Laki-Laki|SMK PGRI 2 PONOROGO|Hidayat / Sulasmi|Ponorogo, Ponorogo
+03562 - 19 - 09|YOGA PRATAMA|Ponorogo, 02 Juli 2011|Laki-Laki|SMPN 1 JETIS|Pratama / Sri|Jetis, Ponorogo
+03563 - 19 - 09|ZAHRA AMELIA|Ponorogo, 19 Agustus 2012|Perempuan|SMPN 2 BALONG|Amelia / Umi|Balong, Ponorogo
+03564 - 19 - 09|ABDUL ROCHMAN|Ponorogo, 10 Maret 2009|Laki-Laki|MA DARUL ISTIQOMAH|Rochman / Siti|Ponorogo, Ponorogo
+03565 - 19 - 09|ANI KURNIAWATI|Ponorogo, 15 Juni 2011|Perempuan|SMPN 1 BALONG|Kurniawati / Puji|Balong, Ponorogo
+03566 - 19 - 09|BAYU SETIAWAN|Ponorogo, 22 September 2010|Laki-Laki|SMPN 2 BUNGKAL|Setiawan / Wiji|Bungkal, Ponorogo
+03567 - 19 - 09|CINDY CLAUDIA|Ponorogo, 03 Desember 2012|Perempuan|SMPN 1 SAWOO|Claudia / Kasmi|Sawoo, Ponorogo
+03568 - 19 - 09|DIMAS SAPUTRA|Ponorogo, 18 Januari 2011|Laki-Laki|SMPN 2 SAMBIT|Saputra / Tuminah|Sambit, Ponorogo
+03569 - 19 - 09|EKA WAHYUNI|Ponorogo, 25 Agustus 2012|Perempuan|SMKN 1 SLAHUNG|Wahyuni / Saminem|Slahung, Ponorogo
+03570 - 19 - 09|FAJAR SIDIK|Ponorogo, 11 Mei 2010|Laki-Laki|MTSN 1 PONOROGO|Sidik / Siti|Kauman, Ponorogo
+03571 - 19 - 09|GILANG RAMADHAN|Ponorogo, 14 Juli 2011|Laki-Laki|SMPN 1 JAMBON|Ramadhan / Sri|Jambon, Ponorogo
+03572 - 19 - 09|HENDRI SAPUTRA|Ponorogo, 19 Oktober 2010|Laki-Laki|SMPN 2 NGRAYUN|Saputra / Rini|Ngrayun, Ponorogo
+03573 - 19 - 09|INTAN PERMATA|Ponorogo, 04 Februari 2012|Perempuan|SMPN 1 BALONG|Permata / Puji|Balong, Ponorogo
+03574 - 19 - 09|JOKO PRAMONO|Ponorogo, 12 Juli 2009|Laki-Laki|MA AL ISLAM|Pramono / Siti|Mlarak, Ponorogo
+03575 - 19 - 09|KARTIKA DEWI|Ponorogo, 21 November 2011|Perempuan|SMPN 2 BALONG|Dewi / Susanti|Balong, Ponorogo
+03576 - 19 - 09|LULU NADHIFA|Ponorogo, 05 Agustus 2012|Perempuan|SMPN 1 JETIS|Nadhifa / Wiji|Jetis, Ponorogo
+03577 - 19 - 09|MUHAMMAD FAISAL|Ponorogo, 14 Februari 2010|Laki-Laki|MTS MA'ARIF AL ISLAH|Faisal / Karsini|Bungkal, Ponorogo
+03578 - 19 - 09|NOVA AULIA|Ponorogo, 29 September 2011|Perempuan|SMPN 2 SAMBIT|Aulia / Tuminem|Sambit, Ponorogo
+03579 - 19 - 09|PUTRI LESTARI|Ponorogo, 03 April 2012|Perempuan|SMPN 1 SAWOO|Lestari / Marni|Sawoo, Ponorogo
+03580 - 19 - 09|RIKY ARDIANSYAH|Ponorogo, 18 Juni 2010|Laki-Laki|SMKN 2 PONOROGO|Ardiansyah / Ani|Ponorogo, Ponorogo
+03581 - 19 - 09|SITI FATIMAH|Ponorogo, 25 November 2011|Perempuan|SMPN 1 BALONG|Fatimah / Suginem|Balong, Ponorogo
+03582 - 19 - 09|TEDI SAPUTRA|Ponorogo, 14 Januari 2010|Laki-Laki|SMK PGRI 2 PONOROGO|Saputra / Sulasmi|Ponorogo, Ponorogo
+        `.trim();
 
-    function tampilkanSlide(indeks) {
-        if (indeks < 0) indeks = semuaSlide.length - 1;
-        if (indeks >= semuaSlide.length) indeks = 0;
-        semuaSlide.forEach((s, i) => s.classList.toggle('aktif', i === indeks));
-        semuaTombol.forEach((t, i) => t.classList.toggle('aktif', i === indeks));
-        slideSekarang = indeks;
-    }
+        function parseData() {
+            const lines = dataMentah.split('\n');
+            const db = [];
+            lines.forEach(line => {
+                const parts = line.split('|');
+                if (parts.length >= 6) {
+                    db.push({
+                        noInduk: parts[0].trim(),
+                        nama: parts[1].trim(),
+                        ttl: parts[2].trim(),
+                        jk: parts[3].trim(),
+                        pendidikan: parts[4].trim(),
+                        ortu: parts[5].trim(),
+                        alamat: parts[6] ? parts[6].trim() : ''
+                    });
+                }
+            });
+            return db;
+        }
 
-    semuaTombol.forEach((tombol, indeks) => tombol.addEventListener('click', () => tampilkanSlide(indeks)));
-    panahKiri.addEventListener('click', () => tampilkanSlide(slideSekarang - 1));
-    panahKanan.addEventListener('click', () => tampilkanSlide(slideSekarang + 1));
-</script>
+        // Fitur otomatis membaca parameter ?no=... jika link QR discan
+        window.addEventListener('DOMContentLoaded', () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            const noParam = urlParams.get('no');
+            if (noParam) {
+                document.getElementById('noInduk').value = noParam;
+                cariDataOtomatis(noParam);
+            }
+        });
 
+        function cariDataOtomatis(noIndukTarget) {
+            const db = parseData();
+            const cleanTarget = noIndukTarget.replace(/\s+/g, '').toLowerCase();
+            const hasilDitemukan = db.find(item => item.noInduk.replace(/\s+/g, '').toLowerCase() === cleanTarget);
+
+            const boxHasil = document.getElementById('hasil');
+            boxHasil.style.display = 'block';
+            const innerContent = document.getElementById('resultInnerContent');
+
+            if (hasilDitemukan) {
+                boxHasil.classList.remove('not-found');
+                const githubUrl = `https://gasmi.github.io/?no=${encodeURIComponent(hasilDitemukan.noInduk)}`;
+                
+                innerContent.innerHTML = `
+                    <div class="result-title" id="resHeader">Hasil Verifikasi Sertifikat: ${hasilDitemukan.noInduk}</div>
+                    <div class="info-row"><span class="info-label">Nomor Induk</span><span class="info-val">${hasilDitemukan.noInduk}</span></div>
+                    <div class="info-row"><span class="info-label">Nama</span><span class="info-val">${hasilDitemukan.nama}</span></div>
+                    <div class="info-row"><span class="info-label">Jenis Kelamin</span><span class="info-val">${hasilDitemukan.jk}</span></div>
+                    <div class="info-row"><span class="info-label">Pendidikan</span><span class="info-val">${hasilDitemukan.pendidikan}</span></div>
+                    <div class="info-row"><span class="info-label">Status Sertifikat</span><span class="info-val status-asli">ASLI</span></div>
+                    
+                    <div style="text-align: center; margin-top: 1rem; border-top: 1px dashed #e5e7eb; padding-top: 10px;">
+                        <div style="font-size: 0.8rem; color: #555; margin-bottom: 8px;">Pindai QR untuk Verifikasi Online:</div>
+                        <div class="qr-wrapper">
+                            <div id="qrcode"></div>
+                        </div>
+                    </div>
+
+                    <div class="timestamp">Tanggal Verifikasi : ${new Date().toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' })}</div>
+                `;
+
+                document.getElementById("qrcode").innerHTML = "";
+                new QRCode(document.getElementById("qrcode"), {
+                    text: githubUrl,
+                    width: 140,
+                    height: 140,
+                    colorDark : "#222533",
+                    colorLight : "#ffffff",
+                    correctLevel : QRCode.CorrectLevel.L
+                });
+            } else {
+                boxHasil.classList.add('not-found');
+                innerContent.innerHTML = `
+                    <div style="padding: 0.5rem;">Maaf, sertifikat dengan Nomor Induk "${noIndukTarget}" tidak ditemukan di database.</div>
+                `;
+            }
+        }
+
+        function cariData() {
+            const inputInduk = document.getElementById('noInduk').value.trim();
+            const inputOrtu = document.getElementById('namaOrtu').value.trim().toLowerCase();
+            const checkbox = document.getElementById('recaptchaCheck').checked;
+            const boxHasil = document.getElementById('hasil');
+
+            if (!checkbox) {
+                alert('Silakan centang verifikasi "Saya bukan robot" terlebih dahulu.');
+                return;
+            }
+
+            if (!inputInduk) {
+                alert('Silakan masukkan Nomor Induk terlebih dahulu.');
+                return;
+            }
+
+            const db = parseData();
+            const cleanInputInduk = inputInduk.replace(/\s+/g, '').toLowerCase();
+            const cleanInputOrtu = inputOrtu.replace(/\s+/g, '');
+
+            const hasilDitemukan = db.find(item => {
+                const cleanItemInduk = item.noInduk.replace(/\s+/g, '').toLowerCase();
+                const cleanItemOrtu = item.ortu.replace(/\s+/g, '').toLowerCase();
+
+                return cleanItemInduk === cleanInputInduk && 
+                       (!cleanInputOrtu || cleanItemOrtu.includes(cleanInputOrtu));
+            });
+
+            boxHasil.style.display = 'block';
+            const innerContent = document.getElementById('resultInnerContent');
+
+            if (hasilDitemukan) {
+                boxHasil.classList.remove('not-found');
+                // Menggunakan URL langsung ke halaman utama agar terhindar dari error 404
+                const githubUrl = `https://gasmi.github.io/?no=${encodeURIComponent(hasilDitemukan.noInduk)}`;
+                
+                innerContent.innerHTML = `
+                    <div class="result-title" id="resHeader">Hasil Pencarian: ${hasilDitemukan.noInduk}</div>
+                    <div class="info-row"><span class="info-label">Nomor Induk</span><span class="info-val">${hasilDitemukan.noInduk}</span></div>
+                    <div class="info-row"><span class="info-label">Nama</span><span class="info-val">${hasilDitemukan.nama}</span></div>
+                    <div class="info-row"><span class="info-label">Jenis Kelamin</span><span class="info-val">${hasilDitemukan.jk}</span></div>
+                    <div class="info-row"><span class="info-label">Pendidikan</span><span class="info-val">${hasilDitemukan.pendidikan}</span></div>
+                    <div class="info-row"><span class="info-label">Status Sertifikat</span><span class="info-val status-asli">ASLI</span></div>
+                    
+                    <div style="text-align: center; margin-top: 1rem; border-top: 1px dashed #e5e7eb; padding-top: 10px;">
+                        <div style="font-size: 0.8rem; color: #555; margin-bottom: 8px;">Pindai QR untuk Verifikasi Online:</div>
+                        <div class="qr-wrapper">
+                            <div id="qrcode"></div>
+                        </div>
+                    </div>
+
+                    <div class="timestamp">Tanggal Pencarian : ${new Date().toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' })} ${new Date().toLocaleTimeString('id-ID')}</div>
+                `;
+
+                document.getElementById("qrcode").innerHTML = "";
+
+                new QRCode(document.getElementById("qrcode"), {
+                    text: githubUrl,
+                    width: 140,
+                    height: 140,
+                    colorDark : "#222533",
+                    colorLight : "#ffffff",
+                    correctLevel : QRCode.CorrectLevel.L
+                });
+
+            } else {
+                boxHasil.classList.add('not-found');
+                innerContent.innerHTML = `
+                    <div style="padding: 0.5rem;">Maaf, sertifikat dengan Nomor Induk "${inputInduk}" tidak ditemukan atau data Orangtua tidak sesuai.</div>
+                `;
+            }
+        }
+
+        // Inisialisasi Modal Dashboard QR Massal
+        const modal = document.getElementById('qrDashboardModal');
+        const btnBuka = document.getElementById('btnBukaQrDashboard');
+        const btnTutup = document.getElementById('TutupModal');
+
+        btnBuka.addEventListener('click', () => {
+            modal.style.display = 'block';
+            loadAllQRCodes();
+        });
+
+        btnTutup.addEventListener('click', () => {
+            modal.style.display = 'none';
+        });
+
+        window.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                modal.style.display = 'none';
+            }
+        });
+
+        function loadAllQRCodes() {
+            const container = document.getElementById('qrGridContainer');
+            if (container.children.length > 0) return; 
+
+            const db = parseData();
+            db.forEach(item => {
+                const card = document.createElement('div');
+                card.className = 'qr-card';
+                
+                const title = document.createElement('h5');
+                title.innerText = `${item.noInduk}\n${item.nama}`;
+                card.appendChild(title);
+
+                const qrWrapper = document.createElement('div');
+                qrWrapper.className = 'qr-wrapper';
+                card.appendChild(qrWrapper);
+
+                const qrBox = document.createElement('div');
+                qrWrapper.appendChild(qrBox);
+
+                container.appendChild(card);
+
+                const githubUrl = `https://gasmi.github.io/?no=${encodeURIComponent(item.noInduk)}`;
+                new QRCode(qrBox, {
+                    text: githubUrl,
+                    width: 120,
+                    height: 120,
+                    colorDark : "#222533",
+                    colorLight : "#ffffff",
+                    correctLevel : QRCode.CorrectLevel.L
+                });
+            });
+        }
+
+        document.getElementById('btnCari').addEventListener('click', cariData);
+    </script>
 </body>
 </html>
