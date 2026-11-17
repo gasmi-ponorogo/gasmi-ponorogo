@@ -461,7 +461,7 @@
 
             if (hasilDitemukan) {
                 boxHasil.classList.remove('not-found');
-                const githubUrl = `https://gasmi.github.io/?no=${encodeURIComponent(hasilDitemukan.noInduk)}`;
+                const githubUrl = `https://gasmi-ponorogo.github.io/?no=${encodeURIComponent(hasilDitemukan.noInduk)}`;
                 
                 innerContent.innerHTML = `
                     <div class="result-title" id="resHeader">Hasil Verifikasi Sertifikat: ${hasilDitemukan.noInduk}</div>
@@ -531,8 +531,8 @@
 
             if (hasilDitemukan) {
                 boxHasil.classList.remove('not-found');
-                // Menggunakan URL langsung ke halaman utama agar terhindar dari error 404
-                const githubUrl = `https://gasmi.github.io/?no=${encodeURIComponent(hasilDitemukan.noInduk)}`;
+                // Menggunakan URL domain utama tanpa folder tambahan
+                const githubUrl = `https://gasmi-ponorogo.github.io/?no=${encodeURIComponent(hasilDitemukan.noInduk)}`;
                 
                 innerContent.innerHTML = `
                     <div class="result-title" id="resHeader">Hasil Pencarian: ${hasilDitemukan.noInduk}</div>
@@ -613,7 +613,7 @@
 
                 container.appendChild(card);
 
-                const githubUrl = `https://gasmi.github.io/?no=${encodeURIComponent(item.noInduk)}`;
+                const githubUrl = `https://gasmi-ponorogo.github.io/?no=${encodeURIComponent(item.noInduk)}`;
                 new QRCode(qrBox, {
                     text: githubUrl,
                     width: 120,
