@@ -43,7 +43,7 @@
             display: none;
         }
         
-        /* Watermark disesuaikan agar terlihat jelas namun tetap rapi di balik teks */
+        /* Watermark diatur dengan opacity 0.25 dan filter agar warna lebih tegas */
         .result-box::before {
             content: "";
             position: absolute;
@@ -56,8 +56,8 @@
             background-repeat: no-repeat;
             background-position: center;
             background-size: contain;
-            opacity: 0.16; /* Opacity dinaikkan agar pas dan jelas terlihat */
-            filter: grayscale(20%) brightness(1.05);
+            opacity: 0.25; 
+            filter: grayscale(10%) brightness(1);
             z-index: 0;
             pointer-events: none;
         }
