@@ -137,6 +137,7 @@
         </div>
 
         <button class="btn-cari" id="btnCari">Cari</button>
+        <!-- Tombol Cetak QR Code yang otomatis disembunyikan saat discan -->
         <button class="btn-qr-dashboard" id="btnBukaQrDashboard">🖨️ Lihat & Cetak Semua QR Code Anggota</button>
 
         <div id="hasil" class="result-box">
@@ -252,6 +253,12 @@
             const urlParams = new URLSearchParams(window.location.search);
             const noParam = urlParams.get('no');
             if (noParam) {
+                // Sembunyikan tombol QR Dashboard jika halaman diakses via scan URL (?no=...)
+                const btnQrDashboard = document.getElementById('btnBukaQrDashboard');
+                if (btnQrDashboard) {
+                    btnQrDashboard.style.display = 'none';
+                }
+
                 document.getElementById('noInduk').value = noParam;
                 cariDataOtomatis(noParam);
             }
