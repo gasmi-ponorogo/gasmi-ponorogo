@@ -43,14 +43,14 @@
             display: none;
         }
         
-        /* Pengaturan watermark logo yang disesuaikan */
+        /* Pengaturan watermark logo: agak ke atas, seimbang kanan-kiri, dan sangat samar */
         .result-box::before {
             content: "";
             position: absolute;
             top: 53%; 
             left: 50%;
             transform: translate(-50%, -50%);
-            width: 210px; 
+            width: 2190px; 
             height: 210px;
             background-image: url("logo-gasmi.png");
             background-repeat: no-repeat;
@@ -91,12 +91,13 @@
         .qr-card { background: #f9f9f9; border: 1px solid #e5e7eb; border-radius: 8px; padding: 10px; text-align: center; }
         .qr-card h5 { font-size: 0.85rem; margin-bottom: 8px; color: #2c3e50; }
 
-        /* Footer Baru Sesuai Referensi */
+        /* Footer dengan Ikon Gambar Logo */
         .footer { background-color: #ffffff; border-top: 1px solid #eaeaea; padding: 2rem 1.5rem 1rem 1.5rem; margin-top: 3rem; text-align: center; font-size: 0.9rem; color: #333; }
         .footer p { margin-bottom: 1rem; color: #333; font-weight: 500; }
         .social-icons { display: flex; justify-content: center; gap: 12px; margin-bottom: 2rem; }
-        .social-btn { width: 45px; height: 45px; background: #ffffff; border: 1px solid #e5e7eb; border-radius: 10px; display: flex; align-items: center; justify-content: center; text-decoration: none; color: #333; font-size: 1.1rem; font-weight: bold; box-shadow: 0 2px 5px rgba(0,0,0,0.02); transition: background 0.2s; }
+        .social-btn { width: 45px; height: 45px; background: #ffffff; border: 1px solid #e5e7eb; border-radius: 10px; display: flex; align-items: center; justify-content: center; text-decoration: none; box-shadow: 0 2px 5px rgba(0,0,0,0.02); transition: background 0.2s; }
         .social-btn:hover { background: #f9f9f9; }
+        .social-btn img { width: 22px; height: 22px; object-fit: contain; }
 
         .footer-bottom { background-color: #2c303e; color: #a0a6b8; padding: 1.5rem 2rem; font-size: 0.85rem; text-align: center; }
         .footer-links { margin-bottom: 1rem; }
@@ -165,14 +166,14 @@
         </div>
     </div>
 
-    <!-- Footer Baru Sesuai Referensi Gambar -->
+    <!-- Footer dengan Ikon Gambar Logo Baru -->
     <footer class="footer">
         <p>Atau terhubung dengan kami di:</p>
         <div class="social-icons">
-            <a href="#" class="social-btn" title="Facebook">f</a>
-            <a href="#" class="social-btn" title="Instagram">📷</a>
-            <a href="#" class="social-btn" title="YouTube">▶</a>
-            <a href="#" class="social-btn" title="Twitter">𝕏</a>
+            <a href="#" class="social-btn" title="Facebook"><img src="fb.png" alt="Facebook">[cite: 7]</a>
+            <a href="#" class="social-btn" title="Instagram"><img src="ig.png" alt="Instagram">[cite: 8]</a>
+            <a href="#" class="social-btn" title="YouTube"><img src="yt.png" alt="YouTube">[cite: 9]</a>
+            <a href="#" class="social-btn" title="Twitter"><img src="twitter.png" alt="Twitter">[cite: 10]</a>
         </div>
     </footer>
     <div class="footer-bottom">
