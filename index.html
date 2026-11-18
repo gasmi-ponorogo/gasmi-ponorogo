@@ -43,20 +43,20 @@
             display: none;
         }
         
-        /* Posisi watermark dinaikkan tepat di bawah garis nomor induk */
+        /* Posisi dan ukuran watermark disesuaikan persis seperti gambar referensi */
         .result-box::before {
             content: "";
             position: absolute;
-            top: 35%; 
+            top: 48%; 
             left: 50%;
             transform: translate(-50%, -50%);
-            width: 230px; 
-            height: 230px;
+            width: 290px; 
+            height: 290px;
             background-image: url("logo-gasmi.png");
             background-repeat: no-repeat;
             background-position: center;
             background-size: contain;
-            opacity: 0.10; 
+            opacity: 0.14; 
             z-index: 0;
             pointer-events: none;
         }
@@ -265,7 +265,6 @@
 
         function renderHasilCard(hasilDitemukan, isScanned = false) {
             let qrSectionHtml = '';
-            // Jika diakses melalui scan URL, bagian QR Code di dalam kartu hasil tidak dirender/dihilangkan
             if (!isScanned) {
                 qrSectionHtml = `
                     <div style="text-align: center; margin-top: 1rem; border-top: 1px dashed #e5e7eb; padding-top: 10px;">
@@ -302,7 +301,6 @@
 
             if (hasilDitemukan) {
                 boxHasil.classList.remove('not-found');
-                // Parameter true menandakan halaman diakses secara otomatis melalui scan QR
                 innerContent.innerHTML = renderHasilCard(hasilDitemukan, true);
             } else {
                 boxHasil.classList.add('not-found');
@@ -343,7 +341,6 @@
 
             if (hasilDitemukan) {
                 boxHasil.classList.remove('not-found');
-                // Pencarian manual menampilkan QR Code seperti biasa
                 innerContent.innerHTML = renderHasilCard(hasilDitemukan, false);
 
                 document.getElementById("qrcode").innerHTML = "";
