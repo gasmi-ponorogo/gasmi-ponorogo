@@ -41,16 +41,17 @@
             overflow: hidden;
             display: none;
         }
+        /* Watermark Logo Gasmi Transparan di Tengah Kotak */
         .result-box::before {
             content: "";
             position: absolute;
             top: 50%; left: 50%;
             transform: translate(-50%, -50%);
-            width: 220px; height: 220px;
-            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%2316a34a'%3E%3Cpath d='M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5'/%3E%3C/svg%3E");
+            width: 240px; height: 240px;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%2316a34a'%3E%3Cpath d='M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z'/%3E%3C/svg%3E");
             background-repeat: no-repeat;
             background-position: center;
-            opacity: 0.08;
+            opacity: 0.06;
             z-index: 0;
             pointer-events: none;
         }
@@ -132,7 +133,7 @@
         <div id="hasil" class="result-box">
             <div class="result-content" id="resultInnerContent">
                 <div class="result-title" id="resHeader">Hasil Pencarian</div>
-                <div class="info-row"><span class="info-label">Nomor Induk</span><span class="info-val" id="rNoInduk">-</span></div>
+                <div class="info-row"><span class="info-label">Tidak ada Induk</span><span class="info-val" id="rNoInduk">-</span></div>
                 <div class="info-row"><span class="info-label">Nama</span><span class="info-val" id="rNama">-</span></div>
                 <div class="info-row"><span class="info-label">Jenis Kelamin</span><span class="info-val" id="rJk">-</span></div>
                 <div class="info-row"><span class="info-label">Pendidikan</span><span class="info-val" id="rPendidikan">-</span></div>
