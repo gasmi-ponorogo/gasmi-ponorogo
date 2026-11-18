@@ -43,11 +43,11 @@
             display: none;
         }
         
-        /* Pengaturan watermark logo yang diperkecil, digeser ke atas, dan lebih transparan */
+        /* Posisi watermark dinaikkan tepat di bawah garis nomor induk */
         .result-box::before {
             content: "";
             position: absolute;
-            top: 40%; 
+            top: 35%; 
             left: 50%;
             transform: translate(-50%, -50%);
             width: 230px; 
@@ -137,7 +137,6 @@
         </div>
 
         <button class="btn-cari" id="btnCari">Cari</button>
-        <!-- Tombol Cetak QR Code yang otomatis disembunyikan saat discan -->
         <button class="btn-qr-dashboard" id="btnBukaQrDashboard">🖨️ Lihat & Cetak Semua QR Code Anggota</button>
 
         <div id="hasil" class="result-box">
@@ -264,7 +263,20 @@
             }
         });
 
-        function renderHasilCard(hasilDitemukan) {
+        function renderHasilCard(hasilDitemukan, isScanned = false) {
+            let qrSectionHtml = '';
+            // Jika diakses melalui scan URL, bagian QR Code di dalam kartu hasil tidak dirender/dihilangkan
+            if (!isScanned) {
+                qrSectionHtml = `
+                    <div style="text-align: center; margin-top: 1rem; border-top: 1px dashed #e5e7eb; padding-top: 10px;">
+                        <div style="font-size: 0.80rem; color: #555; margin-bottom: 8px;">Pindai QR untuk Verifikasi Online:</div>
+                        <div class="qr-wrapper">
+                            <div id="qrcode"></div>
+                        </div>
+                    </div>
+                `;
+            }
+
             return `
                 <div class="result-title" id="resHeader">Hasil Pencarian: ${hasilDitemukan.noInduk}</div>
                 <div class="info-row"><span class="info-label">Nomor Induk</span><span class="info-val">${hasilDitemukan.noInduk}</span></div>
@@ -273,12 +285,7 @@
                 <div class="info-row"><span class="info-label">Pendidikan</span><span class="info-val">${hasilDitemukan.pendidikan}</span></div>
                 <div class="info-row"><span class="info-label">Status<br>Sertifikat</span><span class="info-val status-asli">ASLI</span></div>
                 
-                <div style="text-align: center; margin-top: 1rem; border-top: 1px dashed #e5e7eb; padding-top: 10px;">
-                    <div style="font-size: 0.8rem; color: #555; margin-bottom: 8px;">Pindai QR untuk Verifikasi Online:</div>
-                    <div class="qr-wrapper">
-                        <div id="qrcode"></div>
-                    </div>
-                </div>
+                ${qrSectionHtml}
 
                 <div class="timestamp">Tanggal Pencarian : ${new Date().toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' })} ${new Date().toLocaleTimeString('id-ID')}</div>
             `;
@@ -295,17 +302,8 @@
 
             if (hasilDitemukan) {
                 boxHasil.classList.remove('not-found');
-                innerContent.innerHTML = renderHasilCard(hasilDitemukan);
-
-                document.getElementById("qrcode").innerHTML = "";
-                new QRCode(document.getElementById("qrcode"), {
-                    text: `https://gasmi-ponorogo.github.io/?no=${encodeURIComponent(hasilDitemukan.noInduk)}`,
-                    width: 140,
-                    height: 140,
-                    colorDark : "#222533",
-                    colorLight : "#ffffff",
-                    correctLevel : QRCode.CorrectLevel.L
-                });
+                // Parameter true menandakan halaman diakses secara otomatis melalui scan QR
+                innerContent.innerHTML = renderHasilCard(hasilDitemukan, true);
             } else {
                 boxHasil.classList.add('not-found');
                 innerContent.innerHTML = `<div style="padding: 0.5rem;">Maaf, sertifikat dengan Nomor Induk "${noIndukTarget}" tidak ditemukan di database.</div>`;
@@ -345,7 +343,8 @@
 
             if (hasilDitemukan) {
                 boxHasil.classList.remove('not-found');
-                innerContent.innerHTML = renderHasilCard(hasilDitemukan);
+                // Pencarian manual menampilkan QR Code seperti biasa
+                innerContent.innerHTML = renderHasilCard(hasilDitemukan, false);
 
                 document.getElementById("qrcode").innerHTML = "";
                 new QRCode(document.getElementById("qrcode"), {
