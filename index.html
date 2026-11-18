@@ -33,39 +33,51 @@
 
         .result-box {
             margin-top: 1.5rem;
-            padding: 1.2rem;
-            border-radius: 8px;
+            padding: 1.4rem 1.2rem;
+            border-radius: 12px;
             background-color: #ffffff;
-            border: 1px solid #e5e7eb;
+            border: 1px solid #eaeaea;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.03);
             position: relative;
             overflow: hidden;
             display: none;
         }
         
-        /* Watermark diperjelas (opacity dinaikkan menjadi 0.22 agar lebih kelihatan) */
+        /* Watermark dibuat halus, lembut, dan proporsional persis seperti referensi */
         .result-box::before {
             content: "";
             position: absolute;
-            top: 50%; left: 50%;
+            top: 46%; 
+            left: 50%;
             transform: translate(-50%, -50%);
-            width: 280px; height: 280px;
+            width: 275px; 
+            height: 275px;
             background-image: url("logo-gasmi.png");
             background-repeat: no-repeat;
             background-position: center;
             background-size: contain;
-            opacity: 0.22; 
+            opacity: 0.085;
+            filter: grayscale(35%) brightness(1.1);
             z-index: 0;
             pointer-events: none;
         }
 
         .result-content { position: relative; z-index: 1; }
         .result-box.not-found { background-color: #fef2f2; border-color: #fca5a5; color: #b91c1c; text-align: center; font-weight: 600; }
-        .result-title { font-size: 0.95rem; font-weight: bold; color: #111; margin-bottom: 1rem; border-bottom: 1px dashed #e5e7eb; padding-bottom: 0.5rem; }
-        .info-row { display: flex; justify-content: space-between; margin-bottom: 0.6rem; font-size: 0.88rem; }
-        .info-label { color: #555; }
-        .info-val { font-weight: 600; color: #111; text-align: right; }
-        .status-asli { color: #16a34a; font-weight: bold; }
-        .timestamp { font-size: 0.75rem; color: #777; text-align: center; margin-top: 1rem; border-top: 1px dashed #f3f4f6; padding-top: 0.5rem; }
+        .result-title { font-size: 1rem; font-weight: bold; color: #2c3e50; margin-bottom: 1.1rem; }
+        
+        /* Garis pemisah tipis antar baris seperti di gambar referensi */
+        .info-row { 
+            display: flex; 
+            justify-content: space-between; 
+            padding: 0.65rem 0;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+            font-size: 0.9rem; 
+        }
+        .info-label { color: #333; width: 42%; text-align: left; }
+        .info-val { font-weight: 500; color: #222; width: 58%; text-align: left; }
+        .status-asli { color: #10b981; font-weight: bold; }
+        .timestamp { font-size: 0.8rem; color: #666; text-align: center; margin-top: 1.2rem; line-height: 1.4; }
         
         .qr-wrapper {
             display: inline-block;
@@ -129,23 +141,7 @@
         <button class="btn-qr-dashboard" id="btnBukaQrDashboard">🖨️ Lihat & Cetak Semua QR Code Anggota</button>
 
         <div id="hasil" class="result-box">
-            <div class="result-content" id="resultInnerContent">
-                <div class="result-title" id="resHeader">Hasil Pencarian</div>
-                <div class="info-row"><span class="info-label">Tidak ada Induk</span><span class="info-val" id="rNoInduk">-</span></div>
-                <div class="info-row"><span class="info-label">Nama</span><span class="info-val" id="rNama">-</span></div>
-                <div class="info-row"><span class="info-label">Jenis Kelamin</span><span class="info-val" id="rJk">-</span></div>
-                <div class="info-row"><span class="info-label">Pendidikan</span><span class="info-val" id="rPendidikan">-</span></div>
-                <div class="info-row"><span class="info-label">Status Sertifikat</span><span class="info-val status-asli">ASLI</span></div>
-                
-                <div style="text-align: center; margin-top: 1rem; border-top: 1px dashed #e5e7eb; padding-top: 10px;">
-                    <div style="font-size: 0.8rem; color: #555; margin-bottom: 8px;">Pindai QR untuk Verifikasi Online:</div>
-                    <div class="qr-wrapper">
-                        <div id="qrcode"></div>
-                    </div>
-                </div>
-
-                <div class="timestamp" id="rTimestamp">Tanggal Pencarian : -</div>
-            </div>
+            <div class="result-content" id="resultInnerContent"></div>
         </div>
     </div>
 
@@ -158,9 +154,7 @@
             <div style="margin-top: 15px; margin-bottom: 15px;">
                 <button class="btn-cari btn-print-action" onclick="window.print()" style="width: auto; padding: 0.5rem 1.5rem;">🖨️ Cetak Semua QR Code</button>
             </div>
-            <div class="qr-grid" id="qrGridContainer">
-                <!-- QR Code cards will be injected dynamically via JavaScript -->
-            </div>
+            <div class="qr-grid" id="qrGridContainer"></div>
         </div>
     </div>
 
@@ -448,6 +442,27 @@
             }
         });
 
+        function renderHasilCard(hasilDitemukan) {
+            const githubUrl = `https://gasmi-ponorogo.github.io/?no=${encodeURIComponent(hasilDitemukan.noInduk)}`;
+            return `
+                <div class="result-title" id="resHeader">Hasil Pencarian: ${hasilDitemukan.noInduk}</div>
+                <div class="info-row"><span class="info-label">Tidak ada Induk</span><span class="info-val">${hasilDitemukan.noInduk}</span></div>
+                <div class="info-row"><span class="info-label">Nama</span><span class="info-val">${hasilDitemukan.nama}</span></div>
+                <div class="info-row"><span class="info-label">Jenis Kelamin</span><span class="info-val">${hasilDitemukan.jk}</span></div>
+                <div class="info-row"><span class="info-label">Pendidikan</span><span class="info-val">${hasilDitemukan.pendidikan}</span></div>
+                <div class="info-row"><span class="info-label">Status Sertifikat</span><span class="info-val status-asli">ASLI</span></div>
+                
+                <div style="text-align: center; margin-top: 1rem; border-top: 1px dashed #e5e7eb; padding-top: 10px;">
+                    <div style="font-size: 0.8rem; color: #555; margin-bottom: 8px;">Pindai QR untuk Verifikasi Online:</div>
+                    <div class="qr-wrapper">
+                        <div id="qrcode"></div>
+                    </div>
+                </div>
+
+                <div class="timestamp">Tanggal Pencarian : ${new Date().toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' })} ${new Date().toLocaleTimeString('id-ID')}</div>
+            `;
+        }
+
         function cariDataOtomatis(noIndukTarget) {
             const db = parseData();
             const cleanTarget = noIndukTarget.replace(/\s+/g, '').toLowerCase();
@@ -459,29 +474,11 @@
 
             if (hasilDitemukan) {
                 boxHasil.classList.remove('not-found');
-                const githubUrl = `https://gasmi-ponorogo.github.io/?no=${encodeURIComponent(hasilDitemukan.noInduk)}`;
-                
-                innerContent.innerHTML = `
-                    <div class="result-title" id="resHeader">Hasil Pencarian: ${hasilDitemukan.noInduk}</div>
-                    <div class="info-row"><span class="info-label">Tidak ada Induk</span><span class="info-val">${hasilDitemukan.noInduk}</span></div>
-                    <div class="info-row"><span class="info-label">Nama</span><span class="info-val">${hasilDitemukan.nama}</span></div>
-                    <div class="info-row"><span class="info-label">Jenis Kelamin</span><span class="info-val">${hasilDitemukan.jk}</span></div>
-                    <div class="info-row"><span class="info-label">Pendidikan</span><span class="info-val">${hasilDitemukan.pendidikan}</span></div>
-                    <div class="info-row"><span class="info-label">Status Sertifikat</span><span class="info-val status-asli">ASLI</span></div>
-                    
-                    <div style="text-align: center; margin-top: 1rem; border-top: 1px dashed #e5e7eb; padding-top: 10px;">
-                        <div style="font-size: 0.8rem; color: #555; margin-bottom: 8px;">Pindai QR untuk Verifikasi Online:</div>
-                        <div class="qr-wrapper">
-                            <div id="qrcode"></div>
-                        </div>
-                    </div>
-
-                    <div class="timestamp">Tanggal Pencarian : ${new Date().toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' })} ${new Date().toLocaleTimeString('id-ID')}</div>
-                `;
+                innerContent.innerHTML = renderHasilCard(hasilDitemukan);
 
                 document.getElementById("qrcode").innerHTML = "";
                 new QRCode(document.getElementById("qrcode"), {
-                    text: githubUrl,
+                    text: `https://gasmi-ponorogo.github.io/?no=${encodeURIComponent(hasilDitemukan.noInduk)}`,
                     width: 140,
                     height: 140,
                     colorDark : "#222533",
@@ -490,9 +487,7 @@
                 });
             } else {
                 boxHasil.classList.add('not-found');
-                innerContent.innerHTML = `
-                    <div style="padding: 0.5rem;">Maaf, sertifikat dengan Nomor Induk "${noIndukTarget}" tidak ditemukan di database.</div>
-                `;
+                innerContent.innerHTML = `<div style="padding: 0.5rem;">Maaf, sertifikat dengan Nomor Induk "${noIndukTarget}" tidak ditemukan di database.</div>`;
             }
         }
 
@@ -529,42 +524,20 @@
 
             if (hasilDitemukan) {
                 boxHasil.classList.remove('not-found');
-                const githubUrl = `https://gasmi-ponorogo.github.io/?no=${encodeURIComponent(hasilDitemukan.noInduk)}`;
-                
-                innerContent.innerHTML = `
-                    <div class="result-title" id="resHeader">Hasil Pencarian: ${hasilDitemukan.noInduk}</div>
-                    <div class="info-row"><span class="info-label">Tidak ada Induk</span><span class="info-val">${hasilDitemukan.noInduk}</span></div>
-                    <div class="info-row"><span class="info-label">Nama</span><span class="info-val">${hasilDitemukan.nama}</span></div>
-                    <div class="info-row"><span class="info-label">Jenis Kelamin</span><span class="info-val">${hasilDitemukan.jk}</span></div>
-                    <div class="info-row"><span class="info-label">Pendidikan</span><span class="info-val">${hasilDitemukan.pendidikan}</span></div>
-                    <div class="info-row"><span class="info-label">Status Sertifikat</span><span class="info-val status-asli">ASLI</span></div>
-                    
-                    <div style="text-align: center; margin-top: 1rem; border-top: 1px dashed #e5e7eb; padding-top: 10px;">
-                        <div style="font-size: 0.8rem; color: #555; margin-bottom: 8px;">Pindai QR untuk Verifikasi Online:</div>
-                        <div class="qr-wrapper">
-                            <div id="qrcode"></div>
-                        </div>
-                    </div>
-
-                    <div class="timestamp">Tanggal Pencarian : ${new Date().toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' })} ${new Date().toLocaleTimeString('id-ID')}</div>
-                `;
+                innerContent.innerHTML = renderHasilCard(hasilDitemukan);
 
                 document.getElementById("qrcode").innerHTML = "";
-
                 new QRCode(document.getElementById("qrcode"), {
-                    text: githubUrl,
+                    text: `https://gasmi-ponorogo.github.io/?no=${encodeURIComponent(hasilDitemukan.noInduk)}`,
                     width: 140,
                     height: 140,
                     colorDark : "#222533",
                     colorLight : "#ffffff",
                     correctLevel : QRCode.CorrectLevel.L
                 });
-
             } else {
                 boxHasil.classList.add('not-found');
-                innerContent.innerHTML = `
-                    <div style="padding: 0.5rem;">Maaf, sertifikat dengan Nomor Induk "${inputInduk}" tidak ditemukan atau data Orangtua tidak sesuai.</div>
-                `;
+                innerContent.innerHTML = `<div style="padding: 0.5rem;">Maaf, sertifikat dengan Nomor Induk "${inputInduk}" tidak ditemukan atau data Orangtua tidak sesuai.</div>`;
             }
         }
 
