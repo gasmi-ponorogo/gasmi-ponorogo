@@ -43,21 +43,21 @@
             display: none;
         }
         
-        /* Watermark dibuat halus, lembut, dan proporsional persis seperti referensi */
+        /* Watermark disesuaikan agar terlihat jelas namun tetap rapi di balik teks */
         .result-box::before {
             content: "";
             position: absolute;
-            top: 46%; 
+            top: 48%; 
             left: 50%;
             transform: translate(-50%, -50%);
-            width: 275px; 
-            height: 275px;
+            width: 290px; 
+            height: 290px;
             background-image: url("logo-gasmi.png");
             background-repeat: no-repeat;
             background-position: center;
             background-size: contain;
-            opacity: 0.085;
-            filter: grayscale(35%) brightness(1.1);
+            opacity: 0.16; /* Opacity dinaikkan agar pas dan jelas terlihat */
+            filter: grayscale(20%) brightness(1.05);
             z-index: 0;
             pointer-events: none;
         }
@@ -66,7 +66,6 @@
         .result-box.not-found { background-color: #fef2f2; border-color: #fca5a5; color: #b91c1c; text-align: center; font-weight: 600; }
         .result-title { font-size: 1rem; font-weight: bold; color: #2c3e50; margin-bottom: 1.1rem; }
         
-        /* Garis pemisah tipis antar baris seperti di gambar referensi */
         .info-row { 
             display: flex; 
             justify-content: space-between; 
@@ -443,7 +442,6 @@
         });
 
         function renderHasilCard(hasilDitemukan) {
-            const githubUrl = `https://gasmi-ponorogo.github.io/?no=${encodeURIComponent(hasilDitemukan.noInduk)}`;
             return `
                 <div class="result-title" id="resHeader">Hasil Pencarian: ${hasilDitemukan.noInduk}</div>
                 <div class="info-row"><span class="info-label">Tidak ada Induk</span><span class="info-val">${hasilDitemukan.noInduk}</span></div>
