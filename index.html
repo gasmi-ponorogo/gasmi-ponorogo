@@ -43,21 +43,20 @@
             display: none;
         }
         
-        /* Pengaturan watermark logo agar persis dengan referensi */
+        /* Pengaturan watermark logo yang diperkecil, digeser ke atas, dan lebih transparan */
         .result-box::before {
             content: "";
             position: absolute;
-            top: 52%; 
+            top: 40%; 
             left: 50%;
             transform: translate(-50%, -50%);
-            width: 320px; 
-            height: 320px;
+            width: 230px; 
+            height: 230px;
             background-image: url("logo-gasmi.png");
             background-repeat: no-repeat;
             background-position: center;
             background-size: contain;
-            opacity: 0.16; 
-            filter: brightness(1.2);
+            opacity: 0.10; 
             z-index: 0;
             pointer-events: none;
         }
