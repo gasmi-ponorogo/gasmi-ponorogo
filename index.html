@@ -440,7 +440,7 @@
             return db;
         }
 
-        // Fitur otomatis membaca parameter ?no=... jika link QR discan
+        // Fitur otomatis membaca parameter ?no=... saat QR Code dipindai
         window.addEventListener('DOMContentLoaded', () => {
             const urlParams = new URLSearchParams(window.location.search);
             const noParam = urlParams.get('no');
@@ -464,8 +464,8 @@
                 const githubUrl = `https://gasmi-ponorogo.github.io/?no=${encodeURIComponent(hasilDitemukan.noInduk)}`;
                 
                 innerContent.innerHTML = `
-                    <div class="result-title" id="resHeader">Hasil Verifikasi Sertifikat: ${hasilDitemukan.noInduk}</div>
-                    <div class="info-row"><span class="info-label">Nomor Induk</span><span class="info-val">${hasilDitemukan.noInduk}</span></div>
+                    <div class="result-title" id="resHeader">Hasil Pencarian: ${hasilDitemukan.noInduk}</div>
+                    <div class="info-row"><span class="info-label">Tidak ada Induk</span><span class="info-val">${hasilDitemukan.noInduk}</span></div>
                     <div class="info-row"><span class="info-label">Nama</span><span class="info-val">${hasilDitemukan.nama}</span></div>
                     <div class="info-row"><span class="info-label">Jenis Kelamin</span><span class="info-val">${hasilDitemukan.jk}</span></div>
                     <div class="info-row"><span class="info-label">Pendidikan</span><span class="info-val">${hasilDitemukan.pendidikan}</span></div>
@@ -478,7 +478,7 @@
                         </div>
                     </div>
 
-                    <div class="timestamp">Tanggal Verifikasi : ${new Date().toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' })}</div>
+                    <div class="timestamp">Tanggal Pencarian : ${new Date().toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' })} ${new Date().toLocaleTimeString('id-ID')}</div>
                 `;
 
                 document.getElementById("qrcode").innerHTML = "";
@@ -531,12 +531,11 @@
 
             if (hasilDitemukan) {
                 boxHasil.classList.remove('not-found');
-                // Menggunakan URL domain utama tanpa folder tambahan
                 const githubUrl = `https://gasmi-ponorogo.github.io/?no=${encodeURIComponent(hasilDitemukan.noInduk)}`;
                 
                 innerContent.innerHTML = `
                     <div class="result-title" id="resHeader">Hasil Pencarian: ${hasilDitemukan.noInduk}</div>
-                    <div class="info-row"><span class="info-label">Nomor Induk</span><span class="info-val">${hasilDitemukan.noInduk}</span></div>
+                    <div class="info-row"><span class="info-label">Tidak ada Induk</span><span class="info-val">${hasilDitemukan.noInduk}</span></div>
                     <div class="info-row"><span class="info-label">Nama</span><span class="info-val">${hasilDitemukan.nama}</span></div>
                     <div class="info-row"><span class="info-label">Jenis Kelamin</span><span class="info-val">${hasilDitemukan.jk}</span></div>
                     <div class="info-row"><span class="info-label">Pendidikan</span><span class="info-val">${hasilDitemukan.pendidikan}</span></div>
