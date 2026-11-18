@@ -42,18 +42,18 @@
             display: none;
         }
         
-        /* Watermark menggunakan file logo-gasmi.png yang transparan di tengah */
+        /* Watermark logo-gasmi.png diperjelas (opacity: 0.18) agar tampak bagus */
         .result-box::before {
             content: "";
             position: absolute;
             top: 50%; left: 50%;
             transform: translate(-50%, -50%);
-            width: 220px; height: 220px;
+            width: 240px; height: 240px;
             background-image: url("logo-gasmi.png");
             background-repeat: no-repeat;
             background-position: center;
             background-size: contain;
-            opacity: 0.08;
+            opacity: 0.18;
             z-index: 0;
             pointer-events: none;
         }
@@ -67,14 +67,11 @@
         .status-asli { color: #16a34a; font-weight: bold; }
         .timestamp { font-size: 0.75rem; color: #777; text-align: center; margin-top: 1rem; border-top: 1px dashed #f3f4f6; padding-top: 0.5rem; }
         
-        /* Kotak QR Code dengan Border Putih (Quiet Zone) agar mudah dipindai */
+        /* Bingkai/Border QR Code dihilangkan bersih tanpa kotak */
         .qr-wrapper {
             display: inline-block;
-            background: #ffffff;
-            padding: 12px;
-            border-radius: 8px;
-            border: 1px solid #d1d5db;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            background: transparent;
+            padding: 4px;
         }
 
         /* Modal / Container Daftar QR Code Massal */
@@ -444,7 +441,6 @@
             return db;
         }
 
-        // Fitur otomatis membaca parameter ?no=... saat QR Code dipindai
         window.addEventListener('DOMContentLoaded', () => {
             const urlParams = new URLSearchParams(window.location.search);
             const noParam = urlParams.get('no');
@@ -574,7 +570,6 @@
             }
         }
 
-        // Inisialisasi Modal Dashboard QR Massal
         const modal = document.getElementById('qrDashboardModal');
         const btnBuka = document.getElementById('btnBukaQrDashboard');
         const btnTutup = document.getElementById('TutupModal');
