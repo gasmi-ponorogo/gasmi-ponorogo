@@ -42,18 +42,18 @@
             display: none;
         }
         
-        /* Watermark logo-gasmi.png diperjelas (opacity: 0.18) agar tampak bagus */
+        /* Watermark logo-gasmi.png disesuaikan ukurannya dan diperjelas */
         .result-box::before {
             content: "";
             position: absolute;
             top: 50%; left: 50%;
             transform: translate(-50%, -50%);
-            width: 240px; height: 240px;
+            width: 250px; height: 250px;
             background-image: url("logo-gasmi.png");
             background-repeat: no-repeat;
             background-position: center;
             background-size: contain;
-            opacity: 0.18;
+            opacity: 0.15;
             z-index: 0;
             pointer-events: none;
         }
@@ -67,7 +67,7 @@
         .status-asli { color: #16a34a; font-weight: bold; }
         .timestamp { font-size: 0.75rem; color: #777; text-align: center; margin-top: 1rem; border-top: 1px dashed #f3f4f6; padding-top: 0.5rem; }
         
-        /* Bingkai/Border QR Code dihilangkan bersih tanpa kotak */
+        /* Bingkai QR Code dihilangkan bersih tanpa kotak */
         .qr-wrapper {
             display: inline-block;
             background: transparent;
