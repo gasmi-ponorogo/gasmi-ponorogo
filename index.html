@@ -42,18 +42,18 @@
             display: none;
         }
         
-        /* Watermark logo-gasmi.png disesuaikan ukurannya dan diperjelas */
+        /* Watermark disesuaikan agar persis seperti contoh gambar (transparan lembut di tengah) */
         .result-box::before {
             content: "";
             position: absolute;
             top: 50%; left: 50%;
             transform: translate(-50%, -50%);
-            width: 250px; height: 250px;
+            width: 280px; height: 280px;
             background-image: url("logo-gasmi.png");
             background-repeat: no-repeat;
             background-position: center;
             background-size: contain;
-            opacity: 0.15;
+            opacity: 0.08; /* Transparansi disesuaikan agar samar tapi elegan */
             z-index: 0;
             pointer-events: none;
         }
@@ -74,7 +74,6 @@
             padding: 4px;
         }
 
-        /* Modal / Container Daftar QR Code Massal */
         #qrDashboardModal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); z-index: 999; overflow-y: auto; padding: 20px; }
         .modal-content { background: #fff; max-width: 800px; margin: 30px auto; padding: 2rem; border-radius: 12px; position: relative; }
         .close-modal { position: absolute; top: 15px; right: 20px; font-size: 1.5rem; cursor: pointer; color: #333; font-weight: bold; }
