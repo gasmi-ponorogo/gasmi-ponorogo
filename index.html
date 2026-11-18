@@ -43,20 +43,20 @@
             display: none;
         }
         
-        /* Pengaturan watermark: agak ke atas, seimbang kanan-kiri, dan sangat samar (transparan) */
+        /* Pengaturan watermark logo yang disesuaikan */
         .result-box::before {
             content: "";
             position: absolute;
-            top: 53%; 
+            top: 43%; 
             left: 50%;
             transform: translate(-50%, -50%);
-            width: 210px; 
-            height: 210px;
+            width: 290px; 
+            height: 290px;
             background-image: url("logo-gasmi.png");
             background-repeat: no-repeat;
             background-position: center;
             background-size: contain;
-            opacity: 0.06; 
+            opacity: 0.08; 
             z-index: 0;
             pointer-events: none;
         }
@@ -91,12 +91,20 @@
         .qr-card { background: #f9f9f9; border: 1px solid #e5e7eb; border-radius: 8px; padding: 10px; text-align: center; }
         .qr-card h5 { font-size: 0.85rem; margin-bottom: 8px; color: #2c3e50; }
 
-        .footer { background-color: #ffffff; border-top: 1px solid #eaeaea; padding: 2rem 1.5rem; margin-top: 3rem; font-size: 0.85rem; color: #555; }
-        .footer-content { max-width: 600px; margin: 0 auto; }
-        .footer h4 { color: #222; margin-bottom: 0.5rem; font-size: 1rem; }
-        .footer p { margin-bottom: 1rem; color: #666; }
-        .footer-bottom { background-color: #222533; color: #aaa; text-align: center; padding: 1rem; font-size: 0.8rem; display: flex; justify-content: space-between; padding-left: 2rem; padding-right: 2rem; }
-        .footer-bottom a { color: #aaa; text-decoration: none; margin-left: 1rem; }
+        /* Footer Baru Sesuai Referensi */
+        .footer { background-color: #ffffff; border-top: 1px solid #eaeaea; padding: 2rem 1.5rem 1rem 1.5rem; margin-top: 3rem; text-align: center; font-size: 0.9rem; color: #333; }
+        .footer p { margin-bottom: 1rem; color: #333; font-weight: 500; }
+        .social-icons { display: flex; justify-content: center; gap: 12px; margin-bottom: 2rem; }
+        .social-btn { width: 45px; height: 45px; background: #ffffff; border: 1px solid #e5e7eb; border-radius: 10px; display: flex; align-items: center; justify-content: center; text-decoration: none; color: #333; font-size: 1.1rem; font-weight: bold; box-shadow: 0 2px 5px rgba(0,0,0,0.02); transition: background 0.2s; }
+        .social-btn:hover { background: #f9f9f9; }
+
+        .footer-bottom { background-color: #2c303e; color: #a0a6b8; padding: 1.5rem 2rem; font-size: 0.85rem; text-align: center; }
+        .footer-links { margin-bottom: 1rem; }
+        .footer-links a { color: #a0a6b8; text-decoration: none; margin: 0 10px; }
+        .footer-links a:hover { color: #ffffff; }
+        .footer-copy-row { display: flex; justify-content: space-between; align-items: center; max-width: 600px; margin: 0 auto; padding-top: 0.5rem; }
+        .scroll-top-btn { background: transparent; border: none; color: #a0a6b8; font-size: 1.1rem; cursor: pointer; }
+        .scroll-top-btn:hover { color: #ffffff; }
 
         @media print {
             body * { visibility: hidden; }
@@ -157,24 +165,24 @@
         </div>
     </div>
 
+    <!-- Footer Baru Sesuai Referensi Gambar -->
     <footer class="footer">
-        <div class="footer-content">
-            <h4>Gasmi</h4>
-            <p>Jl. KH. Abdul Karim, Lirboyo, No. 45, Kec. Mojoroto, Kota Kediri.</p>
-            <h4>Kontak</h4>
-            <p>gasmihosting@gmail.com<br>6285878079700</p>
-            <div style="margin-top: 1rem;">
-                Atau terhubung dengan kami di: <br>
-                <a href="#" style="margin-right: 10px;">🌐</a>
-                <a href="#" style="margin-right: 10px;">📷</a>
-                <a href="#" style="margin-right: 10px;">📺</a>
-                <a href="#">🐦</a>
-            </div>
+        <p>Atau terhubung dengan kami di:</p>
+        <div class="social-icons">
+            <a href="#" class="social-btn" title="Facebook">f</a>
+            <a href="#" class="social-btn" title="Instagram">📷</a>
+            <a href="#" class="social-btn" title="YouTube">▶</a>
+            <a href="#" class="social-btn" title="Twitter">𝕏</a>
         </div>
     </footer>
     <div class="footer-bottom">
-        <div><a href="#">Masuk</a> &nbsp;|&nbsp; <a href="#">Kontak</a></div>
-        <div>2026 &copy; Gasmi</div>
+        <div class="footer-links">
+            <a href="#">Masuk</a> &nbsp;|&nbsp; <a href="#">Kontak</a>
+        </div>
+        <div class="footer-copy-row">
+            <div>2026 &copy; Gasmi</div>
+            <button class="scroll-top-btn" onclick="window.scrollTo({top: 0, behavior: 'smooth'});" title="Kembali ke atas">↑</button>
+        </div>
     </div>
 
     <script>
@@ -252,7 +260,6 @@
             const urlParams = new URLSearchParams(window.location.search);
             const noParam = urlParams.get('no');
             if (noParam) {
-                // Sembunyikan tombol QR Dashboard jika halaman diakses via scan URL (?no=...)
                 const btnQrDashboard = document.getElementById('btnBukaQrDashboard');
                 if (btnQrDashboard) {
                     btnQrDashboard.style.display = 'none';
