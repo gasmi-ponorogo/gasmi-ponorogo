@@ -43,7 +43,7 @@
             display: none;
         }
         
-        /* Watermark diatur dengan opacity 0.25 dan filter agar warna lebih tegas */
+        /* Watermark diatur agar bersih, pudar, dan warna hijau pekat tersamar */
         .result-box::before {
             content: "";
             position: absolute;
@@ -56,8 +56,8 @@
             background-repeat: no-repeat;
             background-position: center;
             background-size: contain;
-            opacity: 0.25; 
-            filter: grayscale(10%) brightness(1);
+            opacity: 0.22; 
+            filter: brightness(1.9) grayscale(25%);
             z-index: 0;
             pointer-events: none;
         }
