@@ -3,23 +3,148 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pencarian & QR Code Sertifikat Gasmi</title>
+    <title>Rumah | Gasmi</title>
     <!-- Memuat qrcode.js untuk pembuatan QR Code dinamis -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
-        body { background-color: #f4f6f9; color: #333; line-height: 1.6; }
-        .navbar { background: #fff; padding: 1rem 1.5rem; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #eaeaea; box-shadow: 0 1px 3px rgba(0,0,0,0.02); }
-        .nav-brand { font-weight: bold; font-size: 1.2rem; color: #333; }
-        .nav-link { color: #d32f2f; text-decoration: none; font-size: 0.9rem; font-weight: 600; }
+        body { background-color: #ffffff; color: #333; line-height: 1.6; }
 
-        .container { max-width: 480px; margin: 1.5rem auto; background: #fff; padding: 1.8rem; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
-        .header-title { color: #2c3e50; font-size: 1.3rem; font-weight: bold; margin-bottom: 1.2rem; text-align: center; }
+        /* Navbar Sesuai Referensi */
+        .navbar {
+            background: #ffffff;
+            padding: 1rem 5%;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1rem;
+            border-bottom: 1px solid #f0f0f0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        .nav-brand {
+            font-weight: 700;
+            font-size: 1.4rem;
+            color: #252547;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        .nav-menu {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 1.6rem;
+        }
+        .nav-menu a {
+            color: #374151;
+            text-decoration: none;
+            font-size: 0.95rem;
+            font-weight: 500;
+            padding-bottom: 4px;
+            border-bottom: 2px solid transparent;
+            transition: color 0.2s, border-color 0.2s;
+            cursor: pointer;
+        }
+        .nav-menu a:hover,
+        .nav-menu a.active {
+            color: #d32f2f;
+            border-bottom-color: #d32f2f;
+            font-weight: 600;
+        }
+        .btn-hubungi {
+            background-color: #d32f2f;
+            color: #ffffff !important;
+            padding: 0.55rem 1.15rem;
+            border-radius: 6px;
+            font-size: 0.92rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: background 0.2s;
+        }
+        .btn-hubungi:hover {
+            background-color: #b71c1c;
+        }
+
+        /* Halaman / Panel Konten */
+        .page-section { display: none; }
+        .page-section.active-section { display: block; }
+
+        /* Hero Slider Beranda */
+        .hero-wrapper {
+            max-width: 1200px;
+            margin: 1.5rem auto 2.5rem auto;
+            padding: 0 4%;
+        }
+        .slider-box {
+            position: relative;
+            width: 100%;
+            height: 460px;
+            border-radius: 16px;
+            overflow: hidden;
+            background-color: #f3f4f6;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.06);
+        }
+        .slide-item {
+            display: none;
+            width: 100%;
+            height: 100%;
+        }
+        .slide-item.active-slide {
+            display: block;
+        }
+        .slide-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center top;
+            display: block;
+        }
+        .slide-caption {
+            position: absolute;
+            left: 72px;
+            bottom: 22px;
+            background: rgba(34, 37, 51, 0.78);
+            color: #fff;
+            padding: 6px 14px;
+            border-radius: 8px;
+            font-size: 0.88rem;
+            font-weight: 500;
+        }
+        .slider-btn {
+            position: absolute;
+            bottom: 20px;
+            width: 42px;
+            height: 42px;
+            border-radius: 10px;
+            border: 1px solid #e5e7eb;
+            background: rgba(255, 255, 255, 0.92);
+            color: #252547;
+            font-size: 1.2rem;
+            font-weight: bold;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.2s, transform 0.15s;
+            z-index: 10;
+        }
+        .slider-btn:hover {
+            background: #ffffff;
+            transform: scale(1.04);
+        }
+        .prev-btn { left: 20px; }
+        .next-btn { right: 20px; }
+
+        /* Kontainer Form & Pencarian */
+        .container { max-width: 480px; margin: 2rem auto; background: #fff; padding: 1.8rem; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.06); border: 1px solid #f0f0f0; }
+        .header-title { color: #2c3e50; font-size: 1.35rem; font-weight: bold; margin-bottom: 1.2rem; text-align: center; }
         .form-group { margin-bottom: 1rem; text-align: left; }
-        label { display: block; margin-bottom: 0.3rem; font-size: 0.85rem; color: #666; }
+        label { display: block; margin-bottom: 0.35rem; font-size: 0.85rem; color: #666; }
         input[type="text"] { width: 100%; padding: 0.75rem; border: 1px solid #ddd; border-radius: 8px; font-size: 0.95rem; outline: none; color: #333; }
         input[type="text"]:focus { border-color: #d32f2f; box-shadow: 0 0 0 3px rgba(211, 47, 47, 0.1); }
-        
+
         .recaptcha-box { display: flex; justify-content: space-between; align-items: center; background: #f9f9f9; border: 1px solid #d3d3d3; border-radius: 4px; padding: 10px 12px; margin: 1.2rem 0; }
         .recaptcha-left { display: flex; align-items: center; gap: 10px; font-size: 0.85rem; color: #222; }
         .recaptcha-left input { width: 18px; height: 18px; cursor: pointer; }
@@ -42,48 +167,46 @@
             overflow: hidden;
             display: none;
         }
-        
-        /* Pengaturan watermark logo: agak ke atas, seimbang kanan-kiri, dan sangat samar */
         .result-box::before {
             content: "";
             position: absolute;
-            top: 53%; 
+            top: 43%;
             left: 50%;
             transform: translate(-50%, -50%);
-            width: 210px; 
-            height: 210px;
+            width: 290px;
+            height: 290px;
             background-image: url("logo-gasmi.png");
             background-repeat: no-repeat;
             background-position: center;
             background-size: contain;
-            opacity: 0.06; 
+            opacity: 0.08;
             z-index: 0;
             pointer-events: none;
         }
-
         .result-content { position: relative; z-index: 1; }
         .result-box.not-found { background-color: #fef2f2; border-color: #fca5a5; color: #b91c1c; text-align: center; font-weight: 600; }
         .result-title { font-size: 1rem; font-weight: bold; color: #2c3e50; margin-bottom: 1.1rem; }
-        
-        .info-row { 
-            display: flex; 
-            justify-content: space-between; 
+        .info-row {
+            display: flex;
+            justify-content: space-between;
             align-items: center;
             padding: 0.65rem 0;
             border-bottom: 1px solid rgba(0, 0, 0, 0.06);
-            font-size: 0.9rem; 
+            font-size: 0.9rem;
         }
         .info-label { color: #333; width: 42%; text-align: left; }
         .info-val { font-weight: 500; color: #222; width: 58%; text-align: left; }
         .status-asli { color: #10b981; font-weight: bold; }
         .timestamp { font-size: 0.8rem; color: #666; text-align: center; margin-top: 1.2rem; line-height: 1.4; }
-        
-        .qr-wrapper {
-            display: inline-block;
-            background: transparent;
-            padding: 4px;
-        }
+        .qr-wrapper { display: inline-block; background: transparent; padding: 4px; }
 
+        /* Bagian Informasi / Artikel */
+        .info-container { max-width: 1100px; margin: 2rem auto; padding: 0 4%; }
+        .info-card { background: #fff; border: 1px solid #f1c0c0; border-radius: 14px; padding: 1.5rem; margin-bottom: 1.2rem; }
+        .info-card h2 { color: #252547; font-size: 1.25rem; margin-bottom: 0.5rem; }
+        .info-card p { color: #555; font-size: 0.95rem; }
+
+        /* Modal QR */
         #qrDashboardModal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); z-index: 999; overflow-y: auto; padding: 20px; }
         .modal-content { background: #fff; max-width: 800px; margin: 30px auto; padding: 2rem; border-radius: 12px; position: relative; }
         .close-modal { position: absolute; top: 15px; right: 20px; font-size: 1.5rem; cursor: pointer; color: #333; font-weight: bold; }
@@ -91,22 +214,27 @@
         .qr-card { background: #f9f9f9; border: 1px solid #e5e7eb; border-radius: 8px; padding: 10px; text-align: center; }
         .qr-card h5 { font-size: 0.85rem; margin-bottom: 8px; color: #2c3e50; }
 
-        /* Footer Sesuai Referensi Gambar */
-        .footer { background-color: #f4f5f8; padding: 1.5rem 1.5rem 1.2rem 1.5rem; margin-top: 2rem; font-size: 0.95rem; color: #4b5267; }
-        .footer-inner { max-width: 480px; margin: 0 auto; }
+        /* Footer & Ikon Media Sosial */
+        .footer { background-color: #f4f5f8; padding: 1.5rem 5% 1.2rem 5%; margin-top: 2.5rem; font-size: 0.95rem; color: #4b5267; }
+        .footer-inner { max-width: 1100px; margin: 0 auto; }
         .footer p { margin-bottom: 0.85rem; color: #4b5267; font-weight: 600; font-size: 0.95rem; }
         .social-icons { display: flex; justify-content: flex-start; gap: 10px; }
         .social-btn { width: 46px; height: 46px; background: #ffffff; border: 1px solid #e6e8ee; border-radius: 12px; display: flex; align-items: center; justify-content: center; text-decoration: none; box-shadow: 0 1px 3px rgba(0,0,0,0.03); transition: background 0.2s, border-color 0.2s; }
         .social-btn:hover { background: #f9fafc; border-color: #d5d9e2; }
+        .social-btn img { width: 22px; height: 22px; object-fit: contain; }
 
-        .footer-bottom { background-color: #363947; color: #b8bcc8; padding: 1.4rem 1.5rem; font-size: 0.85rem; text-align: center; }
-        .footer-links { margin-bottom: 1rem; }
+        .footer-bottom { background-color: #363947; color: #b8bcc8; padding: 1.4rem 5%; font-size: 0.85rem; text-align: center; }
+        .footer-links { margin-bottom: 0.9rem; }
         .footer-links a { color: #b8bcc8; text-decoration: none; margin: 0 8px; }
         .footer-links a:hover { color: #ffffff; }
-        .footer-copy-row { position: relative; max-width: 480px; margin: 0 auto; text-align: center; color: #b8bcc8; }
+        .footer-copy-row { position: relative; max-width: 1100px; margin: 0 auto; text-align: center; color: #b8bcc8; }
         .scroll-top-btn { position: absolute; right: 0; top: 50%; transform: translateY(-50%); background: transparent; border: none; color: #b8bcc8; font-size: 1.1rem; cursor: pointer; padding: 2px 6px; }
         .scroll-top-btn:hover { color: #ffffff; }
 
+        @media (max-width: 768px) {
+            .slider-box { height: 260px; }
+            .nav-menu { gap: 0.9rem; }
+        }
         @media print {
             body * { visibility: hidden; }
             #qrDashboardModal, #qrDashboardModal * { visibility: visible; }
@@ -117,41 +245,133 @@
 </head>
 <body>
 
-    <div class="navbar">
-        <div class="nav-brand">Gasmi</div>
-        <a href="#" class="nav-link">Hubungi Kami</a>
-    </div>
-
-    <div class="container">
-        <div class="header-title">Pencarian Sertifikat Gasmi</div>
-
-        <div class="form-group">
-            <label>Silahkan Masukkan Nomor Induk</label>
-            <input type="text" id="noInduk" placeholder="Contoh: 03352 - 19 - 09">
+    <!-- Navigasi Utama -->
+    <nav class="navbar">
+        <a href="index.html" class="nav-brand" onclick="bukaHalaman('beranda', event)">Gasmi</a>
+        <div class="nav-menu">
+            <a href="sejarah.html" onclick="bukaHalaman('sejarah', event)">Sejarah</a>
+            <a href="qr-cari-murid.html" onclick="bukaHalaman('cari-murid', event)">Cari Murid</a>
+            <a href="cari-pelatih.html" onclick="bukaHalaman('cari-pelatih', event)">Cari Pelatih</a>
+            <a href="kantor-cabang.html" onclick="bukaHalaman('cabang', event)">Kantor Cabang</a>
+            <a href="informasi.html" onclick="bukaHalaman('informasi', event)">Informasi</a>
+            <a href="shop.html" onclick="bukaHalaman('shop', event)">Shop</a>
         </div>
+        <a href="#kontak" class="btn-hubungi">Hubungi Kami</a>
+    </nav>
 
-        <div class="form-group">
-            <label>Silahkan Masukkan Nama Orangtua</label>
-            <input type="text" id="namaOrtu" placeholder="Contoh: Mesnan / Dati">
-        </div>
+    <!-- 1. Tampilan Beranda (Slider Sesuai Gambar Referensi) -->
+    <section id="sec-beranda" class="page-section active-section">
+        <div class="hero-wrapper">
+            <div class="slider-box">
+                <div class="slide-item active-slide">
+                    <img src="logo-gasmi.png" alt="Pendiri GASMI KH. Abdullah Maksum Jauhari">
+                    <div class="slide-caption">Pendiri GASMI — KH. Abdullah Maksum Jauhari (Gus Maksum)</div>
+                </div>
+                <div class="slide-item">
+                    <img src="artikel4.jpg" alt="Sosok Pendiri GASMI">
+                    <div class="slide-caption">Sosok Pendiri GASMI KH. Abdullah Maksum Jauhari</div>
+                </div>
+                <div class="slide-item">
+                    <img src="artikel3.jpg" alt="Silsilah Keluarga Gus Maksum">
+                    <div class="slide-caption">Silsilah Keluarga KH. Maksum Jauhari (Gus Maksum)</div>
+                </div>
 
-        <div class="recaptcha-box">
-            <div class="recaptcha-left">
-                <input type="checkbox" id="recaptchaCheck" checked>
-                <label for="recaptchaCheck" style="margin:0; font-size: 0.85rem; color:#222; cursor:pointer;">Saya bukan robot</label>
+                <button type="button" class="slider-btn prev-btn" onclick="geserSlide(-1)" title="Sebelumnya">&larr;</button>
+                <button type="button" class="slider-btn next-btn" onclick="geserSlide(1)" title="Berikutnya">&rarr;</button>
             </div>
-            <div class="recaptcha-logo">
-                <div style="font-weight:bold; font-size:11px; color:#4285F4;">re<span style="font-weight:normal; color:#EA4335;">C</span><span style="color:#FBBC05;">A</span><span style="color:#4285F4;">P</span><span style="color:#34A853;">T</span><span style="color:#EA4335;">CHA</span></div>
+        </div>
+    </section>
+
+    <!-- 2. Tampilan Cari Murid (Pencarian Sertifikat & QR Code) -->
+    <section id="sec-cari-murid" class="page-section">
+        <div class="container">
+            <div class="header-title">Pencarian Sertifikat Gasmi</div>
+
+            <div class="form-group">
+                <label>Silahkan Masukkan Nomor Induk</label>
+                <input type="text" id="noInduk" placeholder="Contoh: 03352 - 19 - 09">
+            </div>
+
+            <div class="form-group">
+                <label>Silahkan Masukkan Nama Orangtua</label>
+                <input type="text" id="namaOrtu" placeholder="Contoh: Mesnan / Dati">
+            </div>
+
+            <div class="recaptcha-box">
+                <div class="recaptcha-left">
+                    <input type="checkbox" id="recaptchaCheck" checked>
+                    <label for="recaptchaCheck" style="margin:0; font-size: 0.85rem; color:#222; cursor:pointer;">Saya bukan robot</label>
+                </div>
+                <div class="recaptcha-logo">
+                    <div style="font-weight:bold; font-size:11px; color:#4285F4;">re<span style="font-weight:normal; color:#EA4335;">C</span><span style="color:#FBBC05;">A</span><span style="color:#4285F4;">P</span><span style="color:#34A853;">T</span><span style="color:#EA4335;">CHA</span></div>
+                </div>
+            </div>
+
+            <button type="button" class="btn-cari" id="btnCari">Cari</button>
+            <button type="button" class="btn-qr-dashboard" id="btnBukaQrDashboard">🖨️ Lihat & Cetak Semua QR Code Anggota</button>
+
+            <div id="hasil" class="result-box">
+                <div class="result-content" id="resultInnerContent"></div>
             </div>
         </div>
+    </section>
 
-        <button class="btn-cari" id="btnCari">Cari</button>
-        <button class="btn-qr-dashboard" id="btnBukaQrDashboard">🖨️ Lihat & Cetak Semua QR Code Anggota</button>
-
-        <div id="hasil" class="result-box">
-            <div class="result-content" id="resultInnerContent"></div>
+    <!-- 3. Tampilan Cari Pelatih -->
+    <section id="sec-cari-pelatih" class="page-section">
+        <div class="container">
+            <div class="header-title">Pencarian SK Pelatih Gasmi</div>
+            <div class="form-group">
+                <label>Silahkan Masukkan Nomor SK</label>
+                <input type="text" id="noSk" placeholder="Nomor SK">
+            </div>
+            <div class="form-group">
+                <label>Silahkan Masukkan Tempat / Tgl Lahir</label>
+                <input type="text" id="ttlPelatih" placeholder="Tempat / Tgl Lahir">
+            </div>
+            <button type="button" class="btn-cari" onclick="alert('Silakan lengkapi Nomor SK untuk memeriksa data pelatih.')">Cari</button>
         </div>
-    </div>
+    </section>
+
+    <!-- 4. Tampilan Sejarah, Kantor Cabang, Informasi & Shop -->
+    <section id="sec-sejarah" class="page-section">
+        <div class="info-container">
+            <div class="info-card">
+                <h2>Sejarah GASMI</h2>
+                <p>Gerakan Aksi Silat Muslim Indonesia (GASMI) didirikan oleh KH. Abdullah Maksum Jauhari (Gus Maksum) di Lirboyo, Kediri.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="sec-cabang" class="page-section">
+        <div class="info-container">
+            <div class="info-card">
+                <h2>Kantor Cabang & Ranting</h2>
+                <p>Pusat: Jl. KH. Abdul Karim, Lirboyo, No. 45, Kec. Mojoroto, Kota Kediri. Ranting: Ponorogo & sekitarnya.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="sec-informasi" class="page-section">
+        <div class="info-container">
+            <div class="info-card">
+                <h2>Sosok Pendiri GASMI KH. Abdullah Maksum Jauhari</h2>
+                <p>Biografi dan keteladanan pendiri GASMI dalam membina santri dan masyarakat.</p>
+            </div>
+            <div class="info-card">
+                <h2>Silsilah Keluarga KH. Maksum Jauhari (Gus Maksum)</h2>
+                <p>Jalur nasab dan silsilah keluarga besar pendiri GASMI.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="sec-shop" class="page-section">
+        <div class="info-container">
+            <div class="info-card">
+                <h2>Shop Resmi GASMI</h2>
+                <p>Informasi atribut, seragam, dan perlengkapan resmi anggota GASMI.</p>
+            </div>
+        </div>
+    </section>
 
     <!-- Modal Daftar Semua QR Code Anggota -->
     <div id="qrDashboardModal">
@@ -166,54 +386,70 @@
         </div>
     </div>
 
-    <!-- Footer Sesuai Referensi Gambar -->
-    <footer class="footer">
+    <!-- Footer dengan Logo PNG dari Repository -->
+    <footer class="footer" id="kontak">
         <div class="footer-inner">
             <p>Atau terhubung dengan kami di:</p>
             <div class="social-icons">
-                <!-- Facebook -->
                 <a href="#" class="social-btn" title="Facebook" aria-label="Facebook">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="#686e82" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M14 13.5H16.5L17.5 9.5H14V7.5C14 6.47 14 5.5 16 5.5H17.5V2.14C17.174 2.097 15.943 2 14.643 2C11.928 2 10 3.657 10 6.7V9.5H7V13.5H10V22H14V13.5Z"/>
-                    </svg>
+                    <img src="logo-facebook.png" alt="Facebook">
                 </a>
-
-                <!-- Instagram -->
                 <a href="#" class="social-btn" title="Instagram" aria-label="Instagram">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#686e82" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg">
-                        <rect x="2.5" y="2.5" width="19" height="19" rx="5" ry="5"></rect>
-                        <circle cx="12" cy="12" r="4.2"></circle>
-                        <circle cx="17.5" cy="6.5" r="1.1" fill="#686e82" stroke="none"></circle>
-                    </svg>
+                    <img src="logo-instagram.png" alt="Instagram">
                 </a>
-
-                <!-- YouTube -->
                 <a href="#" class="social-btn" title="YouTube" aria-label="YouTube">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="#686e82" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M21.58 7.19C21.35 6.33 20.67 5.65 19.81 5.42C18.25 5 12 5 12 5C12 5 5.75 5 4.19 5.42C3.33 5.65 2.65 6.33 2.42 7.19C2 8.75 2 12 2 12C2 12 2 15.25 2.42 16.81C2.65 17.67 3.33 18.35 4.19 18.58C5.75 19 12 19 12 19C12 19 18.25 19 19.81 18.58C20.67 18.35 21.35 17.67 21.58 16.81C22 15.25 22 12 22 12C22 12 22 8.75 21.58 7.19ZM10 15V9L15.2 12L10 15Z"/>
-                    </svg>
+                    <img src="logo-youtube.png" alt="YouTube">
                 </a>
-
-                <!-- Twitter -->
                 <a href="#" class="social-btn" title="Twitter" aria-label="Twitter">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="#686e82" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M22.46 6C21.69 6.35 20.86 6.58 19.98 6.69C20.87 6.16 21.56 5.32 21.88 4.31C21.05 4.81 20.13 5.16 19.16 5.36C18.37 4.5 17.26 4 16 4C13.65 4 11.73 5.92 11.73 8.29C11.73 8.63 11.77 8.96 11.84 9.27C8.28 9.09 5.11 7.38 3 4.79C2.63 5.42 2.42 6.16 2.42 6.94C2.42 8.43 3.17 9.75 4.33 10.52C3.62 10.5 2.96 10.3 2.38 9.98V10.03C2.38 12.11 3.86 13.85 5.82 14.24C5.46 14.34 5.08 14.39 4.69 14.39C4.42 14.39 4.15 14.36 3.89 14.31C4.43 16 6.02 17.26 7.91 17.29C6.43 18.45 4.57 19.13 2.56 19.13C2.22 19.13 1.88 19.11 1.54 19.07C3.44 20.29 5.7 21 8.12 21C16 21 20.33 14.46 20.33 8.79C20.33 8.6 20.33 8.42 20.32 8.23C21.16 7.63 21.88 6.87 22.46 6Z"/>
-                    </svg>
+                    <img src="logo-twitter.png" alt="Twitter">
                 </a>
             </div>
         </div>
     </footer>
     <div class="footer-bottom">
         <div class="footer-links">
-            <a href="#">Masuk</a> &nbsp;|&nbsp; <a href="#">Kontak</a>
+            <a href="#">Masuk</a> &nbsp;|&nbsp; <a href="#kontak">Kontak</a>
         </div>
         <div class="footer-copy-row">
             <div>2026 &copy; Gasmi</div>
-            <button class="scroll-top-btn" onclick="window.scrollTo({top: 0, behavior: 'smooth'});" title="Kembali ke atas">↑</button>
+            <button type="button" class="scroll-top-btn" onclick="window.scrollTo({top: 0, behavior: 'smooth'});" title="Kembali ke atas">↑</button>
         </div>
     </div>
 
     <script>
+        /* Pengatur Slider Beranda */
+        let indexSlide = 0;
+        function geserSlide(arah) {
+            const slides = document.querySelectorAll('.slide-item');
+            if (!slides.length) return;
+            slides[indexSlide].classList.remove('active-slide');
+            indexSlide = (indexSlide + arah + slides.length) % slides.length;
+            slides[indexSlide].classList.add('active-slide');
+        }
+
+        /* Pengatur Navigasi Antar Bagian */
+        function bukaHalaman(namaHalaman, event) {
+            if (event) event.preventDefault();
+
+            document.querySelectorAll('.page-section').forEach(sec => {
+                sec.classList.remove('active-section');
+            });
+
+            const targetSection = document.getElementById('sec-' + namaHalaman);
+            if (targetSection) {
+                targetSection.classList.add('active-section');
+            }
+
+            document.querySelectorAll('.nav-menu a').forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('onclick') && link.getAttribute('onclick').includes(`'${namaHalaman}'`)) {
+                    link.classList.add('active');
+                }
+            });
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
         const dataMentah = `
 03352 - 19 - 09|DEWI NOVITAYENI|Trenggalek, 23 Agustus 2005|Perempuan|SMK FATHUL MUNA|Mesnan / Dati|Botoputih, Bendungan,Trenggalek
 03353 - 19 - 09|AFNAN GHOZI MAYRIA ASEGAF|Ponorogo, 20 Mei 2008|Laki-Laki|MTS.AL - JAWARIYAH|Agus Riyadi / Siti Maysaroh|Grogol, Sawoo Ponorogo
@@ -288,6 +524,7 @@
             const urlParams = new URLSearchParams(window.location.search);
             const noParam = urlParams.get('no');
             if (noParam) {
+                bukaHalaman('cari-murid');
                 const btnQrDashboard = document.getElementById('btnBukaQrDashboard');
                 if (btnQrDashboard) {
                     btnQrDashboard.style.display = 'none';
@@ -318,7 +555,7 @@
                 <div class="info-row"><span class="info-label">Jenis Kelamin</span><span class="info-val">${hasilDitemukan.jk}</span></div>
                 <div class="info-row"><span class="info-label">Pendidikan</span><span class="info-val">${hasilDitemukan.pendidikan}</span></div>
                 <div class="info-row"><span class="info-label">Status<br>Sertifikat</span><span class="info-val status-asli">ASLI</span></div>
-                
+
                 ${qrSectionHtml}
 
                 <div class="timestamp">Tanggal Pencarian : ${new Date().toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' })} ${new Date().toLocaleTimeString('id-ID')}</div>
@@ -367,7 +604,7 @@
                 const cleanItemInduk = item.noInduk.replace(/\s+/g, '').toLowerCase();
                 const cleanItemOrtu = item.ortu.replace(/\s+/g, '').toLowerCase();
 
-                return cleanItemInduk === cleanInputInduk && 
+                return cleanItemInduk === cleanInputInduk &&
                        (!cleanInputOrtu || cleanItemOrtu.includes(cleanInputOrtu));
             });
 
@@ -414,13 +651,13 @@
 
         function loadAllQRCodes() {
             const container = document.getElementById('qrGridContainer');
-            if (container.children.length > 0) return; 
+            if (container.children.length > 0) return;
 
             const db = parseData();
             db.forEach(item => {
                 const card = document.createElement('div');
                 card.className = 'qr-card';
-                
+
                 const title = document.createElement('h5');
                 title.innerText = `${item.noInduk}\n${item.nama}`;
                 card.appendChild(title);
